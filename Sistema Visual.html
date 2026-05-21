@@ -1,0 +1,2396 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sistema Visual — Sistema de Fidelización by Constelarys</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   TOKENS — todas las paletas viven aquí. El tweaker cambia
+   data-palette en <html> y todo se actualiza.
+   ============================================================ */
+:root,
+html[data-palette="hearth"]{
+  --bg:        #F1E6D0;
+  --paper:     #F8EFD9;
+  --paper-2:   #EFE2C5;
+  --ink:       #1C1814;
+  --ink-soft:  #4A3F35;
+  --ink-mute:  #7A6A57;
+  --ember:     #C9461F;
+  --ember-deep:#8A2E14;
+  --sage:      #2E6B4A;
+  --honey:     #D89A2A;
+  --polaris:   #F1D67A;   /* star highlight */
+  --line:      #C9B79A;
+  --line-soft: #DCC9A8;
+  --rule:      rgba(28,24,20,.10);
+  --shadow-1:  0 1px 0 rgba(28,24,20,.06), 0 2px 6px rgba(28,24,20,.06);
+  --shadow-2:  0 1px 0 rgba(28,24,20,.08), 0 10px 30px -10px rgba(28,24,20,.18);
+  --scheme: light;
+}
+html[data-palette="polaris"]{
+  --bg:        #14110D;
+  --paper:     #1B1712;
+  --paper-2:   #221C16;
+  --ink:       #F4ECDC;
+  --ink-soft:  #C9B89A;
+  --ink-mute:  #8B7E68;
+  --ember:     #E25A2A;
+  --ember-deep:#A8351A;
+  --sage:      #59B585;
+  --honey:     #F2C45A;
+  --polaris:   #FFE9A8;
+  --line:      #3A2F22;
+  --line-soft: #2A2218;
+  --rule:      rgba(244,236,220,.08);
+  --shadow-1:  0 1px 0 rgba(0,0,0,.3), 0 2px 6px rgba(0,0,0,.3);
+  --shadow-2:  0 1px 0 rgba(0,0,0,.4), 0 10px 30px -10px rgba(0,0,0,.5);
+  --scheme: dark;
+}
+html[data-palette="vega"]{
+  --bg:        #E8DFC9;
+  --paper:     #EDE4CF;
+  --paper-2:   #E0D5BB;
+  --ink:       #2A2218;
+  --ink-soft:  #514637;
+  --ink-mute:  #7B6D55;
+  --ember:     #A53718;
+  --ember-deep:#6E230E;
+  --sage:      #2F5E48;
+  --honey:     #B8842A;
+  --polaris:   #E8CB6A;
+  --line:      #C0AB87;
+  --line-soft: #D3C0A0;
+  --rule:      rgba(42,34,24,.12);
+  --shadow-1:  0 1px 0 rgba(42,34,24,.08), 0 2px 6px rgba(42,34,24,.06);
+  --shadow-2:  0 1px 0 rgba(42,34,24,.1),  0 10px 30px -10px rgba(42,34,24,.2);
+  --scheme: light;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+html{ background:var(--bg); }
+body{
+  font-family:'Geist', system-ui, -apple-system, sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  font-feature-settings:"ss01","ss02","cv11";
+  font-size:16px;
+  line-height:1.55;
+}
+::selection{ background:var(--ember); color:var(--paper); }
+
+.serif{ font-family:'Instrument Serif', 'Iowan Old Style', Georgia, serif; font-weight:400; }
+.serif.italic{ font-style:italic; }
+.mono{ font-family:'Geist Mono', ui-monospace, monospace; }
+
+a{ color:inherit; }
+
+/* Layout shell */
+.page{ max-width:1320px; margin:0 auto; padding:0 56px; }
+@media (max-width:900px){ .page{ padding:0 28px; } }
+
+/* Section header conventions */
+.section{ padding:96px 0; border-top:1px solid var(--rule); position:relative; }
+.section:first-of-type{ border-top:none; }
+.section-tag{
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:'Geist Mono', monospace;
+  font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--ink-mute);
+}
+.section-tag::before{
+  content:""; width:18px; height:1px; background:var(--ink-mute);
+}
+.section-title{
+  font-family:'Instrument Serif', serif; font-style:italic; font-weight:400;
+  font-size:clamp(40px, 6.5vw, 88px);
+  line-height:.95; letter-spacing:-.02em;
+  margin:16px 0 0 0;
+  color:var(--ink);
+  text-wrap:balance;
+}
+.section-lede{
+  font-size:18px; line-height:1.55; max-width:60ch; color:var(--ink-soft);
+  margin-top:24px;
+}
+
+/* Util */
+.divider{ height:1px; background:var(--rule); }
+.eyebrow{ font-family:'Geist Mono', monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-mute); }
+.label{ font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-mute); }
+
+/* ============================================================
+   NAV / TOP
+   ============================================================ */
+.nav{
+  position:sticky; top:0; z-index:50;
+  background:color-mix(in oklab, var(--bg) 88%, transparent);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--rule);
+}
+.nav-inner{
+  max-width:1320px; margin:0 auto; padding:14px 56px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+@media (max-width:900px){ .nav-inner{ padding:14px 28px; } }
+.nav-mark{ display:flex; align-items:center; gap:12px; }
+.nav-mark .lyra{ width:22px; height:22px; }
+.nav-mark .name{ font-family:'Instrument Serif', serif; font-style:italic; font-size:20px; line-height:1; }
+.nav-mark .by{ font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-mute); }
+.nav-toc{ display:flex; gap:22px; font-family:'Geist Mono', monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); }
+.nav-toc a{ text-decoration:none; }
+.nav-toc a:hover{ color:var(--ember); }
+@media (max-width:760px){ .nav-toc{ display:none; } }
+.nav-version{ font-family:'Geist Mono', monospace; font-size:11px; color:var(--ink-mute); }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{ padding:120px 0 96px; position:relative; overflow:hidden; }
+.hero-grid{
+  display:grid; grid-template-columns:1fr; gap:48px; align-items:end;
+  max-width:860px;
+}
+
+.hero h1{
+  font-family:'Instrument Serif', serif; font-weight:400;
+  font-size:clamp(64px, 10vw, 156px);
+  line-height:.86; letter-spacing:-.03em;
+  margin:0; color:var(--ink);
+}
+.hero h1 .it{ font-style:italic; }
+.hero h1 .amp{ color:var(--ember); font-style:italic; }
+.hero-sig{
+  font-family:'Geist Mono', monospace;
+  font-size:12px; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--ink-mute);
+  margin-top:36px;
+  display:flex; align-items:center; gap:14px;
+}
+.hero-sig::before{ content:""; width:36px; height:1px; background:var(--ink-mute); }
+
+.hero-meta{
+  margin-top:48px;
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:24px;
+  border-top:1px solid var(--rule); padding-top:28px;
+}
+.hero-meta dt{ font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-mute); margin-bottom:6px; }
+.hero-meta dd{ margin:0; font-size:14px; color:var(--ink); line-height:1.4; }
+@media (max-width:700px){ .hero-meta{ grid-template-columns:1fr 1fr; } }
+
+.hero-right{
+  position:relative; aspect-ratio: 1 / 1.15;
+  background:var(--paper);
+  border:1px solid var(--rule);
+  border-radius:2px;
+  overflow:hidden;
+}
+.hero-right .star-field{ position:absolute; inset:0; }
+.hero-right .label-tl{
+  position:absolute; top:18px; left:18px;
+  font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.18em;
+  color:var(--ink-mute); text-transform:uppercase;
+}
+.hero-right .label-br{
+  position:absolute; bottom:18px; right:18px;
+  font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.18em;
+  color:var(--ink-mute); text-transform:uppercase; text-align:right;
+}
+.hero-right .lyra-big{ position:absolute; inset:0; width:100%; height:100%; }
+.hero-right .crosshair{
+  position:absolute; inset:18px; pointer-events:none;
+  background:
+    linear-gradient(to right, var(--rule), var(--rule)) center / 1px 100% no-repeat,
+    linear-gradient(to bottom, var(--rule), var(--rule)) center / 100% 1px no-repeat;
+  opacity:.5;
+}
+
+/* ============================================================
+   MANIFIESTO
+   ============================================================ */
+.manifest{
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:0;
+  border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);
+  margin-top:64px;
+}
+.manifest > div{
+  padding:48px 32px;
+  border-right:1px solid var(--rule);
+}
+.manifest > div:last-child{ border-right:none; }
+.manifest .num{ font-family:'Geist Mono', monospace; font-size:11px; color:var(--ember); letter-spacing:.18em; }
+.manifest h3{
+  font-family:'Instrument Serif', serif; font-style:italic; font-weight:400;
+  font-size:30px; line-height:1.1; margin:18px 0 14px;
+  text-wrap:balance;
+}
+.manifest p{ font-size:14.5px; color:var(--ink-soft); line-height:1.55; margin:0; }
+@media (max-width:900px){
+  .manifest{ grid-template-columns:1fr; }
+  .manifest > div{ border-right:none; border-bottom:1px solid var(--rule); }
+  .manifest > div:last-child{ border-bottom:none; }
+}
+
+/* ============================================================
+   LOGO / MARCA
+   ============================================================ */
+.logo-hero{
+  display:grid; grid-template-columns:1.3fr 1fr; gap:48px; margin-top:64px;
+}
+@media (max-width:1000px){ .logo-hero{ grid-template-columns:1fr; } }
+
+.logo-card{
+  background:var(--paper);
+  border:1px solid var(--rule);
+  border-radius:2px;
+  padding:64px;
+  position:relative;
+  display:flex; flex-direction:column; justify-content:center; align-items:center;
+  min-height:520px;
+}
+.logo-card.dark{ background:#14110D; border-color:#14110D; color:#F4ECDC; }
+.logo-card.dark .lockup-stack .name{ color:#F4ECDC; }
+.logo-card.dark .lockup-stack .by{ color:#C9B89A; }
+.logo-card .corner{
+  position:absolute; font-family:'Geist Mono', monospace; font-size:10px;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--ink-mute);
+}
+.logo-card.dark .corner{ color:#8B7E68; }
+.logo-card .corner.tl{ top:18px; left:18px; }
+.logo-card .corner.tr{ top:18px; right:18px; }
+.logo-card .corner.bl{ bottom:18px; left:18px; }
+.logo-card .corner.br{ bottom:18px; right:18px; }
+
+/* Primary lockup (vertical) */
+.lockup-stack{ display:flex; flex-direction:column; align-items:center; gap:24px; }
+.lockup-stack .glyph{ width:120px; height:120px; }
+.lockup-stack .name{
+  font-family:'Instrument Serif', serif; font-style:italic; font-weight:400;
+  font-size:54px; line-height:.95; letter-spacing:-.02em; text-align:center;
+  color:var(--ink);
+  text-wrap:balance;
+}
+.lockup-stack .by{
+  font-family:'Geist Mono', monospace; font-size:11px; letter-spacing:.32em;
+  text-transform:uppercase; color:var(--ink-mute);
+  display:flex; align-items:center; gap:12px;
+}
+.lockup-stack .by::before, .lockup-stack .by::after{
+  content:""; width:18px; height:1px; background:var(--ink-mute);
+}
+
+.logo-side{
+  display:flex; flex-direction:column; gap:24px;
+}
+.logo-side .card{
+  background:var(--paper); border:1px solid var(--rule); border-radius:2px;
+  padding:28px; position:relative; min-height:160px;
+  display:flex; align-items:center; justify-content:center;
+}
+.logo-side .card.tag{ background:transparent; border-style:dashed; }
+.logo-side .card .corner{
+  position:absolute; top:14px; left:14px;
+  font-family:'Geist Mono', monospace; font-size:10px;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--ink-mute);
+}
+.logo-side .card.dark{ background:var(--ink); }
+.logo-side .card.dark .lockup-horiz .name{ color:var(--paper); }
+.logo-side .card.dark .lockup-horiz .by{ color:var(--line); }
+.logo-side .card.dark .corner{ color:var(--line); }
+.logo-side .card.ember{ background:var(--ember); }
+.logo-side .card.ember .lockup-horiz .name,
+.logo-side .card.ember .lockup-horiz .by{ color:var(--paper); }
+.logo-side .card.ember .corner{ color:rgba(255,255,255,.6); }
+
+/* Horizontal lockup */
+.lockup-horiz{ display:flex; align-items:center; gap:18px; }
+.lockup-horiz .glyph{ width:56px; height:56px; flex:none; }
+.lockup-horiz .text{ display:flex; flex-direction:column; }
+.lockup-horiz .name{
+  font-family:'Instrument Serif', serif; font-style:italic; font-weight:400;
+  font-size:28px; line-height:1; letter-spacing:-.01em; color:var(--ink);
+}
+.lockup-horiz .by{
+  font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--ink-mute); margin-top:6px;
+}
+
+/* Monogram row */
+.monogram-row{
+  margin-top:48px;
+  display:grid; grid-template-columns:repeat(5, 1fr); gap:16px;
+}
+.monogram-row .mono-card{
+  aspect-ratio:1/1;
+  border:1px solid var(--rule); border-radius:2px;
+  position:relative;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--paper);
+}
+.monogram-row .mono-card .label{
+  position:absolute; bottom:10px; left:10px;
+  font-family:'Geist Mono', monospace; font-size:9px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--ink-mute);
+}
+.monogram-row .mono-card.ink{ background:var(--ink); }
+.monogram-row .mono-card.ember{ background:var(--ember); }
+.monogram-row .mono-card.sage{ background:var(--sage); }
+.monogram-row .mono-card.bone{ background:var(--bg); }
+.monogram-row .mono-card.ink .label,
+.monogram-row .mono-card.ember .label,
+.monogram-row .mono-card.sage .label{ color:rgba(255,255,255,.7); }
+.monogram-row .mono-card svg{ width:60%; height:60%; }
+@media (max-width:760px){ .monogram-row{ grid-template-columns:repeat(2,1fr); } }
+
+/* Construction / clear space */
+.construction{
+  margin-top:48px;
+  display:grid; grid-template-columns:1fr 1fr; gap:24px;
+}
+.construction .panel{
+  background:var(--paper); border:1px solid var(--rule); border-radius:2px;
+  padding:32px; position:relative;
+}
+.construction .panel h4{
+  font-family:'Geist Mono', monospace; font-size:11px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--ink-mute); margin:0 0 20px;
+}
+.construction .panel p{ font-size:13.5px; color:var(--ink-soft); line-height:1.5; }
+@media (max-width:760px){ .construction{ grid-template-columns:1fr; } }
+
+/* Do/don't */
+.usage{
+  margin-top:32px;
+  display:grid; grid-template-columns:repeat(4, 1fr); gap:16px;
+}
+.usage .ucard{
+  background:var(--paper); border:1px solid var(--rule); border-radius:2px;
+  aspect-ratio:1/1; position:relative;
+  display:flex; align-items:center; justify-content:center;
+}
+.usage .ucard .mark{ position:absolute; top:14px; left:14px; font-family:'Geist Mono', monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; }
+.usage .ucard .mark.ok{ color:var(--sage); }
+.usage .ucard .mark.no{ color:var(--ember); }
+.usage .ucard .note{ position:absolute; bottom:14px; left:14px; right:14px; font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.1em; color:var(--ink-mute); }
+@media (max-width:900px){ .usage{ grid-template-columns:1fr 1fr; } }
+
+/* ============================================================
+   COLOR
+   ============================================================ */
+.color-grid{
+  margin-top:64px;
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:18px;
+}
+@media (max-width:900px){ .color-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:640px){ .color-grid{ grid-template-columns:1fr; } }
+
+.swatch{
+  border:1px solid var(--rule); border-radius:2px; overflow:hidden;
+  background:var(--paper);
+}
+.swatch .chip{
+  aspect-ratio:5/3;
+  position:relative;
+}
+.swatch .chip .tag{
+  position:absolute; top:14px; left:14px;
+  font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.18em;
+  text-transform:uppercase;
+  padding:4px 8px; background:rgba(255,255,255,.85); color:#1C1814; border-radius:1px;
+}
+.swatch .chip .tag.dark{ background:rgba(28,24,20,.65); color:#F4ECDC; }
+.swatch .meta{ padding:18px 20px; }
+.swatch .meta .row1{
+  display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:8px;
+}
+.swatch .meta .name{
+  font-family:'Instrument Serif', serif; font-style:italic; font-size:24px;
+  letter-spacing:-.01em; color:var(--ink);
+}
+.swatch .meta .role{ font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-mute); }
+.swatch .codes{
+  display:grid; grid-template-columns:auto 1fr; gap:6px 14px;
+  font-family:'Geist Mono', monospace; font-size:11.5px; color:var(--ink-soft);
+  margin-top:14px; padding-top:14px; border-top:1px dashed var(--rule);
+}
+.swatch .codes dt{ color:var(--ink-mute); }
+.swatch .codes dd{ margin:0; color:var(--ink); }
+.swatch .desc{ font-size:13px; line-height:1.5; color:var(--ink-soft); margin-top:14px; }
+
+/* ============================================================
+   TIPOGRAFÍA
+   ============================================================ */
+.type-hero{
+  margin-top:64px;
+  background:var(--paper); border:1px solid var(--rule); border-radius:2px;
+  padding:64px; position:relative; overflow:hidden;
+}
+.type-hero .corner{
+  position:absolute; font-family:'Geist Mono', monospace; font-size:10px;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--ink-mute);
+}
+.type-hero .corner.tl{ top:18px; left:18px; }
+.type-hero .corner.tr{ top:18px; right:18px; }
+.type-hero .corner.bl{ bottom:18px; left:18px; }
+.type-hero .corner.br{ bottom:18px; right:18px; }
+.type-hero .word{
+  font-family:'Instrument Serif', serif; font-style:italic; font-weight:400;
+  font-size:clamp(80px, 13vw, 220px); line-height:.86; letter-spacing:-.03em;
+  color:var(--ink); margin:0;
+}
+.type-hero .word .amp{ color:var(--ember); }
+.type-hero .sub{
+  font-family:'Geist', sans-serif; font-weight:500;
+  font-size:clamp(36px, 6vw, 88px); line-height:1; letter-spacing:-.02em;
+  color:var(--ink-soft); margin:24px 0 0;
+}
+
+.type-pair{
+  margin-top:18px;
+  display:grid; grid-template-columns:1fr 1fr; gap:18px;
+}
+@media (max-width:900px){ .type-pair{ grid-template-columns:1fr; } }
+.type-card{ background:var(--paper); border:1px solid var(--rule); border-radius:2px; padding:32px; position:relative; }
+.type-card .face{ font-size:14px; }
+.type-card .specimen{
+  font-size:120px; line-height:1; letter-spacing:-.02em; margin:24px 0 16px;
+}
+.type-card.serif .specimen{ font-family:'Instrument Serif', serif; font-style:italic; }
+.type-card.sans .specimen{ font-family:'Geist', sans-serif; font-weight:500; }
+.type-card.mono .specimen{ font-family:'Geist Mono', monospace; font-weight:500; }
+.type-card .info{
+  display:grid; grid-template-columns:auto 1fr; gap:6px 18px;
+  font-family:'Geist Mono', monospace; font-size:11px;
+  color:var(--ink-soft); border-top:1px dashed var(--rule); padding-top:16px;
+}
+.type-card .info dt{ color:var(--ink-mute); letter-spacing:.12em; text-transform:uppercase; font-size:10px; }
+.type-card .info dd{ margin:0; color:var(--ink); }
+
+/* Scale ladder */
+.scale-table{
+  margin-top:18px;
+  background:var(--paper); border:1px solid var(--rule); border-radius:2px;
+  padding:0;
+}
+.scale-row{
+  display:grid; grid-template-columns:140px 100px 80px 1fr;
+  align-items:baseline; gap:24px;
+  padding:18px 28px; border-bottom:1px solid var(--rule);
+}
+.scale-row:last-child{ border-bottom:none; }
+.scale-row .nm{ font-family:'Geist Mono', monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-mute); }
+.scale-row .px{ font-family:'Geist Mono', monospace; font-size:11px; color:var(--ink-soft); }
+.scale-row .lh{ font-family:'Geist Mono', monospace; font-size:11px; color:var(--ink-soft); }
+.scale-row .demo{ color:var(--ink); }
+.scale-row.serif .demo{ font-family:'Instrument Serif', serif; font-style:italic; line-height:1; }
+.scale-row.sans  .demo{ font-family:'Geist', sans-serif; line-height:1.15; }
+.scale-row.mono  .demo{ font-family:'Geist Mono', monospace; line-height:1.15; }
+@media (max-width:760px){ .scale-row{ grid-template-columns:90px 70px 1fr; } .scale-row .lh{ display:none; } }
+
+/* Hierarchy specimen */
+.hierarchy{
+  margin-top:18px;
+  background:var(--paper); border:1px solid var(--rule); border-radius:2px;
+  padding:48px;
+}
+.h-eyebrow{ font-family:'Geist Mono', monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--ember); }
+.h-display{ font-family:'Instrument Serif', serif; font-style:italic; font-size:64px; line-height:.95; letter-spacing:-.02em; margin:16px 0 8px; }
+.h-h2{ font-family:'Instrument Serif', serif; font-size:36px; line-height:1.05; margin:24px 0 8px; }
+.h-h3{ font-family:'Geist', sans-serif; font-weight:600; font-size:20px; line-height:1.25; margin:18px 0 6px; }
+.h-body{ font-family:'Geist', sans-serif; font-size:15px; line-height:1.6; color:var(--ink-soft); max-width:60ch; }
+.h-caption{ font-family:'Geist Mono', monospace; font-size:11px; letter-spacing:.12em; color:var(--ink-mute); text-transform:uppercase; margin-top:14px; }
+
+/* ============================================================
+   ICONOGRAFÍA
+   ============================================================ */
+.icons-wrap{ margin-top:64px; display:grid; grid-template-columns:1fr; gap:18px; }
+.icon-board{
+  background:var(--paper); border:1px solid var(--rule); border-radius:2px;
+  padding:32px; position:relative;
+}
+.icon-grid{
+  display:grid; grid-template-columns:repeat(8, 1fr); gap:0;
+  border-left:1px solid var(--rule); border-top:1px solid var(--rule);
+}
+.icon-grid .cell{
+  aspect-ratio:1/1;
+  border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:12px; padding:14px; position:relative;
+}
+.icon-grid .cell svg{ width:32px; height:32px; color:var(--ink); }
+.icon-grid .cell .nm{ font-family:'Geist Mono', monospace; font-size:9.5px; letter-spacing:.1em; color:var(--ink-mute); text-transform:uppercase; }
+@media (max-width:900px){ .icon-grid{ grid-template-columns:repeat(4, 1fr); } }
+
+.icon-rules{
+  margin-top:18px;
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:18px;
+}
+.icon-rule{ background:var(--paper); border:1px solid var(--rule); border-radius:2px; padding:24px; }
+.icon-rule .num{ font-family:'Geist Mono', monospace; font-size:11px; color:var(--ember); letter-spacing:.18em; }
+.icon-rule h4{ font-family:'Instrument Serif', serif; font-style:italic; font-size:22px; margin:10px 0 6px; }
+.icon-rule p{ font-size:13.5px; color:var(--ink-soft); margin:0; line-height:1.5; }
+@media (max-width:900px){ .icon-rules{ grid-template-columns:1fr; } }
+
+/* ============================================================
+   COMPONENTES
+   ============================================================ */
+.comp-section{ margin-top:64px; }
+.comp-block{
+  background:var(--paper); border:1px solid var(--rule); border-radius:2px;
+  padding:40px; margin-bottom:18px; position:relative;
+}
+.comp-block .title-row{
+  display:flex; align-items:baseline; justify-content:space-between; margin-bottom:32px;
+  border-bottom:1px dashed var(--rule); padding-bottom:18px;
+}
+.comp-block h3{
+  font-family:'Instrument Serif', serif; font-style:italic; font-weight:400;
+  font-size:30px; margin:0; letter-spacing:-.01em;
+}
+.comp-block .meta{ font-family:'Geist Mono', monospace; font-size:11px; color:var(--ink-mute); letter-spacing:.14em; text-transform:uppercase; }
+
+/* Buttons */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  font-family:'Geist', sans-serif; font-weight:500; font-size:14px;
+  padding:12px 20px; border-radius:999px; border:1px solid transparent;
+  background:transparent; color:var(--ink); cursor:pointer; line-height:1;
+  transition:transform .15s ease, background .2s ease, color .2s ease, border-color .2s ease;
+}
+.btn:active{ transform:translateY(1px); }
+.btn .ic{ width:16px; height:16px; }
+.btn-primary{ background:var(--ember); color:#FFF; }
+.btn-primary:hover{ background:var(--ember-deep); }
+.btn-secondary{ background:var(--ink); color:var(--paper); }
+.btn-secondary:hover{ background:#000; }
+.btn-outline{ border-color:var(--ink); color:var(--ink); }
+.btn-outline:hover{ background:var(--ink); color:var(--paper); }
+.btn-ghost{ color:var(--ink); }
+.btn-ghost:hover{ background:var(--rule); }
+.btn-sage{ background:var(--sage); color:#FFF; }
+.btn-honey{ background:var(--honey); color:var(--ink); }
+.btn-sm{ padding:9px 14px; font-size:13px; }
+.btn-lg{ padding:16px 26px; font-size:15px; }
+.btn-disabled{ opacity:.45; pointer-events:none; }
+
+.btn-grid{
+  display:grid; grid-template-columns:repeat(4, 1fr); gap:14px 18px;
+  align-items:center;
+}
+.btn-grid .lbl{ font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.16em; color:var(--ink-mute); text-transform:uppercase; }
+@media (max-width:760px){ .btn-grid{ grid-template-columns:1fr; } .btn-grid .lbl{ margin-top:14px; } }
+
+/* Inputs */
+.input{
+  display:flex; align-items:center; gap:10px;
+  background:var(--bg); border:1px solid var(--line);
+  border-radius:8px; padding:12px 14px;
+  font-family:'Geist', sans-serif; font-size:14px; color:var(--ink);
+  width:100%;
+}
+.input:focus-within{ border-color:var(--ember); box-shadow:0 0 0 3px color-mix(in oklab, var(--ember) 22%, transparent); outline:none; }
+.input input,
+.input textarea,
+.input select{ all:unset; flex:1; font:inherit; color:inherit; }
+.input .ic{ width:16px; height:16px; color:var(--ink-mute); }
+.input-label{ font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-mute); margin-bottom:6px; display:block; }
+.input-help{ font-size:12px; color:var(--ink-mute); margin-top:6px; }
+.input-error{ border-color:var(--ember); }
+.input-error + .input-help{ color:var(--ember); }
+
+.input-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px 18px; }
+@media (max-width:760px){ .input-grid{ grid-template-columns:1fr; } }
+
+/* Badges */
+.badge{
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:'Geist Mono', monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
+  padding:5px 9px; border-radius:999px;
+  background:color-mix(in oklab, var(--ink-mute) 16%, transparent);
+  color:var(--ink-soft);
+}
+.badge .dot{ width:6px; height:6px; border-radius:999px; background:currentColor; }
+.badge.ember{ color:var(--ember); background:color-mix(in oklab, var(--ember) 14%, transparent); }
+.badge.sage{ color:var(--sage); background:color-mix(in oklab, var(--sage) 14%, transparent); }
+.badge.honey{ color:var(--ember-deep); background:color-mix(in oklab, var(--honey) 26%, transparent); }
+.badge.ink{ color:var(--paper); background:var(--ink); }
+.badge.outline{ color:var(--ink-soft); background:transparent; border:1px solid var(--rule); }
+
+.badge-row{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+
+/* Cards */
+.card-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:18px; }
+@media (max-width:900px){ .card-grid{ grid-template-columns:1fr; } }
+
+.cust-card{
+  background:var(--bg); border:1px solid var(--line); border-radius:10px;
+  padding:22px; position:relative; overflow:hidden;
+}
+.cust-card .top{ display:flex; align-items:center; gap:12px; }
+.cust-card .avatar{
+  width:42px; height:42px; border-radius:999px;
+  background:var(--ember); color:#FFF;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Instrument Serif', serif; font-style:italic; font-size:22px;
+}
+.cust-card .who .name{ font-weight:600; font-size:15px; line-height:1.1; }
+.cust-card .who .meta{ font-family:'Geist Mono', monospace; font-size:10.5px; color:var(--ink-mute); margin-top:2px; letter-spacing:.04em; }
+.cust-card .visits{ display:flex; gap:5px; margin-top:18px; }
+.cust-card .visits .v{ flex:1; height:6px; border-radius:2px; background:var(--rule); }
+.cust-card .visits .v.on{ background:var(--ember); }
+.cust-card .visits .v.next{ background:var(--ember); opacity:.35; }
+.cust-card .row{ display:flex; justify-content:space-between; align-items:center; margin-top:14px; }
+.cust-card .row .lbl{ font-family:'Geist Mono', monospace; font-size:10px; color:var(--ink-mute); letter-spacing:.14em; text-transform:uppercase; }
+.cust-card .row .val{ font-size:13px; color:var(--ink); }
+.cust-card .corner-star{ position:absolute; top:14px; right:14px; }
+
+.reward-card{
+  background:var(--ink); color:var(--paper);
+  border-radius:10px; padding:22px;
+  position:relative; overflow:hidden;
+}
+.reward-card .field{ position:absolute; inset:0; opacity:.18; }
+.reward-card .lbl{ font-family:'Geist Mono', monospace; font-size:10px; color:var(--polaris); letter-spacing:.18em; text-transform:uppercase; }
+.reward-card h4{
+  font-family:'Instrument Serif', serif; font-style:italic; font-weight:400;
+  font-size:28px; margin:10px 0 18px; line-height:1; color:var(--paper);
+  position:relative;
+}
+.reward-card .progress{ display:flex; gap:4px; position:relative; }
+.reward-card .progress .step{
+  flex:1; height:4px; border-radius:2px; background:rgba(244,236,220,.18);
+}
+.reward-card .progress .step.on{ background:var(--polaris); }
+.reward-card .foot{
+  display:flex; justify-content:space-between; align-items:center;
+  margin-top:18px; position:relative;
+  font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase;
+  color:rgba(244,236,220,.7);
+}
+
+.metric-card{
+  background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:22px;
+}
+.metric-card .lbl{ font-family:'Geist Mono', monospace; font-size:10px; color:var(--ink-mute); letter-spacing:.18em; text-transform:uppercase; }
+.metric-card .num{ font-family:'Instrument Serif', serif; font-style:italic; font-size:54px; line-height:1; margin:12px 0 8px; letter-spacing:-.02em; }
+.metric-card .delta{ font-family:'Geist Mono', monospace; font-size:11px; color:var(--sage); }
+.metric-card .delta.down{ color:var(--ember); }
+.metric-card .spark{ margin-top:12px; height:36px; width:100%; display:block; }
+
+/* Table */
+.tbl-wrap{
+  background:var(--bg); border:1px solid var(--line); border-radius:10px;
+  overflow:hidden;
+}
+.tbl{ width:100%; border-collapse:collapse; font-size:13.5px; }
+.tbl th{
+  font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--ink-mute); text-align:left;
+  padding:14px 18px; border-bottom:1px solid var(--rule); font-weight:500;
+  background:var(--paper);
+}
+.tbl td{ padding:14px 18px; border-bottom:1px solid var(--rule); color:var(--ink); }
+.tbl tr:last-child td{ border-bottom:none; }
+.tbl .who{ display:flex; align-items:center; gap:10px; }
+.tbl .who .av{
+  width:28px; height:28px; border-radius:999px;
+  background:var(--ember); color:#FFF;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Instrument Serif', serif; font-style:italic; font-size:14px;
+}
+.tbl .who .av.sage{ background:var(--sage); }
+.tbl .who .av.honey{ background:var(--honey); color:var(--ink); }
+.tbl .who .av.ink{ background:var(--ink); color:var(--paper); }
+
+/* ============================================================
+   PATRONES
+   ============================================================ */
+.patterns-grid{
+  margin-top:64px;
+  display:grid; grid-template-columns:repeat(2, 1fr); gap:18px;
+}
+.pat-card{
+  background:var(--paper); border:1px solid var(--rule); border-radius:2px;
+  overflow:hidden; position:relative; min-height:380px;
+}
+.pat-card .pat-fill{ position:absolute; inset:0; }
+.pat-card .pat-label{
+  position:absolute; bottom:18px; left:18px; right:18px;
+  display:flex; justify-content:space-between; align-items:flex-end;
+  z-index:2;
+}
+.pat-card .pat-label .nm{ font-family:'Instrument Serif', serif; font-style:italic; font-size:24px; }
+.pat-card .pat-label .id{ font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.18em; color:var(--ink-mute); text-transform:uppercase; text-align:right; }
+.pat-card.dark .pat-label .nm{ color:var(--paper); }
+.pat-card.dark .pat-label .id{ color:var(--line); }
+@media (max-width:760px){ .patterns-grid{ grid-template-columns:1fr; } }
+
+/* ============================================================
+   FOOTER / OUTRO
+   ============================================================ */
+.outro{ padding:120px 0 96px; text-align:center; border-top:1px solid var(--rule); }
+.outro .head{
+  font-family:'Instrument Serif', serif; font-style:italic;
+  font-size:clamp(40px, 7vw, 92px); line-height:1; letter-spacing:-.02em;
+  margin:0; text-wrap:balance;
+}
+.outro .head .amp{ color:var(--ember); }
+.outro .sub{ margin-top:24px; color:var(--ink-soft); max-width:50ch; margin-left:auto; margin-right:auto; }
+.outro .credit{ margin-top:48px; font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--ink-mute); }
+
+/* ============================================================
+   TWEAKS PANEL
+   ============================================================ */
+.tweaks-panel{
+  position:fixed; right:18px; bottom:18px; z-index:100;
+  background:var(--paper); border:1px solid var(--rule); border-radius:12px;
+  padding:18px; min-width:260px;
+  box-shadow:var(--shadow-2);
+  display:none;
+  font-family:'Geist', sans-serif;
+}
+.tweaks-panel.open{ display:block; }
+.tweaks-panel .tw-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.tweaks-panel .tw-title{ font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-mute); }
+.tweaks-panel .tw-close{
+  background:transparent; border:none; cursor:pointer; color:var(--ink-mute);
+  width:22px; height:22px; display:flex; align-items:center; justify-content:center; padding:0;
+}
+.tweaks-panel .tw-section{ margin-top:8px; }
+.tweaks-panel .tw-label{ font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.16em; color:var(--ink-mute); text-transform:uppercase; margin-bottom:8px; }
+.tweaks-panel .pal-options{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.tweaks-panel .pal-opt{
+  display:flex; flex-direction:column; align-items:flex-start; gap:8px;
+  padding:10px; border:1px solid var(--rule); border-radius:8px; background:transparent;
+  cursor:pointer; font:inherit; color:var(--ink); text-align:left;
+  transition:border-color .15s ease;
+}
+.tweaks-panel .pal-opt:hover{ border-color:var(--ink-mute); }
+.tweaks-panel .pal-opt.active{ border-color:var(--ember); box-shadow:0 0 0 1px var(--ember); }
+.tweaks-panel .pal-opt .chips{ display:flex; gap:3px; width:100%; }
+.tweaks-panel .pal-opt .chips span{ flex:1; height:18px; border-radius:2px; }
+.tweaks-panel .pal-opt .nm{ font-size:11px; font-weight:500; }
+</style>
+</head>
+<body data-screen-label="Sistema Visual">
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-mark">
+      <svg class="lyra" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="3.5" r="1.4" fill="currentColor"/>
+        <circle cx="7"  cy="9"   r=".9" fill="currentColor"/>
+        <circle cx="17" cy="9"   r=".9" fill="currentColor"/>
+        <circle cx="7"  cy="17"  r=".9" fill="currentColor"/>
+        <circle cx="17" cy="17"  r=".9" fill="currentColor"/>
+        <path d="M12 3.5 L7 9 M12 3.5 L17 9 M7 9 L7 17 M17 9 L17 17 M7 17 L17 17"/>
+      </svg>
+      <div>
+        <div class="name">Fidelización</div>
+        <div class="by">by Constelarys</div>
+      </div>
+    </div>
+    <div class="nav-toc">
+      <a href="#manifiesto">Manifiesto</a>
+      <a href="#marca">Marca</a>
+      <a href="#color">Color</a>
+      <a href="#tipografia">Tipografía</a>
+      <a href="#iconografia">Iconografía</a>
+      <a href="#componentes">Componentes</a>
+      <a href="#patrones">Patrones</a>
+    </div>
+    <div class="nav-version">v1.0 · 2026</div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero">
+  <div class="page">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Sistema Visual · 001</div>
+        <h1>
+          Sistema<br>
+          <span class="it">de</span> Fidelización<span class="amp">.</span>
+        </h1>
+        <div class="hero-sig">by Constelarys</div>
+
+        <dl class="hero-meta">
+          <div>
+            <dt>Producto</dt>
+            <dd>SaaS de retención y fidelización para restaurantes, cafés y cadenas medianas.</dd>
+          </div>
+          <div>
+            <dt>Promesa</dt>
+            <dd>Cada cliente vuelve. El restaurante mantiene un flujo constante de personas.</dd>
+          </div>
+          <div>
+            <dt>Familia</dt>
+            <dd>Sub-marca de Constelarys. Lenguaje propio: cálido, terrestre, hospitalario.</dd>
+          </div>
+        </dl>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     MANIFIESTO
+     ============================================================ -->
+<section class="section" id="manifiesto" data-screen-label="Manifiesto">
+  <div class="page">
+    <div class="section-tag">01 · Manifiesto</div>
+    <h2 class="section-title">Cada cliente es <em>una estrella</em>. El restaurante es la Polaris.</h2>
+    <p class="section-lede">Este sistema visual no decora un software: representa una promesa. Que ningún cliente se pierda. Que cada visita se ilumine. Que el flujo del restaurante sea predecible, constante, suyo. Tres principios sostienen el lenguaje.</p>
+
+    <div class="manifest">
+      <div>
+        <div class="num">— 01</div>
+        <h3>Cálido <em>antes que</em> técnico</h3>
+        <p>El software vive en cocinas, salones, mostradores. La marca habla con la calidez del restaurante: papel, terracota, una luz cálida sobre la mesa. La precisión técnica está, pero no grita.</p>
+      </div>
+      <div>
+        <div class="num">— 02</div>
+        <h3>El retorno <em>es la métrica</em></h3>
+        <p>Todo lo que diseñamos se evalúa contra una sola pregunta: ¿esto hace que el cliente vuelva? Por eso el sage acompaña al ember — uno guía, el otro confirma el regreso.</p>
+      </div>
+      <div>
+        <div class="num">— 03</div>
+        <h3>Constelaciones, <em>no listas</em></h3>
+        <p>Los clientes no son filas de tabla — son una red de relaciones. La metáfora de la constelación Lyra ordena el lenguaje: estrellas, conexiones, órbitas, recompensas que iluminan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     MARCA / LOGO
+     ============================================================ -->
+<section class="section" id="marca" data-screen-label="Marca">
+  <div class="page">
+    <div class="section-tag">02 · Marca</div>
+    <h2 class="section-title">El monograma <em>es</em> Lyra.</h2>
+    <p class="section-lede">El símbolo dibuja la constelación Lyra — cinco estrellas conectadas, con Vega como estrella guía. Es un logo que crece o se simplifica según el contexto: completo para la firma, monograma para avatares, sólo Vega para favicons o sellos.</p>
+
+    <!-- PRIMARY LOCKUP + variations -->
+    <div class="logo-hero">
+
+      <!-- Primary vertical -->
+      <div class="logo-card">
+        <div class="corner tl">Logo primario · vertical</div>
+        <div class="corner tr">01 / 06</div>
+        <div class="corner bl">Uso: cover, header principal, splash</div>
+        <div class="corner br">FIDELIZACIÓN/01</div>
+
+        <div class="lockup-stack">
+          <svg class="glyph" viewBox="0 0 120 140" aria-hidden="true">
+            <g stroke="var(--ember)" stroke-width=".7" fill="none" stroke-dasharray="2 3" opacity=".85">
+              <line x1="60" y1="22" x2="28" y2="56"/>
+              <line x1="60" y1="22" x2="92" y2="56"/>
+              <line x1="28" y1="56" x2="92" y2="56"/>
+              <line x1="28" y1="56" x2="38" y2="108"/>
+              <line x1="92" y1="56" x2="82" y2="108"/>
+              <line x1="38" y1="108" x2="82" y2="108"/>
+              <line x1="38" y1="108" x2="60" y2="130"/>
+              <line x1="82" y1="108" x2="60" y2="130"/>
+            </g>
+            <circle cx="60" cy="22" r="11" fill="var(--ember)" opacity=".15"/>
+            <circle cx="60" cy="22" r="5"  fill="var(--ember)"/>
+            <circle cx="28" cy="56" r="3.2" fill="var(--ink)"/>
+            <circle cx="92" cy="56" r="3.2" fill="var(--ink)"/>
+            <circle cx="38" cy="108" r="2.8" fill="var(--ink)"/>
+            <circle cx="82" cy="108" r="2.8" fill="var(--ink)"/>
+            <circle cx="60" cy="130" r="2.4" fill="var(--ink)"/>
+          </svg>
+          <div class="name">Sistema<br>de Fidelización</div>
+          <div class="by">by Constelarys</div>
+        </div>
+      </div>
+
+      <div class="logo-side">
+
+        <div class="card">
+          <div class="corner">Horizontal · light</div>
+          <div class="lockup-horiz">
+            <svg class="glyph" viewBox="0 0 120 140">
+              <g stroke="var(--ember)" stroke-width=".7" fill="none" stroke-dasharray="2 3" opacity=".85">
+                <line x1="60" y1="22" x2="28" y2="56"/><line x1="60" y1="22" x2="92" y2="56"/>
+                <line x1="28" y1="56" x2="92" y2="56"/><line x1="28" y1="56" x2="38" y2="108"/>
+                <line x1="92" y1="56" x2="82" y2="108"/><line x1="38" y1="108" x2="82" y2="108"/>
+                <line x1="38" y1="108" x2="60" y2="130"/><line x1="82" y1="108" x2="60" y2="130"/>
+              </g>
+              <circle cx="60" cy="22" r="5" fill="var(--ember)"/>
+              <circle cx="28" cy="56" r="3" fill="var(--ink)"/>
+              <circle cx="92" cy="56" r="3" fill="var(--ink)"/>
+              <circle cx="38" cy="108" r="2.5" fill="var(--ink)"/>
+              <circle cx="82" cy="108" r="2.5" fill="var(--ink)"/>
+              <circle cx="60" cy="130" r="2.2" fill="var(--ink)"/>
+            </svg>
+            <div class="text">
+              <div class="name">Sistema de Fidelización</div>
+              <div class="by">by Constelarys</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card dark">
+          <div class="corner">Horizontal · dark</div>
+          <div class="lockup-horiz">
+            <svg class="glyph" viewBox="0 0 120 140">
+              <g stroke="#F2C45A" stroke-width=".7" fill="none" stroke-dasharray="2 3" opacity=".7">
+                <line x1="60" y1="22" x2="28" y2="56"/><line x1="60" y1="22" x2="92" y2="56"/>
+                <line x1="28" y1="56" x2="92" y2="56"/><line x1="28" y1="56" x2="38" y2="108"/>
+                <line x1="92" y1="56" x2="82" y2="108"/><line x1="38" y1="108" x2="82" y2="108"/>
+                <line x1="38" y1="108" x2="60" y2="130"/><line x1="82" y1="108" x2="60" y2="130"/>
+              </g>
+              <circle cx="60" cy="22" r="5" fill="#F2C45A"/>
+              <circle cx="28" cy="56" r="3" fill="#F4ECDC"/>
+              <circle cx="92" cy="56" r="3" fill="#F4ECDC"/>
+              <circle cx="38" cy="108" r="2.5" fill="#F4ECDC"/>
+              <circle cx="82" cy="108" r="2.5" fill="#F4ECDC"/>
+              <circle cx="60" cy="130" r="2.2" fill="#F4ECDC"/>
+            </svg>
+            <div class="text">
+              <div class="name">Sistema de Fidelización</div>
+              <div class="by">by Constelarys</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card ember">
+          <div class="corner">Horizontal · ember</div>
+          <div class="lockup-horiz">
+            <svg class="glyph" viewBox="0 0 120 140">
+              <g stroke="#F4ECDC" stroke-width=".7" fill="none" stroke-dasharray="2 3" opacity=".85">
+                <line x1="60" y1="22" x2="28" y2="56"/><line x1="60" y1="22" x2="92" y2="56"/>
+                <line x1="28" y1="56" x2="92" y2="56"/><line x1="28" y1="56" x2="38" y2="108"/>
+                <line x1="92" y1="56" x2="82" y2="108"/><line x1="38" y1="108" x2="82" y2="108"/>
+                <line x1="38" y1="108" x2="60" y2="130"/><line x1="82" y1="108" x2="60" y2="130"/>
+              </g>
+              <circle cx="60" cy="22" r="5" fill="#F4ECDC"/>
+              <circle cx="28" cy="56" r="3" fill="#F4ECDC"/>
+              <circle cx="92" cy="56" r="3" fill="#F4ECDC"/>
+              <circle cx="38" cy="108" r="2.5" fill="#F4ECDC"/>
+              <circle cx="82" cy="108" r="2.5" fill="#F4ECDC"/>
+              <circle cx="60" cy="130" r="2.2" fill="#F4ECDC"/>
+            </svg>
+            <div class="text">
+              <div class="name">Sistema de Fidelización</div>
+              <div class="by">by Constelarys</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MONOGRAM ROW -->
+    <div class="monogram-row">
+      <div class="mono-card">
+        <span class="label">Monograma · bone</span>
+        <svg viewBox="0 0 120 140">
+          <g stroke="var(--ember)" stroke-width="1" fill="none" opacity=".85">
+            <line x1="60" y1="22" x2="28" y2="56"/><line x1="60" y1="22" x2="92" y2="56"/>
+            <line x1="28" y1="56" x2="92" y2="56"/><line x1="28" y1="56" x2="38" y2="108"/>
+            <line x1="92" y1="56" x2="82" y2="108"/><line x1="38" y1="108" x2="82" y2="108"/>
+            <line x1="38" y1="108" x2="60" y2="130"/><line x1="82" y1="108" x2="60" y2="130"/>
+          </g>
+          <circle cx="60" cy="22" r="11" fill="var(--ember)" opacity=".18"/>
+          <circle cx="60" cy="22" r="6"  fill="var(--ember)"/>
+          <circle cx="28" cy="56" r="4" fill="var(--ink)"/>
+          <circle cx="92" cy="56" r="4" fill="var(--ink)"/>
+          <circle cx="38" cy="108" r="3.5" fill="var(--ink)"/>
+          <circle cx="82" cy="108" r="3.5" fill="var(--ink)"/>
+          <circle cx="60" cy="130" r="3" fill="var(--ink)"/>
+        </svg>
+      </div>
+      <div class="mono-card ink">
+        <span class="label">Monograma · ink</span>
+        <svg viewBox="0 0 120 140">
+          <g stroke="#F2C45A" stroke-width="1" fill="none" opacity=".7">
+            <line x1="60" y1="22" x2="28" y2="56"/><line x1="60" y1="22" x2="92" y2="56"/>
+            <line x1="28" y1="56" x2="92" y2="56"/><line x1="28" y1="56" x2="38" y2="108"/>
+            <line x1="92" y1="56" x2="82" y2="108"/><line x1="38" y1="108" x2="82" y2="108"/>
+            <line x1="38" y1="108" x2="60" y2="130"/><line x1="82" y1="108" x2="60" y2="130"/>
+          </g>
+          <circle cx="60" cy="22" r="11" fill="#F2C45A" opacity=".22"/>
+          <circle cx="60" cy="22" r="6"  fill="#F2C45A"/>
+          <circle cx="28" cy="56" r="4" fill="#F4ECDC"/>
+          <circle cx="92" cy="56" r="4" fill="#F4ECDC"/>
+          <circle cx="38" cy="108" r="3.5" fill="#F4ECDC"/>
+          <circle cx="82" cy="108" r="3.5" fill="#F4ECDC"/>
+          <circle cx="60" cy="130" r="3" fill="#F4ECDC"/>
+        </svg>
+      </div>
+      <div class="mono-card ember">
+        <span class="label">Monograma · ember</span>
+        <svg viewBox="0 0 120 140">
+          <g stroke="#F4ECDC" stroke-width="1" fill="none" opacity=".85">
+            <line x1="60" y1="22" x2="28" y2="56"/><line x1="60" y1="22" x2="92" y2="56"/>
+            <line x1="28" y1="56" x2="92" y2="56"/><line x1="28" y1="56" x2="38" y2="108"/>
+            <line x1="92" y1="56" x2="82" y2="108"/><line x1="38" y1="108" x2="82" y2="108"/>
+            <line x1="38" y1="108" x2="60" y2="130"/><line x1="82" y1="108" x2="60" y2="130"/>
+          </g>
+          <circle cx="60" cy="22" r="11" fill="#F4ECDC" opacity=".25"/>
+          <circle cx="60" cy="22" r="6"  fill="#F4ECDC"/>
+          <circle cx="28" cy="56" r="4" fill="#F4ECDC"/>
+          <circle cx="92" cy="56" r="4" fill="#F4ECDC"/>
+          <circle cx="38" cy="108" r="3.5" fill="#F4ECDC"/>
+          <circle cx="82" cy="108" r="3.5" fill="#F4ECDC"/>
+          <circle cx="60" cy="130" r="3" fill="#F4ECDC"/>
+        </svg>
+      </div>
+      <div class="mono-card sage">
+        <span class="label">Monograma · sage</span>
+        <svg viewBox="0 0 120 140">
+          <g stroke="#F4ECDC" stroke-width="1" fill="none" opacity=".85">
+            <line x1="60" y1="22" x2="28" y2="56"/><line x1="60" y1="22" x2="92" y2="56"/>
+            <line x1="28" y1="56" x2="92" y2="56"/><line x1="28" y1="56" x2="38" y2="108"/>
+            <line x1="92" y1="56" x2="82" y2="108"/><line x1="38" y1="108" x2="82" y2="108"/>
+            <line x1="38" y1="108" x2="60" y2="130"/><line x1="82" y1="108" x2="60" y2="130"/>
+          </g>
+          <circle cx="60" cy="22" r="11" fill="#F2C45A" opacity=".30"/>
+          <circle cx="60" cy="22" r="6"  fill="#F2C45A"/>
+          <circle cx="28" cy="56" r="4" fill="#F4ECDC"/>
+          <circle cx="92" cy="56" r="4" fill="#F4ECDC"/>
+          <circle cx="38" cy="108" r="3.5" fill="#F4ECDC"/>
+          <circle cx="82" cy="108" r="3.5" fill="#F4ECDC"/>
+          <circle cx="60" cy="130" r="3" fill="#F4ECDC"/>
+        </svg>
+      </div>
+      <div class="mono-card bone">
+        <span class="label">Sello Vega · favicon</span>
+        <svg viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="40" fill="none" stroke="var(--ember)" stroke-width="1" opacity=".4"/>
+          <circle cx="60" cy="60" r="28" fill="none" stroke="var(--ember)" stroke-width="1" opacity=".25"/>
+          <circle cx="60" cy="60" r="18" fill="var(--ember)" opacity=".18"/>
+          <circle cx="60" cy="60" r="8" fill="var(--ember)"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- CONSTRUCTION + CLEAR SPACE -->
+    <div class="construction">
+      <div class="panel">
+        <h4>Construcción · proporción</h4>
+        <svg viewBox="0 0 320 240" style="width:100%; height:auto; display:block;">
+          <defs>
+            <pattern id="grid8" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M20 0H0v20" fill="none" stroke="var(--rule)" stroke-width=".5"/>
+            </pattern>
+          </defs>
+          <rect width="320" height="240" fill="url(#grid8)"/>
+
+          <!-- Glyph -->
+          <g transform="translate(110 30)">
+            <g stroke="var(--ember)" stroke-width=".7" fill="none" stroke-dasharray="2 3" opacity=".85">
+              <line x1="50" y1="20" x2="20" y2="50"/><line x1="50" y1="20" x2="80" y2="50"/>
+              <line x1="20" y1="50" x2="80" y2="50"/><line x1="20" y1="50" x2="28" y2="100"/>
+              <line x1="80" y1="50" x2="72" y2="100"/><line x1="28" y1="100" x2="72" y2="100"/>
+              <line x1="28" y1="100" x2="50" y2="120"/><line x1="72" y1="100" x2="50" y2="120"/>
+            </g>
+            <circle cx="50" cy="20" r="9" fill="var(--ember)" opacity=".2"/>
+            <circle cx="50" cy="20" r="4.5" fill="var(--ember)"/>
+            <circle cx="20" cy="50" r="3" fill="var(--ink)"/>
+            <circle cx="80" cy="50" r="3" fill="var(--ink)"/>
+            <circle cx="28" cy="100" r="2.6" fill="var(--ink)"/>
+            <circle cx="72" cy="100" r="2.6" fill="var(--ink)"/>
+            <circle cx="50" cy="120" r="2.4" fill="var(--ink)"/>
+          </g>
+
+          <!-- Annotations -->
+          <g font-family="Geist Mono, monospace" font-size="9" fill="var(--ink-mute)" letter-spacing="1">
+            <line x1="40" y1="50" x2="100" y2="50" stroke="var(--ember)" stroke-width=".7"/>
+            <text x="50" y="44">x</text>
+            <line x1="160" y1="50" x2="160" y2="170" stroke="var(--ember)" stroke-width=".7"/>
+            <text x="166" y="115">2.4x</text>
+            <text x="20" y="220">Vega = 4.5 unidades · Estrellas secundarias = 3.0 · Conexión = 0.7px</text>
+          </g>
+        </svg>
+      </div>
+      <div class="panel">
+        <h4>Espacio libre · clear space</h4>
+        <svg viewBox="0 0 320 240" style="width:100%; height:auto; display:block;">
+          <!-- exclusion zone -->
+          <rect x="40" y="20" width="240" height="200" fill="none" stroke="var(--ember)" stroke-width=".7" stroke-dasharray="3 3"/>
+          <rect x="80" y="55" width="160" height="130" fill="none" stroke="var(--ink)" stroke-width=".7" stroke-dasharray="2 2" opacity=".4"/>
+          <g transform="translate(120 75)">
+            <g stroke="var(--ember)" stroke-width=".7" fill="none" stroke-dasharray="2 3" opacity=".85">
+              <line x1="40" y1="15" x2="15" y2="40"/><line x1="40" y1="15" x2="65" y2="40"/>
+              <line x1="15" y1="40" x2="65" y2="40"/><line x1="15" y1="40" x2="22" y2="80"/>
+              <line x1="65" y1="40" x2="58" y2="80"/><line x1="22" y1="80" x2="58" y2="80"/>
+              <line x1="22" y1="80" x2="40" y2="95"/><line x1="58" y1="80" x2="40" y2="95"/>
+            </g>
+            <circle cx="40" cy="15" r="7" fill="var(--ember)" opacity=".2"/>
+            <circle cx="40" cy="15" r="3.5" fill="var(--ember)"/>
+            <circle cx="15" cy="40" r="2.4" fill="var(--ink)"/>
+            <circle cx="65" cy="40" r="2.4" fill="var(--ink)"/>
+            <circle cx="22" cy="80" r="2" fill="var(--ink)"/>
+            <circle cx="58" cy="80" r="2" fill="var(--ink)"/>
+            <circle cx="40" cy="95" r="2" fill="var(--ink)"/>
+          </g>
+          <g font-family="Geist Mono, monospace" font-size="9" fill="var(--ink-mute)" letter-spacing="1">
+            <text x="46" y="34">x = ancho de Vega · espacio mínimo en todos los lados</text>
+            <text x="46" y="216">Tamaño mínimo glyph: 24px · web · 16mm impreso</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- DO / DONT -->
+    <div class="usage">
+      <div class="ucard">
+        <span class="mark ok">✓ Correcto</span>
+        <svg viewBox="0 0 100 100" width="56" height="56">
+          <g stroke="var(--ember)" stroke-width=".8" fill="none" stroke-dasharray="2 3" opacity=".85">
+            <line x1="50" y1="18" x2="22" y2="46"/><line x1="50" y1="18" x2="78" y2="46"/>
+            <line x1="22" y1="46" x2="78" y2="46"/><line x1="22" y1="46" x2="30" y2="86"/>
+            <line x1="78" y1="46" x2="70" y2="86"/><line x1="30" y1="86" x2="70" y2="86"/>
+          </g>
+          <circle cx="50" cy="18" r="4.5" fill="var(--ember)"/>
+          <circle cx="22" cy="46" r="2.6" fill="var(--ink)"/>
+          <circle cx="78" cy="46" r="2.6" fill="var(--ink)"/>
+          <circle cx="30" cy="86" r="2.2" fill="var(--ink)"/>
+          <circle cx="70" cy="86" r="2.2" fill="var(--ink)"/>
+        </svg>
+        <span class="note">Sobre crema, ink o ember.</span>
+      </div>
+      <div class="ucard">
+        <span class="mark no">✗ Evitar</span>
+        <svg viewBox="0 0 100 100" width="56" height="56" style="filter:hue-rotate(180deg) saturate(2);">
+          <g stroke="#FF00AA" stroke-width=".8" fill="none">
+            <line x1="50" y1="18" x2="22" y2="46"/><line x1="50" y1="18" x2="78" y2="46"/>
+            <line x1="22" y1="46" x2="78" y2="46"/>
+          </g>
+          <circle cx="50" cy="18" r="4.5" fill="#00FFCC"/>
+          <circle cx="22" cy="46" r="2.6" fill="#FF00AA"/>
+          <circle cx="78" cy="46" r="2.6" fill="#FF00AA"/>
+        </svg>
+        <span class="note">Sin recolorear fuera del sistema.</span>
+      </div>
+      <div class="ucard">
+        <span class="mark no">✗ Evitar</span>
+        <svg viewBox="0 0 100 100" width="56" height="56" style="transform:rotate(18deg);">
+          <g stroke="var(--ember)" stroke-width=".8" fill="none">
+            <line x1="50" y1="18" x2="22" y2="46"/><line x1="50" y1="18" x2="78" y2="46"/>
+            <line x1="22" y1="46" x2="78" y2="46"/>
+          </g>
+          <circle cx="50" cy="18" r="4.5" fill="var(--ember)"/>
+          <circle cx="22" cy="46" r="2.6" fill="var(--ink)"/>
+          <circle cx="78" cy="46" r="2.6" fill="var(--ink)"/>
+        </svg>
+        <span class="note">No rotar el monograma.</span>
+      </div>
+      <div class="ucard">
+        <span class="mark no">✗ Evitar</span>
+        <svg viewBox="0 0 100 100" width="80" height="40" preserveAspectRatio="none">
+          <g stroke="var(--ember)" stroke-width=".8" fill="none">
+            <line x1="50" y1="18" x2="22" y2="46"/><line x1="50" y1="18" x2="78" y2="46"/>
+            <line x1="22" y1="46" x2="78" y2="46"/>
+          </g>
+          <circle cx="50" cy="18" r="4.5" fill="var(--ember)"/>
+          <circle cx="22" cy="46" r="2.6" fill="var(--ink)"/>
+          <circle cx="78" cy="46" r="2.6" fill="var(--ink)"/>
+        </svg>
+        <span class="note">No deformar la proporción.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     COLOR
+     ============================================================ -->
+<section class="section" id="color" data-screen-label="Color">
+  <div class="page">
+    <div class="section-tag">03 · Color</div>
+    <h2 class="section-title">Cinco colores. <em>Una sola</em> mesa servida.</h2>
+    <p class="section-lede">La paleta nace de la mesa, no del producto. Crema como mantel. Terracota como barro y servicio. Ink como la tinta del menú. Sage para el verde que regresa. Honey para la recompensa que ilumina. Polaris vive en los acentos: el brillo de la estrella guía.</p>
+
+    <div class="color-grid">
+      <!-- BONE -->
+      <div class="swatch">
+        <div class="chip" style="background:var(--bg);">
+          <span class="tag">BONE / 50</span>
+        </div>
+        <div class="meta">
+          <div class="row1">
+            <div class="name">Bone</div>
+            <div class="role">Canvas · fondo</div>
+          </div>
+          <div class="desc">El mantel. Fondo por defecto en web y dashboard. Tibio, papel, hospitalario.</div>
+          <dl class="codes">
+            <dt>TOKEN</dt><dd>--bg</dd>
+            <dt>HEX</dt><dd>#F1E6D0</dd>
+            <dt>RGB</dt><dd>241 230 208</dd>
+            <dt>OKLCH</dt><dd>0.93 0.04 85</dd>
+          </dl>
+        </div>
+      </div>
+
+      <!-- PAPER -->
+      <div class="swatch">
+        <div class="chip" style="background:var(--paper);">
+          <span class="tag">PAPER / 100</span>
+        </div>
+        <div class="meta">
+          <div class="row1">
+            <div class="name">Paper</div>
+            <div class="role">Superficie · cards</div>
+          </div>
+          <div class="desc">Capa de elevación sobre Bone. Cards, paneles, hojas de información.</div>
+          <dl class="codes">
+            <dt>TOKEN</dt><dd>--paper</dd>
+            <dt>HEX</dt><dd>#F8EFD9</dd>
+            <dt>RGB</dt><dd>248 239 217</dd>
+            <dt>OKLCH</dt><dd>0.95 0.035 85</dd>
+          </dl>
+        </div>
+      </div>
+
+      <!-- INK -->
+      <div class="swatch">
+        <div class="chip" style="background:var(--ink);">
+          <span class="tag dark">INK / 900</span>
+        </div>
+        <div class="meta">
+          <div class="row1">
+            <div class="name">Ink</div>
+            <div class="role">Tipografía · UI</div>
+          </div>
+          <div class="desc">Casi negro, cálido. Para tipografía principal, sidebars, botones secundarios, modos oscuros.</div>
+          <dl class="codes">
+            <dt>TOKEN</dt><dd>--ink</dd>
+            <dt>HEX</dt><dd>#1C1814</dd>
+            <dt>RGB</dt><dd>28 24 20</dd>
+            <dt>OKLCH</dt><dd>0.18 0.008 60</dd>
+          </dl>
+        </div>
+      </div>
+
+      <!-- EMBER -->
+      <div class="swatch">
+        <div class="chip" style="background:var(--ember);">
+          <span class="tag dark">EMBER / 500</span>
+        </div>
+        <div class="meta">
+          <div class="row1">
+            <div class="name">Ember</div>
+            <div class="role">Primario · acción</div>
+          </div>
+          <div class="desc">El color principal de marca. CTAs, Vega del monograma, énfasis editorial. Calor del fogón.</div>
+          <dl class="codes">
+            <dt>TOKEN</dt><dd>--ember</dd>
+            <dt>HEX</dt><dd>#C9461F</dd>
+            <dt>RGB</dt><dd>201 70 31</dd>
+            <dt>OKLCH</dt><dd>0.56 0.18 38</dd>
+          </dl>
+        </div>
+      </div>
+
+      <!-- SAGE -->
+      <div class="swatch">
+        <div class="chip" style="background:var(--sage);">
+          <span class="tag dark">SAGE / 600</span>
+        </div>
+        <div class="meta">
+          <div class="row1">
+            <div class="name">Sage</div>
+            <div class="role">Retorno · éxito</div>
+          </div>
+          <div class="desc">Verde de hoja, no de WhatsApp. Confirmaciones, métricas positivas, "el cliente volvió".</div>
+          <dl class="codes">
+            <dt>TOKEN</dt><dd>--sage</dd>
+            <dt>HEX</dt><dd>#2E6B4A</dd>
+            <dt>RGB</dt><dd>46 107 74</dd>
+            <dt>OKLCH</dt><dd>0.49 0.10 155</dd>
+          </dl>
+        </div>
+      </div>
+
+      <!-- HONEY -->
+      <div class="swatch">
+        <div class="chip" style="background:var(--honey);">
+          <span class="tag dark">HONEY / 500</span>
+        </div>
+        <div class="meta">
+          <div class="row1">
+            <div class="name">Honey</div>
+            <div class="role">Recompensa · destello</div>
+          </div>
+          <div class="desc">El brillo del logro. Recompensas activas, milestones, polaris stars sobre fondos oscuros.</div>
+          <dl class="codes">
+            <dt>TOKEN</dt><dd>--honey</dd>
+            <dt>HEX</dt><dd>#D89A2A</dd>
+            <dt>RGB</dt><dd>216 154 42</dd>
+            <dt>OKLCH</dt><dd>0.73 0.14 75</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <!-- semantic + neutrals strip -->
+    <div style="margin-top:32px; display:grid; grid-template-columns:repeat(6, 1fr); gap:8px;">
+      <div style="background:var(--line); aspect-ratio:1/.5; border-radius:2px; display:flex; align-items:flex-end; padding:10px; font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft);">Line · #C9B79A</div>
+      <div style="background:var(--ink-mute); aspect-ratio:1/.5; border-radius:2px; display:flex; align-items:flex-end; padding:10px; font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:#FFF;">Mute · #7A6A57</div>
+      <div style="background:var(--ink-soft); aspect-ratio:1/.5; border-radius:2px; display:flex; align-items:flex-end; padding:10px; font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:#FFF;">Soft · #4A3F35</div>
+      <div style="background:var(--ember-deep); aspect-ratio:1/.5; border-radius:2px; display:flex; align-items:flex-end; padding:10px; font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:#FFF;">Ember/700 · #8A2E14</div>
+      <div style="background:var(--polaris); aspect-ratio:1/.5; border-radius:2px; display:flex; align-items:flex-end; padding:10px; font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink);">Polaris · #F1D67A</div>
+      <div style="background:var(--paper-2); aspect-ratio:1/.5; border-radius:2px; display:flex; align-items:flex-end; padding:10px; font-family:'Geist Mono', monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); border:1px solid var(--rule);">Paper/200 · #EFE2C5</div>
+    </div>
+
+    <!-- usage rules -->
+    <div class="construction" style="margin-top:48px;">
+      <div class="panel">
+        <h4>Regla 60 · 30 · 10</h4>
+        <div style="display:flex; gap:8px; margin-bottom:18px;">
+          <div style="flex:6; height:60px; background:var(--bg); border:1px solid var(--rule); border-radius:2px; display:flex; align-items:center; justify-content:center; font-family:'Geist Mono', monospace; font-size:11px; color:var(--ink-soft); letter-spacing:.12em;">60% · BONE</div>
+          <div style="flex:3; height:60px; background:var(--ink); border-radius:2px; display:flex; align-items:center; justify-content:center; font-family:'Geist Mono', monospace; font-size:11px; color:var(--paper); letter-spacing:.12em;">30% · INK</div>
+          <div style="flex:1; height:60px; background:var(--ember); border-radius:2px; display:flex; align-items:center; justify-content:center; font-family:'Geist Mono', monospace; font-size:11px; color:#FFF; letter-spacing:.12em;">10%</div>
+        </div>
+        <p style="font-size:13.5px; color:var(--ink-soft); margin:0; line-height:1.5;">El 60% de cualquier composición vive en Bone/Paper. El 30% en Ink (tipografía y elementos sólidos). El 10% restante es Ember, con dosis pequeñas de Sage y Honey para alegría.</p>
+      </div>
+      <div class="panel">
+        <h4>Combinaciones probadas</h4>
+        <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:10px;">
+          <div style="background:var(--bg); color:var(--ink); padding:14px; border-radius:6px; border:1px solid var(--rule); font-size:13px;">Bone + Ink · base</div>
+          <div style="background:var(--ink); color:var(--paper); padding:14px; border-radius:6px; font-size:13px;">Ink + Paper · dark</div>
+          <div style="background:var(--ember); color:#FFF; padding:14px; border-radius:6px; font-size:13px;">Ember + Paper · cover</div>
+          <div style="background:var(--sage); color:#FFF; padding:14px; border-radius:6px; font-size:13px;">Sage + Honey · alert</div>
+          <div style="background:var(--ink); color:var(--honey); padding:14px; border-radius:6px; font-size:13px;">Ink + Honey · reward</div>
+          <div style="background:var(--paper); color:var(--ember); border:1px solid var(--ember); padding:14px; border-radius:6px; font-size:13px;">Paper + Ember · subtle</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TIPOGRAFÍA
+     ============================================================ -->
+<section class="section" id="tipografia" data-screen-label="Tipografía">
+  <div class="page">
+    <div class="section-tag">04 · Tipografía</div>
+    <h2 class="section-title">Una serif <em>que respira</em>. Una sans <em>que trabaja</em>.</h2>
+    <p class="section-lede">Instrument Serif aporta humanidad — sus itálicas son la voz cálida de la marca, perfectas para titulares y momentos editoriales. Geist es la voz funcional — clara, neutra, lista para datos y formularios. Geist Mono ancla los códigos, métricas y la memoria de la constelación.</p>
+
+    <div class="type-hero">
+      <div class="corner tl">Instrument Serif · italic</div>
+      <div class="corner tr">Geist · regular</div>
+      <div class="corner bl">Tamaño 220px · -3% tracking</div>
+      <div class="corner br">v1.0</div>
+      <p class="word">Cliente<span class="amp">.</span></p>
+      <p class="sub">Vuelve.</p>
+    </div>
+
+    <div class="type-pair">
+      <div class="type-card serif">
+        <div class="face">
+          <span class="badge ember"><span class="dot"></span>Display · Editorial</span>
+        </div>
+        <div class="specimen">Aa <em style="color:var(--ember);">&amp;</em></div>
+        <dl class="info">
+          <dt>Familia</dt><dd>Instrument Serif</dd>
+          <dt>Pesos</dt><dd>Regular · Italic</dd>
+          <dt>Uso</dt><dd>H1, H2, frases destacadas, números editoriales</dd>
+          <dt>Fuente</dt><dd>Google Fonts · OFL</dd>
+        </dl>
+      </div>
+      <div class="type-card sans">
+        <div class="face">
+          <span class="badge ink"><span class="dot"></span>UI · Texto</span>
+        </div>
+        <div class="specimen">Aa 1234</div>
+        <dl class="info">
+          <dt>Familia</dt><dd>Geist</dd>
+          <dt>Pesos</dt><dd>300 · 400 · 500 · 600 · 700</dd>
+          <dt>Uso</dt><dd>UI, botones, párrafos, formularios, navegación</dd>
+          <dt>Fuente</dt><dd>Google Fonts · OFL · Vercel</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="type-pair" style="grid-template-columns:1fr;">
+      <div class="type-card mono">
+        <div class="face">
+          <span class="badge outline"><span class="dot"></span>Mono · Datos &amp; Métricas</span>
+        </div>
+        <div class="specimen" style="font-size:64px;">CONST/01 · α-VEGA · 12.4k</div>
+        <dl class="info" style="grid-template-columns:auto 1fr auto 1fr;">
+          <dt>Familia</dt><dd>Geist Mono</dd>
+          <dt>Pesos</dt><dd>400 · 500 · 600</dd>
+          <dt>Uso</dt><dd>Eyebrows, métricas, IDs, coordenadas, etiquetas</dd>
+          <dt>Tracking</dt><dd>+12% en eyebrows</dd>
+        </dl>
+      </div>
+    </div>
+
+    <!-- SCALE LADDER -->
+    <div class="scale-table">
+      <div class="scale-row serif">
+        <div class="nm">Display / D1</div>
+        <div class="px">88 / 96px</div>
+        <div class="lh">0.95</div>
+        <div class="demo" style="font-size:72px;">Cada cliente</div>
+      </div>
+      <div class="scale-row serif">
+        <div class="nm">Display / D2</div>
+        <div class="px">64 / 72px</div>
+        <div class="lh">1.0</div>
+        <div class="demo" style="font-size:54px;">Vuelve la estrella</div>
+      </div>
+      <div class="scale-row serif">
+        <div class="nm">Heading / H1</div>
+        <div class="px">40 / 48px</div>
+        <div class="lh">1.05</div>
+        <div class="demo" style="font-size:36px;">Recompensa entregada</div>
+      </div>
+      <div class="scale-row sans">
+        <div class="nm">Heading / H2</div>
+        <div class="px">28 / 32px</div>
+        <div class="lh">1.15</div>
+        <div class="demo" style="font-size:24px; font-weight:600;">Resumen de la semana</div>
+      </div>
+      <div class="scale-row sans">
+        <div class="nm">Heading / H3</div>
+        <div class="px">20 / 24px</div>
+        <div class="lh">1.3</div>
+        <div class="demo" style="font-size:18px; font-weight:600;">Próximas campañas automáticas</div>
+      </div>
+      <div class="scale-row sans">
+        <div class="nm">Body / Large</div>
+        <div class="px">18 / 26px</div>
+        <div class="lh">1.55</div>
+        <div class="demo" style="font-size:17px;">Aumenta el flujo diario de personas en tu restaurante con un sistema que recuerda a cada cliente.</div>
+      </div>
+      <div class="scale-row sans">
+        <div class="nm">Body / Default</div>
+        <div class="px">15 / 24px</div>
+        <div class="lh">1.6</div>
+        <div class="demo" style="font-size:15px;">El cliente recibe un mensaje cálido cada vez que llega, con su progreso y la siguiente recompensa.</div>
+      </div>
+      <div class="scale-row mono">
+        <div class="nm">Caption</div>
+        <div class="px">12 / 16px</div>
+        <div class="lh">1.4</div>
+        <div class="demo" style="font-size:12px;">EVA · 3,425 VISITAS · α-VEGA · ÚLTIMO REGRESO 4D</div>
+      </div>
+      <div class="scale-row mono">
+        <div class="nm">Eyebrow</div>
+        <div class="px">11 / 14px</div>
+        <div class="lh">1</div>
+        <div class="demo" style="font-size:11px; letter-spacing:.18em; text-transform:uppercase;">SISTEMA · 001</div>
+      </div>
+    </div>
+
+    <!-- HIERARCHY DEMO -->
+    <div class="hierarchy">
+      <div class="h-eyebrow">— EJEMPLO DE JERARQUÍA EN USO</div>
+      <div class="h-display">El cliente, <em>iluminado</em>.</div>
+      <div class="h-h2">Cada visita reescribe la órbita.</div>
+      <div class="h-h3">Cómo funciona el seguimiento automatizado</div>
+      <p class="h-body">Cuando un cliente escanea su QR, queda registrado en su propio flujo de campañas. El sistema lo protege de spam clasificándolo entre contactados y no contactados, y le envía cada recompensa, cumpleaños y reactivación en el momento justo. El restaurante no toca nada.</p>
+      <p class="h-caption">FIG · 04 — Jerarquía editorial sobre superficie paper</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ICONOGRAFÍA
+     ============================================================ -->
+<section class="section" id="iconografia" data-screen-label="Iconografía">
+  <div class="page">
+    <div class="section-tag">05 · Iconografía</div>
+    <h2 class="section-title">Líneas finas, <em>estrellas firmes</em>.</h2>
+    <p class="section-lede">Los iconos siguen un trazo único de 1.5px sobre un grid de 24px, con esquinas suaves y terminales redondeados. El vocabulario gira alrededor de cinco metáforas: la estrella (cliente), la órbita (campaña), el QR (entrada), la mesa (servicio) y el corazón (fidelidad).</p>
+
+    <div class="icons-wrap">
+      <div class="icon-board">
+        <div class="icon-grid">
+          <!-- 1 Star -->
+          <div class="cell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3l2.5 5.5L20 9.5l-4 4 1 5.5L12 16.5 7 19l1-5.5-4-4 5.5-1L12 3z"/>
+            </svg>
+            <span class="nm">Star</span>
+          </div>
+          <!-- 2 QR -->
+          <div class="cell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/>
+              <path d="M14 14h3v3M21 14v3M14 17v4M17 21h4"/>
+            </svg>
+            <span class="nm">Check-in</span>
+          </div>
+          <!-- 3 Heart -->
+          <div class="cell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 21s-7-4.5-9-9.5C1.5 7 5 4 8 4c2 0 3 1 4 2 1-1 2-2 4-2 3 0 6.5 3 5 7.5-2 5-9 9.5-9 9.5z"/>
+            </svg>
+            <span class="nm">Fidelidad</span>
+          </div>
+          <!-- 4 Gift -->
+          <div class="cell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 12h18M12 8v13"/>
+              <path d="M12 8s-2-5-5-3 1 5 5 3zM12 8s2-5 5-3-1 5-5 3z"/>
+            </svg>
+            <span class="nm">Recompensa</span>
+          </div>
+          <!-- 5 Calendar/Cumple -->
+          <div class="cell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="5" width="18" height="16" rx="2"/>
+              <path d="M3 10h18M8 3v4M16 3v4"/>
+              <circle cx="12" cy="15" r="2" fill="currentColor" stroke="none"/>
+            </svg>
+            <span class="nm">Cumpleaños</span>
+          </div>
+          <!-- 6 WhatsApp/chat -->
+          <div class="cell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 0 1 9-9 9 9 0 0 1 9 9 9 9 0 0 1-13 8L3 21l1-7"/>
+            </svg>
+            <span class="nm">Mensaje</span>
+          </div>
+          <!-- 7 Phone -->
+          <div class="cell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="6" y="2" width="12" height="20" rx="2"/>
+              <path d="M10 18h4"/>
+            </svg>
+            <span class="nm">Móvil</span>
+          </div>
+          <!-- 8 Restaurant/plate -->
+          <div class="cell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/>
+              <path d="M12 3v3M12 18v3M3 12h3M18 12h3"/>
+            </svg>
+            <span class="nm">Restaurante</span>
+          </div>
+          <!-- 9 Orbit -->
+          <div class="cell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-25 12 12)"/>
+              <circle cx="12" cy="12" r="2.4" fill="currentColor" stroke="none"/>
+            </svg>
+            <span class="nm">Órbita</span>
+          </div>
+          <!-- 10 Campaign -->
+          <div class="cell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 11v2l13 5V6L3 11zM16 8v8M19 9v6"/>
+            </svg>
+            <span class="nm">Campaña</span>
+          </div>
+          <!-- 11 Users -->
+          <div class="cell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="9" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/>
+              <circle cx="17" cy="7" r="2.5"/><path d="M16 14c3 0 6 2 6 5"/>
+            </svg>
+            <span class="nm">Clientes</span>
+          </div>
+          <!-- 12 Chart -->
+          <div class="cell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 20h18M6 16V9M11 16V5M16 16v-7M21 16v-3"/>
+            </svg>
+            <span class="nm">Métricas</span>
+          </div>
+          <!-- 13 Bell -->
+          <div class="cell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4l2-2zM10 20a2 2 0 0 0 4 0"/>
+            </svg>
+            <span class="nm">Recordatorio</span>
+          </div>
+          <!-- 14 Shield -->
+          <div class="cell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+            <span class="nm">Anti-spam</span>
+          </div>
+          <!-- 15 Delivery -->
+          <div class="cell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/>
+              <circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
+            </svg>
+            <span class="nm">Domicilio</span>
+          </div>
+          <!-- 16 Flow -->
+          <div class="cell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/>
+              <circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/>
+              <path d="M7 6h10M5 8v8M19 8v8M7 18h10"/>
+            </svg>
+            <span class="nm">Flujo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="icon-rules">
+        <div class="icon-rule">
+          <div class="num">— 01</div>
+          <h4>Grid de 24<em>px</em></h4>
+          <p>Todos los iconos viven en un viewBox de 24×24 con padding interno de 2px en cada lado. La métrica óptica importa más que la geometría exacta.</p>
+        </div>
+        <div class="icon-rule">
+          <div class="num">— 02</div>
+          <h4>Trazo de 1.5<em>px</em></h4>
+          <p>Stroke uniforme de 1.5px. Esquinas y terminales redondeados (linecap &amp; linejoin: round). Nada de mixed-weight ni rellenos innecesarios.</p>
+        </div>
+        <div class="icon-rule">
+          <div class="num">— 03</div>
+          <h4>Estrella <em>cuando importa</em></h4>
+          <p>El relleno sólido (currentColor sin trazo) se reserva para destacar puntos focales — Vega de un icono, el día de cumpleaños, el corazón activo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     COMPONENTES
+     ============================================================ -->
+<section class="section" id="componentes" data-screen-label="Componentes">
+  <div class="page">
+    <div class="section-tag">06 · Componentes UI</div>
+    <h2 class="section-title">Lo que el restaurante <em>realmente</em> toca.</h2>
+    <p class="section-lede">El sistema se aterriza en piezas que viven en el dashboard, en la pantalla de check-in y en el mensaje del cliente. Estas son las primitivas: botones, formularios, badges, tarjetas, tablas. Todo construido con las mismas reglas de color, tipografía y radio.</p>
+
+    <div class="comp-section">
+
+      <!-- BUTTONS -->
+      <div class="comp-block">
+        <div class="title-row">
+          <h3>Botones</h3>
+          <div class="meta">06.1 · 5 variantes × 3 tamaños</div>
+        </div>
+        <div class="btn-grid">
+          <div class="lbl">Primary · Ember</div>
+          <button class="btn btn-primary btn-sm">Registrar cliente</button>
+          <button class="btn btn-primary">Registrar cliente</button>
+          <button class="btn btn-primary btn-lg">Registrar cliente</button>
+
+          <div class="lbl">Secondary · Ink</div>
+          <button class="btn btn-secondary btn-sm">Enviar campaña</button>
+          <button class="btn btn-secondary">Enviar campaña</button>
+          <button class="btn btn-secondary btn-lg">Enviar campaña</button>
+
+          <div class="lbl">Outline</div>
+          <button class="btn btn-outline btn-sm">Ver historial</button>
+          <button class="btn btn-outline">Ver historial</button>
+          <button class="btn btn-outline btn-lg">Ver historial</button>
+
+          <div class="lbl">Ghost · Texto</div>
+          <button class="btn btn-ghost btn-sm">Cancelar</button>
+          <button class="btn btn-ghost">Cancelar</button>
+          <button class="btn btn-ghost btn-lg">Cancelar</button>
+
+          <div class="lbl">Sage · Confirmar</div>
+          <button class="btn btn-sage btn-sm">✓  Cliente volvió</button>
+          <button class="btn btn-sage">✓  Cliente volvió</button>
+          <button class="btn btn-sage btn-lg">✓  Cliente volvió</button>
+
+          <div class="lbl">Honey · Recompensa</div>
+          <button class="btn btn-honey btn-sm">★  Entregar premio</button>
+          <button class="btn btn-honey">★  Entregar premio</button>
+          <button class="btn btn-honey btn-lg">★  Entregar premio</button>
+
+          <div class="lbl">Disabled</div>
+          <button class="btn btn-primary btn-sm btn-disabled">No disponible</button>
+          <button class="btn btn-primary btn-disabled">No disponible</button>
+          <button class="btn btn-primary btn-lg btn-disabled">No disponible</button>
+        </div>
+      </div>
+
+      <!-- INPUTS -->
+      <div class="comp-block">
+        <div class="title-row">
+          <h3>Formularios &amp; inputs</h3>
+          <div class="meta">06.2 · Text · Search · Select · Textarea</div>
+        </div>
+        <div class="input-grid">
+          <div>
+            <label class="input-label">Nombre del cliente</label>
+            <div class="input">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
+              <input type="text" value="Eva Martínez" />
+            </div>
+            <div class="input-help">Como aparece en la mesa o en el menú.</div>
+          </div>
+          <div>
+            <label class="input-label">Celular (WhatsApp)</label>
+            <div class="input">
+              <span class="mono" style="color:var(--ink-mute); font-size:12px;">+57</span>
+              <input type="tel" value="312 555 0188" />
+              <span class="badge sage"><span class="dot"></span>VÁLIDO</span>
+            </div>
+          </div>
+          <div>
+            <label class="input-label">Cumpleaños</label>
+            <div class="input">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+              <input type="text" value="04 / Mar / 1991" />
+            </div>
+          </div>
+          <div>
+            <label class="input-label">Buscar cliente</label>
+            <div class="input">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+              <input type="search" placeholder="Nombre, celular o ID..." />
+              <span class="mono" style="color:var(--ink-mute); font-size:10px; letter-spacing:.18em;">⌘K</span>
+            </div>
+          </div>
+          <div>
+            <label class="input-label">Tipo de campaña</label>
+            <div class="input">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-25 12 12)"/></svg>
+              <select>
+                <option>Cumpleaños · automática</option>
+                <option>Reactivación · 21 días</option>
+                <option>Recompensa · manual</option>
+              </select>
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 10l5 5 5-5"/></svg>
+            </div>
+          </div>
+          <div>
+            <label class="input-label">Email (opcional)</label>
+            <div class="input input-error">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+              <input type="email" value="eva@email" />
+            </div>
+            <div class="input-help">Falta el dominio. Ejemplo: eva@gmail.com</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BADGES -->
+      <div class="comp-block">
+        <div class="title-row">
+          <h3>Badges &amp; estados</h3>
+          <div class="meta">06.3 · Etiquetas semánticas</div>
+        </div>
+        <div class="badge-row">
+          <span class="badge ember"><span class="dot"></span>α-VEGA · TOP 5%</span>
+          <span class="badge sage"><span class="dot"></span>CONTACTADO</span>
+          <span class="badge"><span class="dot"></span>NO CONTACTADO</span>
+          <span class="badge honey"><span class="dot"></span>RECOMPENSA LISTA</span>
+          <span class="badge ink"><span class="dot"></span>CUMPLEAÑOS HOY</span>
+          <span class="badge outline"><span class="dot"></span>DOMICILIO</span>
+          <span class="badge ember"><span class="dot"></span>RECOVERY 21D</span>
+          <span class="badge sage"><span class="dot"></span>VOLVIÓ</span>
+        </div>
+        <div class="divider" style="margin:24px 0;"></div>
+        <div class="badge-row">
+          <span class="badge" style="font-size:14px; padding:8px 14px;"><span class="dot" style="width:8px;height:8px;"></span>5 VISITAS</span>
+          <span class="badge ember" style="font-size:14px; padding:8px 14px;"><span class="dot" style="width:8px;height:8px;"></span>10 VISITAS · ENTRADA GRATIS</span>
+          <span class="badge honey" style="font-size:14px; padding:8px 14px;"><span class="dot" style="width:8px;height:8px;"></span>25 VISITAS · POSTRE</span>
+          <span class="badge ink" style="font-size:14px; padding:8px 14px;"><span class="dot" style="width:8px;height:8px;"></span>50 VISITAS · CENA</span>
+        </div>
+      </div>
+
+      <!-- CARDS: customer / reward / metric -->
+      <div class="comp-block">
+        <div class="title-row">
+          <h3>Tarjetas</h3>
+          <div class="meta">06.4 · Cliente · Recompensa · Métrica</div>
+        </div>
+        <div class="card-grid">
+
+          <!-- Customer card -->
+          <div class="cust-card">
+            <span class="corner-star">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--ember)"><path d="M12 3l2.5 5.5L20 9.5l-4 4 1 5.5L12 16.5 7 19l1-5.5-4-4 5.5-1L12 3z"/></svg>
+            </span>
+            <div class="top">
+              <div class="avatar">E</div>
+              <div class="who">
+                <div class="name">Eva Martínez</div>
+                <div class="meta">+57 312 555 0188 · α-VEGA</div>
+              </div>
+            </div>
+            <div class="visits">
+              <div class="v on"></div><div class="v on"></div><div class="v on"></div><div class="v on"></div>
+              <div class="v on"></div><div class="v on"></div><div class="v on"></div><div class="v next"></div>
+              <div class="v"></div><div class="v"></div>
+            </div>
+            <div class="row">
+              <span class="lbl">VISITAS</span>
+              <span class="val"><strong>7</strong> de 10 · próximo premio en <strong>3</strong></span>
+            </div>
+            <div class="row">
+              <span class="lbl">ÚLT. REGRESO</span>
+              <span class="val">hace 4 días</span>
+            </div>
+          </div>
+
+          <!-- Reward card -->
+          <div class="reward-card">
+            <div class="field">
+              <svg viewBox="0 0 200 240" preserveAspectRatio="none" style="width:100%; height:100%;">
+                <g stroke="var(--polaris)" stroke-width=".5" fill="var(--polaris)">
+                  <circle cx="20"  cy="30"  r="1"/><circle cx="60"  cy="50"  r=".8"/>
+                  <circle cx="120" cy="20"  r="1.4"/><circle cx="160" cy="60"  r=".8"/>
+                  <circle cx="180" cy="120" r="1"/><circle cx="100" cy="180" r="1.2"/>
+                  <circle cx="40"  cy="160" r=".8"/><circle cx="150" cy="200" r=".8"/>
+                  <circle cx="30"  cy="110" r="1"/><circle cx="170" cy="40"  r=".7"/>
+                </g>
+              </svg>
+            </div>
+            <div class="lbl">Recompensa activa</div>
+            <h4>Postre de la casa</h4>
+            <div class="progress">
+              <div class="step on"></div><div class="step on"></div>
+              <div class="step on"></div><div class="step on"></div>
+              <div class="step on"></div><div class="step"></div>
+              <div class="step"></div><div class="step"></div>
+            </div>
+            <div class="foot">
+              <span>5 / 8 VISITAS</span>
+              <span style="color:var(--polaris);">+3 PARA RECLAMAR</span>
+            </div>
+          </div>
+
+          <!-- Metric card -->
+          <div class="metric-card">
+            <div class="lbl">CLIENTES ACTIVOS · 30D</div>
+            <div class="num">1,248</div>
+            <div class="delta">↑ 18.3% vs período anterior</div>
+            <svg class="spark" viewBox="0 0 200 40" preserveAspectRatio="none">
+              <path d="M0 30 L20 28 L40 32 L60 24 L80 22 L100 26 L120 18 L140 14 L160 16 L180 10 L200 6" fill="none" stroke="var(--ember)" stroke-width="1.5"/>
+              <path d="M0 30 L20 28 L40 32 L60 24 L80 22 L100 26 L120 18 L140 14 L160 16 L180 10 L200 6 L200 40 L0 40 Z" fill="var(--ember)" opacity=".12"/>
+            </svg>
+          </div>
+
+          <div class="metric-card">
+            <div class="lbl">REGRESOS · ESTA SEMANA</div>
+            <div class="num">312</div>
+            <div class="delta">↑ 9.2% vs semana pasada</div>
+            <svg class="spark" viewBox="0 0 200 40" preserveAspectRatio="none">
+              <path d="M0 26 L20 22 L40 24 L60 18 L80 20 L100 14 L120 16 L140 12 L160 10 L180 14 L200 8" fill="none" stroke="var(--sage)" stroke-width="1.5"/>
+            </svg>
+          </div>
+
+          <div class="cust-card">
+            <div class="top">
+              <div class="avatar" style="background:var(--sage);">J</div>
+              <div class="who">
+                <div class="name">Juan Pablo Rojas</div>
+                <div class="meta">+57 304 999 1212 · NUEVO</div>
+              </div>
+            </div>
+            <div class="visits">
+              <div class="v on"></div><div class="v next"></div><div class="v"></div><div class="v"></div>
+              <div class="v"></div><div class="v"></div><div class="v"></div><div class="v"></div>
+              <div class="v"></div><div class="v"></div>
+            </div>
+            <div class="row">
+              <span class="lbl">VISITAS</span>
+              <span class="val"><strong>1</strong> de 10 · bienvenida enviada</span>
+            </div>
+            <div class="row">
+              <span class="lbl">ORIGEN</span>
+              <span class="val">QR · domicilio</span>
+            </div>
+          </div>
+
+          <div class="reward-card" style="background:var(--ember);">
+            <div class="field">
+              <svg viewBox="0 0 200 240" preserveAspectRatio="none" style="width:100%; height:100%;">
+                <g fill="rgba(255,255,255,.8)">
+                  <circle cx="20"  cy="30"  r="1"/><circle cx="60"  cy="50"  r=".8"/>
+                  <circle cx="120" cy="20"  r="1.4"/><circle cx="160" cy="60"  r=".8"/>
+                  <circle cx="180" cy="120" r="1"/><circle cx="100" cy="180" r="1.2"/>
+                </g>
+              </svg>
+            </div>
+            <div class="lbl" style="color:rgba(255,255,255,.85);">Próxima campaña</div>
+            <h4 style="color:#FFF;">Cumpleaños · Marzo</h4>
+            <div class="progress">
+              <div class="step on" style="background:#FFF;"></div>
+              <div class="step on" style="background:#FFF;"></div>
+              <div class="step on" style="background:#FFF; opacity:.6;"></div>
+              <div class="step"></div><div class="step"></div>
+              <div class="step"></div><div class="step"></div><div class="step"></div>
+            </div>
+            <div class="foot" style="color:rgba(255,255,255,.85);">
+              <span>42 CUMPLEAÑEROS</span>
+              <span>ENVÍO 1 / MAR · 09:00</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TABLE -->
+      <div class="comp-block">
+        <div class="title-row">
+          <h3>Tabla de clientes</h3>
+          <div class="meta">06.5 · Vista por defecto</div>
+        </div>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th>Celular</th>
+                <th>Estado</th>
+                <th>Visitas</th>
+                <th>Último regreso</th>
+                <th>Próxima acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="who">
+                    <span class="av">E</span>
+                    <div>
+                      <div style="font-weight:500;">Eva Martínez</div>
+                      <div class="mono" style="font-size:10px; color:var(--ink-mute); letter-spacing:.1em;">α-VEGA · 91</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="mono" style="font-size:12px;">+57 312 555 0188</td>
+                <td><span class="badge ember"><span class="dot"></span>TOP 5%</span></td>
+                <td><strong>47</strong> <span style="color:var(--ink-mute); font-size:12px;">visitas</span></td>
+                <td>hace 4 días</td>
+                <td><span class="badge honey"><span class="dot"></span>POSTRE LISTO</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="who">
+                    <span class="av sage">J</span>
+                    <div>
+                      <div style="font-weight:500;">Juan P. Rojas</div>
+                      <div class="mono" style="font-size:10px; color:var(--ink-mute); letter-spacing:.1em;">NUEVO · QR</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="mono" style="font-size:12px;">+57 304 999 1212</td>
+                <td><span class="badge sage"><span class="dot"></span>CONTACTADO</span></td>
+                <td><strong>1</strong></td>
+                <td>hoy</td>
+                <td><span class="badge outline"><span class="dot"></span>BIENVENIDA OK</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="who">
+                    <span class="av honey">M</span>
+                    <div>
+                      <div style="font-weight:500;">María C. Vega</div>
+                      <div class="mono" style="font-size:10px; color:var(--ink-mute); letter-spacing:.1em;">β-SHELIAK · 68</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="mono" style="font-size:12px;">+57 318 222 4055</td>
+                <td><span class="badge"><span class="dot"></span>RECOVERY 22D</span></td>
+                <td><strong>18</strong></td>
+                <td>hace 22 días</td>
+                <td><span class="badge ember"><span class="dot"></span>REACTIVAR</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="who">
+                    <span class="av ink">S</span>
+                    <div>
+                      <div style="font-weight:500;">Santiago Ríos</div>
+                      <div class="mono" style="font-size:10px; color:var(--ink-mute); letter-spacing:.1em;">γ-SULAFAT · 42</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="mono" style="font-size:12px;">+57 322 116 8810</td>
+                <td><span class="badge ink"><span class="dot"></span>CUMPLE HOY</span></td>
+                <td><strong>9</strong></td>
+                <td>hace 8 días</td>
+                <td><span class="badge honey"><span class="dot"></span>POSTRE GRATIS</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="who">
+                    <span class="av">L</span>
+                    <div>
+                      <div style="font-weight:500;">Laura Mejía</div>
+                      <div class="mono" style="font-size:10px; color:var(--ink-mute); letter-spacing:.1em;">δ-LYRAE · 27</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="mono" style="font-size:12px;">+57 311 484 2299</td>
+                <td><span class="badge sage"><span class="dot"></span>VOLVIÓ</span></td>
+                <td><strong>23</strong></td>
+                <td>ayer</td>
+                <td><span class="badge outline"><span class="dot"></span>—</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PATRONES
+     ============================================================ -->
+<section class="section" id="patrones" data-screen-label="Patrones">
+  <div class="page">
+    <div class="section-tag">07 · Patrones &amp; texturas</div>
+    <h2 class="section-title">Cielos, mallas, <em>radios &amp; sombras</em>.</h2>
+    <p class="section-lede">Los patrones son la voz visual de fondo. Constelaciones para los momentos hero, dot-grids para superficies de trabajo, ráfagas radiales para los lanzamientos. Se usan con moderación — siempre sirviendo al contenido, nunca compitiendo con él.</p>
+
+    <div class="patterns-grid">
+      <!-- Constellation field -->
+      <div class="pat-card dark" style="background:var(--ink);">
+        <svg class="pat-fill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+          <g fill="var(--polaris)">
+            <circle cx="40" cy="60" r="1.2"/><circle cx="120" cy="40" r=".8"/>
+            <circle cx="180" cy="90" r="1"/><circle cx="250" cy="50" r="1.5"/>
+            <circle cx="320" cy="100" r=".9"/><circle cx="400" cy="70" r="1.1"/>
+            <circle cx="470" cy="40" r=".8"/><circle cx="540" cy="100" r="1.2"/>
+            <circle cx="80" cy="160" r=".9"/><circle cx="160" cy="200" r="1.3"/>
+            <circle cx="230" cy="180" r=".8"/><circle cx="300" cy="240" r="1"/>
+            <circle cx="380" cy="200" r="1.1"/><circle cx="440" cy="240" r=".9"/>
+            <circle cx="520" cy="180" r="1.2"/>
+            <circle cx="60" cy="300" r="1"/><circle cx="140" cy="340" r=".8"/>
+            <circle cx="200" cy="280" r="1.3"/><circle cx="280" cy="320" r="1"/>
+            <circle cx="360" cy="280" r=".9"/><circle cx="430" cy="320" r="1.2"/>
+            <circle cx="500" cy="290" r="1"/>
+          </g>
+          <g stroke="var(--ember)" stroke-width=".5" fill="none" stroke-dasharray="2 4" opacity=".8">
+            <path d="M180 90 L250 50 L320 100 L400 70 L470 40"/>
+            <path d="M160 200 L230 180 L300 240 L380 200 L440 240"/>
+            <path d="M250 50 L230 180 M400 70 L380 200"/>
+            <path d="M200 280 L280 320 L360 280 L430 320"/>
+          </g>
+          <circle cx="250" cy="50" r="14" fill="var(--ember)" opacity=".18"/>
+          <circle cx="250" cy="50" r="3" fill="var(--ember)"/>
+        </svg>
+        <div class="pat-label">
+          <div class="nm" style="color:var(--paper);">Constellation Field</div>
+          <div class="id">PAT-01 · HERO BG</div>
+        </div>
+      </div>
+
+      <!-- Dot grid -->
+      <div class="pat-card" style="background:var(--paper);">
+        <svg class="pat-fill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <pattern id="dots1" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1" fill="var(--line)"/>
+            </pattern>
+          </defs>
+          <rect width="600" height="400" fill="url(#dots1)"/>
+          <!-- accent stars -->
+          <circle cx="200" cy="180" r="3" fill="var(--ember)"/>
+          <circle cx="400" cy="240" r="3" fill="var(--ember)"/>
+          <line x1="200" y1="180" x2="400" y2="240" stroke="var(--ember)" stroke-width=".7" stroke-dasharray="2 3"/>
+        </svg>
+        <div class="pat-label">
+          <div class="nm">Dot Grid</div>
+          <div class="id">PAT-02 · SURFACE</div>
+        </div>
+      </div>
+
+      <!-- Orbit rings -->
+      <div class="pat-card" style="background:var(--bg);">
+        <svg class="pat-fill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+          <g fill="none" stroke="var(--ember)" stroke-width=".7" opacity=".4">
+            <ellipse cx="300" cy="200" rx="80"  ry="35" transform="rotate(-15 300 200)"/>
+            <ellipse cx="300" cy="200" rx="140" ry="60" transform="rotate(-15 300 200)"/>
+            <ellipse cx="300" cy="200" rx="200" ry="85" transform="rotate(-15 300 200)"/>
+            <ellipse cx="300" cy="200" rx="260" ry="110" transform="rotate(-15 300 200)"/>
+          </g>
+          <circle cx="300" cy="200" r="6" fill="var(--ember)"/>
+          <circle cx="237" cy="227" r="3" fill="var(--ink)"/>
+          <circle cx="403" cy="166" r="3" fill="var(--ink)"/>
+          <circle cx="165" cy="246" r="3" fill="var(--ink)"/>
+          <circle cx="468" cy="138" r="3" fill="var(--ink)"/>
+        </svg>
+        <div class="pat-label">
+          <div class="nm">Orbit Rings</div>
+          <div class="id">PAT-03 · CAMPAIGN</div>
+        </div>
+      </div>
+
+      <!-- QR weave -->
+      <div class="pat-card" style="background:var(--paper);">
+        <svg class="pat-fill" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <pattern id="qrgrid" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+              <rect x="0" y="0" width="16" height="16" fill="none"/>
+              <rect x="2" y="2" width="6" height="6" fill="var(--ink)" opacity=".06"/>
+              <rect x="10" y="6" width="3" height="3" fill="var(--ink)" opacity=".08"/>
+              <rect x="6" y="11" width="2" height="2" fill="var(--ember)" opacity=".25"/>
+            </pattern>
+          </defs>
+          <rect width="600" height="400" fill="url(#qrgrid)"/>
+          <!-- big QR corners -->
+          <g fill="var(--ink)">
+            <rect x="40" y="40" width="60" height="60" rx="8"/>
+            <rect x="500" y="40" width="60" height="60" rx="8"/>
+            <rect x="40" y="300" width="60" height="60" rx="8"/>
+          </g>
+          <g fill="var(--paper)">
+            <rect x="55" y="55" width="30" height="30" rx="3"/>
+            <rect x="515" y="55" width="30" height="30" rx="3"/>
+            <rect x="55" y="315" width="30" height="30" rx="3"/>
+          </g>
+          <g fill="var(--ink)">
+            <rect x="65" y="65" width="10" height="10" rx="1"/>
+            <rect x="525" y="65" width="10" height="10" rx="1"/>
+            <rect x="65" y="325" width="10" height="10" rx="1"/>
+          </g>
+        </svg>
+        <div class="pat-label">
+          <div class="nm">QR Weave</div>
+          <div class="id">PAT-04 · CHECK-IN</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOKENS: radii / shadows / spacing -->
+    <div style="margin-top:48px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px;">
+      <div class="panel" style="background:var(--paper); border:1px solid var(--rule); border-radius:2px; padding:28px;">
+        <h4 style="font-family:'Geist Mono', monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-mute); margin:0 0 18px;">Radios</h4>
+        <div style="display:flex; gap:10px; align-items:flex-end;">
+          <div style="flex:1;"><div style="aspect-ratio:1; background:var(--ember); border-radius:2px; opacity:.85;"></div><div class="mono" style="font-size:10px; margin-top:8px; color:var(--ink-mute);">--r-1 · 2px</div></div>
+          <div style="flex:1;"><div style="aspect-ratio:1; background:var(--ember); border-radius:6px; opacity:.85;"></div><div class="mono" style="font-size:10px; margin-top:8px; color:var(--ink-mute);">--r-2 · 6px</div></div>
+          <div style="flex:1;"><div style="aspect-ratio:1; background:var(--ember); border-radius:10px; opacity:.85;"></div><div class="mono" style="font-size:10px; margin-top:8px; color:var(--ink-mute);">--r-3 · 10px</div></div>
+          <div style="flex:1;"><div style="aspect-ratio:1; background:var(--ember); border-radius:999px; opacity:.85;"></div><div class="mono" style="font-size:10px; margin-top:8px; color:var(--ink-mute);">--r-full</div></div>
+        </div>
+        <p style="font-size:12.5px; line-height:1.5; color:var(--ink-soft); margin-top:18px;">Cards y paneles editoriales usan radio 2px (papel cortado). Componentes interactivos (inputs, cards de dashboard) usan 10px. Botones y badges siempre redondos completos.</p>
+      </div>
+
+      <div class="panel" style="background:var(--paper); border:1px solid var(--rule); border-radius:2px; padding:28px;">
+        <h4 style="font-family:'Geist Mono', monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-mute); margin:0 0 18px;">Sombras</h4>
+        <div style="display:flex; gap:14px; align-items:flex-end;">
+          <div style="flex:1;"><div style="aspect-ratio:1; background:var(--bg); border-radius:8px;"></div><div class="mono" style="font-size:10px; margin-top:8px; color:var(--ink-mute);">--shadow-0</div></div>
+          <div style="flex:1;"><div style="aspect-ratio:1; background:var(--bg); border-radius:8px; box-shadow:var(--shadow-1);"></div><div class="mono" style="font-size:10px; margin-top:8px; color:var(--ink-mute);">--shadow-1</div></div>
+          <div style="flex:1;"><div style="aspect-ratio:1; background:var(--bg); border-radius:8px; box-shadow:var(--shadow-2);"></div><div class="mono" style="font-size:10px; margin-top:8px; color:var(--ink-mute);">--shadow-2</div></div>
+        </div>
+        <p style="font-size:12.5px; line-height:1.5; color:var(--ink-soft); margin-top:18px;">Las sombras son cálidas (tono Ink, no negro puro) y casi imperceptibles. Reservadas para modales, dropdowns y elementos elevados.</p>
+      </div>
+
+      <div class="panel" style="background:var(--paper); border:1px solid var(--rule); border-radius:2px; padding:28px;">
+        <h4 style="font-family:'Geist Mono', monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-mute); margin:0 0 18px;">Espaciado · escala 4</h4>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <div style="display:flex; align-items:center; gap:14px;"><div style="width:4px; height:14px; background:var(--ember);"></div><span class="mono" style="font-size:11px; color:var(--ink-soft);">4 · xs · gaps</span></div>
+          <div style="display:flex; align-items:center; gap:14px;"><div style="width:8px; height:14px; background:var(--ember);"></div><span class="mono" style="font-size:11px; color:var(--ink-soft);">8 · sm · iconos</span></div>
+          <div style="display:flex; align-items:center; gap:14px;"><div style="width:16px; height:14px; background:var(--ember);"></div><span class="mono" style="font-size:11px; color:var(--ink-soft);">16 · md · interiores</span></div>
+          <div style="display:flex; align-items:center; gap:14px;"><div style="width:24px; height:14px; background:var(--ember);"></div><span class="mono" style="font-size:11px; color:var(--ink-soft);">24 · lg · cards</span></div>
+          <div style="display:flex; align-items:center; gap:14px;"><div style="width:32px; height:14px; background:var(--ember);"></div><span class="mono" style="font-size:11px; color:var(--ink-soft);">32 · xl · secciones</span></div>
+          <div style="display:flex; align-items:center; gap:14px;"><div style="width:48px; height:14px; background:var(--ember);"></div><span class="mono" style="font-size:11px; color:var(--ink-soft);">48 · 2xl · módulos</span></div>
+          <div style="display:flex; align-items:center; gap:14px;"><div style="width:64px; height:14px; background:var(--ember);"></div><span class="mono" style="font-size:11px; color:var(--ink-soft);">64 · 3xl · bloques</span></div>
+          <div style="display:flex; align-items:center; gap:14px;"><div style="width:96px; height:14px; background:var(--ember);"></div><span class="mono" style="font-size:11px; color:var(--ink-soft);">96 · 4xl · página</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     OUTRO
+     ============================================================ -->
+<section class="outro">
+  <div class="page">
+    <div class="eyebrow" style="justify-content:center; display:flex; gap:14px; align-items:center;">
+      <span style="width:36px; height:1px; background:var(--ink-mute); display:inline-block;"></span>
+      Fin del documento
+      <span style="width:36px; height:1px; background:var(--ink-mute); display:inline-block;"></span>
+    </div>
+    <h2 class="head">El cliente <em>vuelve</em>.<br>El restaurante <span class="amp">vive</span>.</h2>
+    <p class="sub">Sistema visual v1.0 — listo para alimentar la landing, los avatares sociales, los headers de LinkedIn y todo lo que venga después.</p>
+    <div class="credit">SISTEMA · DE · FIDELIZACIÓN · BY · CONSTELARYS · 2026</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TWEAKS PANEL
+     ============================================================ -->
+<div class="tweaks-panel" id="tweaks">
+  <div class="tw-head">
+    <span class="tw-title">Tweaks · Paleta</span>
+    <button class="tw-close" id="twClose" aria-label="Cerrar">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 2l10 10M12 2L2 12"/></svg>
+    </button>
+  </div>
+  <div class="tw-section">
+    <div class="tw-label">Variantes de paleta</div>
+    <div class="pal-options">
+      <button class="pal-opt" data-pal="hearth">
+        <span class="chips">
+          <span style="background:#F1E6D0;"></span>
+          <span style="background:#C9461F;"></span>
+          <span style="background:#1C1814;"></span>
+          <span style="background:#2E6B4A;"></span>
+          <span style="background:#D89A2A;"></span>
+        </span>
+        <span class="nm">Hearth</span>
+      </button>
+      <button class="pal-opt" data-pal="polaris">
+        <span class="chips">
+          <span style="background:#14110D;"></span>
+          <span style="background:#E25A2A;"></span>
+          <span style="background:#F4ECDC;"></span>
+          <span style="background:#59B585;"></span>
+          <span style="background:#F2C45A;"></span>
+        </span>
+        <span class="nm">Polaris</span>
+      </button>
+      <button class="pal-opt" data-pal="vega">
+        <span class="chips">
+          <span style="background:#E8DFC9;"></span>
+          <span style="background:#A53718;"></span>
+          <span style="background:#2A2218;"></span>
+          <span style="background:#2F5E48;"></span>
+          <span style="background:#B8842A;"></span>
+        </span>
+        <span class="nm">Vega</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   TWEAKS — palette switcher + edit-mode protocol
+   ============================================================ */
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "palette": "vega"
+}/*EDITMODE-END*/;
+
+(function(){
+  const panel = document.getElementById('tweaks');
+  const closeBtn = document.getElementById('twClose');
+  const opts = document.querySelectorAll('.pal-opt');
+
+  function applyPalette(p){
+    document.documentElement.setAttribute('data-palette', p);
+    opts.forEach(o => o.classList.toggle('active', o.dataset.pal === p));
+  }
+  applyPalette(TWEAK_DEFAULTS.palette || 'hearth');
+
+  opts.forEach(o => {
+    o.addEventListener('click', () => {
+      const p = o.dataset.pal;
+      applyPalette(p);
+      try{
+        window.parent.postMessage({
+          type: '__edit_mode_set_keys',
+          edits: { palette: p }
+        }, '*');
+      }catch(e){}
+    });
+  });
+
+  // Edit-mode protocol: register listener FIRST, then announce.
+  window.addEventListener('message', (e) => {
+    const d = e.data || {};
+    if(d.type === '__activate_edit_mode'){ panel.classList.add('open'); }
+    if(d.type === '__deactivate_edit_mode'){ panel.classList.remove('open'); }
+  });
+
+  closeBtn.addEventListener('click', () => {
+    panel.classList.remove('open');
+    try{ window.parent.postMessage({type:'__edit_mode_dismissed'}, '*'); }catch(e){}
+  });
+
+  try{
+    window.parent.postMessage({type:'__edit_mode_available'}, '*');
+  }catch(e){}
+})();
+</script>
+
+<script>
+/* ============================================================
+   NEW LOGO — "El cliente vuelve"
+   Vega central (restaurante) + órbita + estrellas-clientes
+   + arco de retorno con flecha. Reemplaza los glyphs anteriores
+   en todos los lockups, monogramas y nav.
+   ============================================================ */
+(function(){
+  const g = (vega, stars, orbit, scale=1) => `
+<svg viewBox="0 0 120 140" preserveAspectRatio="xMidYMid meet">
+  <ellipse cx="60" cy="76" rx="44" ry="30" fill="none" stroke="${orbit}" stroke-width=".9" stroke-dasharray="2 3" opacity=".75"/>
+  <path d="M 102 58 A 48 36 0 0 1 56 108" fill="none" stroke="${orbit}" stroke-width="1.4" stroke-linecap="round"/>
+  <path d="M 56 108 L 65 102 M 56 108 L 62 116" fill="none" stroke="${orbit}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="60" cy="76" r="13" fill="${vega}" opacity=".18"/>
+  <circle cx="60" cy="76" r="6.4" fill="${vega}"/>
+  <path d="M60 62 L60 90 M46 76 L74 76" stroke="${vega}" stroke-width="1.1" stroke-linecap="round" opacity=".45"/>
+  <circle cx="16" cy="76" r="3.6" fill="${stars}"/>
+  <circle cx="38" cy="46" r="2.6" fill="${stars}" opacity=".7"/>
+  <circle cx="104" cy="76" r="2.8" fill="${stars}" opacity=".55"/>
+  <circle cx="82" cy="106" r="3.2" fill="${stars}"/>
+</svg>`;
+
+  const themes = {
+    light: { v:'var(--ember)', s:'var(--ink)', o:'var(--ember)' },
+    dark:  { v:'#F2C45A',      s:'#F4ECDC',    o:'#F2C45A' },
+    ember: { v:'#F4ECDC',      s:'#F4ECDC',    o:'#F4ECDC' },
+    sage:  { v:'#F2C45A',      s:'#F4ECDC',    o:'#F2C45A' },
+  };
+
+  function themeFor(el){
+    if (el.closest('.logo-card.dark') || el.closest('.card.dark') || el.closest('.mono-card.ink')) return 'dark';
+    if (el.closest('.card.ember') || el.closest('.mono-card.ember')) return 'ember';
+    if (el.closest('.mono-card.sage')) return 'sage';
+    return 'light';
+  }
+
+  // Replace all named .glyph svgs in logo lockups
+  document.querySelectorAll('.lockup-stack .glyph, .lockup-horiz .glyph').forEach(el => {
+    const t = themes[themeFor(el)];
+    el.outerHTML = g(t.v, t.s, t.o).replace('<svg', `<svg class="${el.getAttribute('class')}" `);
+  });
+
+  // Replace SVGs inside monogram cards (bone, ink, ember, sage) — skip the favicon sello (last)
+  document.querySelectorAll('.monogram-row .mono-card svg').forEach((el, i, arr) => {
+    if (i === arr.length - 1) return; // keep Vega sello / favicon
+    const t = themes[themeFor(el)];
+    el.outerHTML = g(t.v, t.s, t.o);
+  });
+
+  // Nav mark — small currentColor variant
+  const nav = document.querySelector('.nav-mark .lyra');
+  if (nav) {
+    nav.outerHTML = `
+<svg class="lyra" viewBox="0 0 120 140" fill="none">
+  <ellipse cx="60" cy="76" rx="44" ry="30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 4" opacity=".55"/>
+  <path d="M 102 58 A 48 36 0 0 1 56 108" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 56 108 L 66 102 M 56 108 L 62 116" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="60" cy="76" r="9" fill="currentColor"/>
+  <circle cx="16" cy="76" r="4.5" fill="currentColor"/>
+  <circle cx="82" cy="106" r="4" fill="currentColor"/>
+</svg>`;
+  }
+})();
+</script>
+
+</body>
+</html>
