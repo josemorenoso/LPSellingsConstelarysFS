@@ -1364,10 +1364,18 @@ const observer = new IntersectionObserver((entries)=>{
 },{threshold:0.15});
 document.querySelectorAll('.animate:not(.visible)').forEach(el=>observer.observe(el));
 
-// ── Meta Pixel — track Lead en cada clic de WhatsApp ──
+// ── Meta Pixel — conversiones diferenciadas por botón ──
 document.querySelectorAll('a[href*="wa.me"]').forEach(a=>{
   a.addEventListener('click',()=>{
-    if(typeof fbq==='function') fbq('track','Lead');
+    if(typeof fbq!=='function') return;
+    if(a.href.includes('agendar')){
+      // Conversión principal: demo agendada
+      fbq('track','Schedule');          // evento de optimización para Meta Ads
+      fbq('track','Lead');              // también como Lead para lookalike audiences
+    } else {
+      // Conversión secundaria: consulta general
+      fbq('track','Contact');
+    }
   });
 });
 
