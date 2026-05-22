@@ -30,7 +30,7 @@ src="https://www.facebook.com/tr?id=811319688499857&ev=PageView&noscript=1"/></n
    ═══════════════════════════════════════════ */
 :root{
   --bg:#F1E6D0;--paper:#F8EFD9;--paper-2:#EFE2C5;
-  --ink:#1C1814;--ink-soft:#4A3F35;--ink-mute:#7A6A57;
+  --ink:#1C1814;--ink-soft:#4A3F35;--ink-mute:#5C4F40;
   --ember:#C9461F;--ember-deep:#8A2E14;
   --sage:#2E6B4A;--honey:#D89A2A;--polaris:#F1D67A;
   --line:#C9B79A;--line-soft:#DCC9A8;
@@ -775,6 +775,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 </nav>
 
+<main>
+
 <!-- ════════════════════════════════════════════
      § 1 — HERO
      ════════════════════════════════════════════ -->
@@ -794,12 +796,13 @@ a{color:inherit;text-decoration:none;}
 
         <div class="proof-strip animate visible d2">
           <div class="proof-logos">
-            <img src="Logo completo Sushi Service Negro.png" alt="Sushi Service" loading="eager" style="height:34px;max-width:90px;object-fit:contain;">
-            <img src="IMG-20260521-WA0025.jpg" alt="Sushi Fun and Wok" loading="eager" style="height:34px;width:34px;object-fit:cover;border-radius:50%;">
+            <img src="Logo completo Sushi Service Negro.png" alt="Sushi Service" loading="eager" style="height:42px;max-width:110px;object-fit:contain;">
+            <img src="IMG-20260521-WA0025.jpg" alt="Sushi Fun and Wok" loading="eager" style="height:42px;width:42px;object-fit:cover;border-radius:50%;">
           </div>
           <div class="proof-text">
-            <strong>Restaurantes en producción</strong>
-            <span class="proof-text-sub">+70 clientes fidelizados en 5 días — Sushi Service, Envigado</span>
+            <span style="display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;opacity:.6;margin-bottom:3px;">Restaurantes en producción</span>
+            <strong style="font-size:19px;line-height:1.2;letter-spacing:-0.01em;">+70 clientes fidelizados en 5 días</strong>
+            <span class="proof-text-sub" style="font-size:13px;opacity:.7;margin-top:2px;">Sushi Service · Envigado, Colombia</span>
           </div>
         </div>
 
@@ -813,7 +816,9 @@ a{color:inherit;text-decoration:none;}
 
       <div class="hero-visual animate visible d2">
         <div class="video-wrap">
-          <video id="heroVideo" muted loop playsinline preload="none"></video>
+          <video id="heroVideo" muted loop playsinline preload="none" poster="funcionamiento-poster.jpg" aria-label="Demostración del sistema de fidelización en funcionamiento">
+            <track kind="captions" srclang="es" label="Español" default>
+          </video>
         </div>
       </div>
     </div>
@@ -834,12 +839,12 @@ a{color:inherit;text-decoration:none;}
 
       <div class="calc-grid">
         <div class="calc-field">
-          <label>Clientes activos / mes</label>
-          <input type="number" id="calcClientes" value="100" min="1" max="9999">
+          <label for="calcClientes">Clientes activos / mes</label>
+          <input type="number" id="calcClientes" name="calcClientes" value="100" min="1" max="9999" aria-label="Clientes activos por mes">
         </div>
         <div class="calc-field">
-          <label>Ticket promedio (COP)</label>
-          <input type="number" id="calcTicket" value="35000" min="1000" step="1000">
+          <label for="calcTicket">Ticket promedio (COP)</label>
+          <input type="number" id="calcTicket" name="calcTicket" value="35000" min="1000" step="1000" aria-label="Ticket promedio en pesos colombianos">
         </div>
       </div>
 
@@ -930,7 +935,10 @@ a{color:inherit;text-decoration:none;}
   <div class="page">
     <div class="proof-card animate">
       <div class="proof-photo">
-        <img src="Sushi Service - Agosto 2022 - Full Resolución-25.jpg" alt="Jose Moreno, dueño de Sushi Service" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;">
+        <picture>
+          <source srcset="sushi-service.webp" type="image/webp">
+          <img src="sushi-service.jpg" alt="Jose Moreno, dueño de Sushi Service" loading="lazy" decoding="async" width="1200" height="1644" style="width:100%;height:100%;object-fit:cover;">
+        </picture>
       </div>
       <div class="proof-content">
         <div class="eyebrow">Caso real · Sushi Service</div>
@@ -1162,10 +1170,16 @@ a{color:inherit;text-decoration:none;}
       <p>Sin costos escondidos. Mes a mes, sin contratos. Resultado o te devolvemos el setup.</p>
     </div>
 
-    <div class="pricing-pioneers animate" style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:20px;flex-wrap:wrap;">
-      <img src="Logo completo Sushi Service Negro.png" alt="Sushi Service" loading="lazy" style="height:30px;max-width:100px;object-fit:contain;opacity:.75;">
-      <img src="IMG-20260521-WA0025.jpg" alt="Sushi Fun and Wok" loading="lazy" style="height:30px;width:30px;object-fit:cover;border-radius:50%;opacity:.75;">
-      <span style="font-size:13px;color:var(--ink);opacity:.6;letter-spacing:.02em;">Pioneros activos · Quedan 3 cupos en el programa</span>
+    <div class="pricing-pioneers animate" style="display:flex;flex-direction:column;align-items:center;gap:18px;margin:0 auto 36px;max-width:600px;">
+      <span style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--ink);opacity:.55;">Pioneros activos</span>
+      <div style="display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap;padding:24px 36px;border:1px solid rgba(0,0,0,.1);border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(0,0,0,.02));box-shadow:0 4px 24px rgba(0,0,0,.04);">
+        <img src="Logo completo Sushi Service Negro.png" alt="Sushi Service" loading="lazy" style="height:64px;max-width:180px;object-fit:contain;">
+        <div style="width:1px;height:48px;background:rgba(0,0,0,.12);"></div>
+        <img src="IMG-20260521-WA0025.jpg" alt="Sushi Fun and Wok" loading="lazy" style="height:72px;width:72px;object-fit:cover;border-radius:50%;box-shadow:0 2px 12px rgba(0,0,0,.15);">
+      </div>
+      <span style="font-size:14px;color:var(--ink);opacity:.7;text-align:center;">
+        <strong style="color:var(--ember);opacity:1;">Quedan 3 cupos</strong> en el programa de pioneros
+      </span>
     </div>
 
     <div class="pricing-card animate">
@@ -1315,6 +1329,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 </section>
 
+</main>
+
 <footer class="footer">
   <div class="page">
     <p>© 2026 Constelarys · Sistema de Fidelización para restaurantes</p>
@@ -1387,7 +1403,7 @@ document.querySelectorAll('.animate:not(.visible)').forEach(el=>observer.observe
 window.addEventListener('load', function(){
   var v = document.getElementById('heroVideo');
   if(!v) return;
-  v.src = 'Funcionamiento sistema.mp4';
+  v.src = 'funcionamiento.mp4';
   v.play().catch(function(){});
 }, {once:true});
 
