@@ -7,7 +7,8 @@
 <meta name="description" content="Sistema de fidelización para restaurantes en Colombia. QR en la mesa, WhatsApp automático, cero apps. Sushi Service fidelizó +70 clientes en 5 días."/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 
 <!-- Meta Pixel Code -->
 <script>
@@ -812,7 +813,7 @@ a{color:inherit;text-decoration:none;}
 
       <div class="hero-visual animate visible d2">
         <div class="video-wrap">
-          <video src="Funcionamiento sistema.mp4" autoplay muted loop playsinline></video>
+          <video id="heroVideo" muted loop playsinline preload="none"></video>
         </div>
       </div>
     </div>
@@ -929,7 +930,7 @@ a{color:inherit;text-decoration:none;}
   <div class="page">
     <div class="proof-card animate">
       <div class="proof-photo">
-        <img src="Sushi Service - Agosto 2022 - Full Resolución-25.jpg" alt="Jose Moreno, dueño de Sushi Service" style="width:100%;height:100%;object-fit:cover;">
+        <img src="Sushi Service - Agosto 2022 - Full Resolución-25.jpg" alt="Jose Moreno, dueño de Sushi Service" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;">
       </div>
       <div class="proof-content">
         <div class="eyebrow">Caso real · Sushi Service</div>
@@ -1359,6 +1360,14 @@ const observer = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});
 },{threshold:0.15});
 document.querySelectorAll('.animate:not(.visible)').forEach(el=>observer.observe(el));
+
+// ── Video hero — carga diferida para no penalizar LCP/FCP ──
+window.addEventListener('load', function(){
+  var v = document.getElementById('heroVideo');
+  if(!v) return;
+  v.src = 'Funcionamiento sistema.mp4';
+  v.play().catch(function(){});
+}, {once:true});
 
 // ── Meta Pixel — Schedule + Lead en todos los botones de demo ──
 document.querySelectorAll('a[href*="wa.me"]').forEach(a=>{
