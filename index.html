@@ -1428,12 +1428,12 @@ window.addEventListener('load', function(){
   v.play().catch(function(){});
 }, {once:true});
 
-// ── Meta Pixel — Schedule + Lead en todos los botones de demo ──
+// ── Meta Pixel — Lead (Cliente potencial) en clic de demo ──
+// Único evento de conversión. No incluye valor: el lead aún no es venta.
+// Cuando se integre Calendly o se cierre venta, server-side disparará Schedule/Purchase.
 document.querySelectorAll('a[href*="wa.me"]').forEach(a=>{
   a.addEventListener('click',()=>{
-    if(typeof fbq!=='function') return;
-    fbq('track','Schedule');
-    fbq('track','Lead');
+    if(typeof fbq==='function') fbq('track','Lead');
   });
 });
 
