@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sistema Visual — Sistema de Fidelización by Constelarys</title>
+<title>Sistema Visual — Cada1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -158,9 +158,9 @@ a{ color:inherit; }
    ============================================================ */
 .hero{ padding:120px 0 96px; position:relative; overflow:hidden; }
 .hero-grid{
-  display:grid; grid-template-columns:1fr; gap:48px; align-items:end;
-  max-width:860px;
+  display:grid; grid-template-columns:1.15fr .85fr; gap:80px; align-items:end;
 }
+@media (max-width:1000px){ .hero-grid{ grid-template-columns:1fr; gap:48px; } }
 
 .hero h1{
   font-family:'Instrument Serif', serif; font-weight:400;
@@ -800,8 +800,8 @@ a{ color:inherit; }
         <path d="M12 3.5 L7 9 M12 3.5 L17 9 M7 9 L7 17 M17 9 L17 17 M7 17 L17 17"/>
       </svg>
       <div>
-        <div class="name">Fidelización</div>
-        <div class="by">by Constelarys</div>
+        <div class="name">Cada<span style="font-family:'Geist',sans-serif;font-style:normal;font-weight:700;color:var(--ember);">1</span></div>
+        <div class="by">by Cada1</div>
       </div>
     </div>
     <div class="nav-toc">
@@ -812,6 +812,9 @@ a{ color:inherit; }
       <a href="#iconografia">Iconografía</a>
       <a href="#componentes">Componentes</a>
       <a href="#patrones">Patrones</a>
+      <a href="#historia">Historia</a>
+      <a href="#gamificacion">Gamificación</a>
+      <a href="#campanas">Campañas</a>
     </div>
     <div class="nav-version">v1.0 · 2026</div>
   </div>
@@ -826,10 +829,9 @@ a{ color:inherit; }
       <div>
         <div class="eyebrow">Sistema Visual · 001</div>
         <h1>
-          Sistema<br>
-          <span class="it">de</span> Fidelización<span class="amp">.</span>
+          Cada<span style="font-family:'Geist',sans-serif;font-style:normal;font-weight:700;color:var(--ember);letter-spacing:-.02em;">1</span><span class="amp">.</span>
         </h1>
-        <div class="hero-sig">by Constelarys</div>
+        <div class="hero-sig">by Cada1</div>
 
         <dl class="hero-meta">
           <div>
@@ -842,12 +844,53 @@ a{ color:inherit; }
           </div>
           <div>
             <dt>Familia</dt>
-            <dd>Sub-marca de Constelarys. Lenguaje propio: cálido, terrestre, hospitalario.</dd>
+            <dd>Marca independiente. Lenguaje propio: cálido, terrestre, hospitalario.</dd>
           </div>
         </dl>
       </div>
 
-
+      <div class="hero-right">
+        <div class="label-tl">Cada1 · Símbolo</div>
+        <div class="label-br">Vega · Restaurante<br>Órbita de fidelidad</div>
+        <div class="crosshair"></div>
+        <svg class="lyra-big" viewBox="0 0 400 460" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <defs>
+            <radialGradient id="vegaHeroGlow" cx=".5" cy=".5" r=".5">
+              <stop offset="0" stop-color="var(--polaris)" stop-opacity=".9"/>
+              <stop offset="1" stop-color="var(--polaris)" stop-opacity="0"/>
+            </radialGradient>
+            <pattern id="dotgridHero" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r=".7" fill="var(--rule)"/>
+            </pattern>
+          </defs>
+          <rect width="400" height="460" fill="url(#dotgridHero)"/>
+          <!-- Background stars -->
+          <g fill="var(--ink)" opacity=".1">
+            <circle cx="55" cy="48" r="1.4"/><circle cx="352" cy="72" r="1.2"/>
+            <circle cx="38" cy="218" r="1.1"/><circle cx="372" cy="196" r="1.3"/>
+            <circle cx="76" cy="395" r="1.2"/><circle cx="335" cy="412" r="1"/>
+            <circle cx="362" cy="305" r="1.5"/><circle cx="42" cy="330" r="1"/>
+            <circle cx="318" cy="38" r="1"/><circle cx="88" cy="428" r="1.2"/>
+          </g>
+          <!-- Logo al 2.5×, centrado. Coords: screen = logo_coord × 2.5 + (50, 55) -->
+          <!-- Órbita: cx=200, cy=245, rx=110, ry=75 -->
+          <ellipse cx="200" cy="245" rx="110" ry="75" fill="none" stroke="var(--ember)" stroke-width="1.2" stroke-dasharray="3 5" opacity=".75"/>
+          <!-- Arco de retorno: (102,58)→(56,108) escalado -->
+          <path d="M 305 200 A 120 90 0 0 1 190 325" fill="none" stroke="var(--ember)" stroke-width="2.2" stroke-linecap="round"/>
+          <!-- Flecha de retorno -->
+          <path d="M 190 325 L 212 308 M 190 325 L 204 344" fill="none" stroke="var(--ember)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Vega glow + estrella -->
+          <circle cx="200" cy="245" r="40" fill="url(#vegaHeroGlow)"/>
+          <circle cx="200" cy="245" r="16" fill="var(--ember)"/>
+          <!-- Cruz de referencia -->
+          <path d="M200 210 L200 280 M165 245 L235 245" stroke="var(--ember)" stroke-width="1.6" stroke-linecap="round" opacity=".38"/>
+          <!-- 4 estrellas-cliente: (16,76)→(90,245) · (38,46)→(145,170) · (104,76)→(310,245) · (82,106)→(255,320) -->
+          <circle cx="90" cy="245" r="9" fill="var(--ink)"/>
+          <circle cx="145" cy="170" r="6.5" fill="var(--ink)" opacity=".7"/>
+          <circle cx="310" cy="245" r="7" fill="var(--ink)" opacity=".55"/>
+          <circle cx="255" cy="320" r="8" fill="var(--ink)"/>
+        </svg>
+      </div>
     </div>
   </div>
 </section>
@@ -920,8 +963,8 @@ a{ color:inherit; }
             <circle cx="82" cy="108" r="2.8" fill="var(--ink)"/>
             <circle cx="60" cy="130" r="2.4" fill="var(--ink)"/>
           </svg>
-          <div class="name">Sistema<br>de Fidelización</div>
-          <div class="by">by Constelarys</div>
+          <div class="name">Cada<span style="font-family:'Geist',sans-serif;font-style:normal;font-weight:700;color:var(--ember);">1</span></div>
+          <div class="by">by Cada1</div>
         </div>
       </div>
 
@@ -945,8 +988,8 @@ a{ color:inherit; }
               <circle cx="60" cy="130" r="2.2" fill="var(--ink)"/>
             </svg>
             <div class="text">
-              <div class="name">Sistema de Fidelización</div>
-              <div class="by">by Constelarys</div>
+              <div class="name">Cada<span style="font-family:'Geist',sans-serif;font-style:normal;font-weight:700;color:var(--ember);">1</span></div>
+              <div class="by">by Cada1</div>
             </div>
           </div>
         </div>
@@ -969,8 +1012,8 @@ a{ color:inherit; }
               <circle cx="60" cy="130" r="2.2" fill="#F4ECDC"/>
             </svg>
             <div class="text">
-              <div class="name">Sistema de Fidelización</div>
-              <div class="by">by Constelarys</div>
+              <div class="name">Cada<span style="font-family:'Geist',sans-serif;font-style:normal;font-weight:700;color:var(--ember);">1</span></div>
+              <div class="by">by Cada1</div>
             </div>
           </div>
         </div>
@@ -993,8 +1036,8 @@ a{ color:inherit; }
               <circle cx="60" cy="130" r="2.2" fill="#F4ECDC"/>
             </svg>
             <div class="text">
-              <div class="name">Sistema de Fidelización</div>
-              <div class="by">by Constelarys</div>
+              <div class="name">Cada<span style="font-family:'Geist',sans-serif;font-style:normal;font-weight:700;color:var(--paper);">1</span></div>
+              <div class="by">by Cada1</div>
             </div>
           </div>
         </div>
@@ -1089,72 +1132,81 @@ a{ color:inherit; }
     <!-- CONSTRUCTION + CLEAR SPACE -->
     <div class="construction">
       <div class="panel">
-        <h4>Construcción · proporción</h4>
+        <h4>Anatomía del símbolo</h4>
         <svg viewBox="0 0 320 240" style="width:100%; height:auto; display:block;">
           <defs>
-            <pattern id="grid8" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+            <pattern id="grid8ca" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
               <path d="M20 0H0v20" fill="none" stroke="var(--rule)" stroke-width=".5"/>
             </pattern>
           </defs>
-          <rect width="320" height="240" fill="url(#grid8)"/>
-
-          <!-- Glyph -->
-          <g transform="translate(110 30)">
-            <g stroke="var(--ember)" stroke-width=".7" fill="none" stroke-dasharray="2 3" opacity=".85">
-              <line x1="50" y1="20" x2="20" y2="50"/><line x1="50" y1="20" x2="80" y2="50"/>
-              <line x1="20" y1="50" x2="80" y2="50"/><line x1="20" y1="50" x2="28" y2="100"/>
-              <line x1="80" y1="50" x2="72" y2="100"/><line x1="28" y1="100" x2="72" y2="100"/>
-              <line x1="28" y1="100" x2="50" y2="120"/><line x1="72" y1="100" x2="50" y2="120"/>
-            </g>
-            <circle cx="50" cy="20" r="9" fill="var(--ember)" opacity=".2"/>
-            <circle cx="50" cy="20" r="4.5" fill="var(--ember)"/>
-            <circle cx="20" cy="50" r="3" fill="var(--ink)"/>
-            <circle cx="80" cy="50" r="3" fill="var(--ink)"/>
-            <circle cx="28" cy="100" r="2.6" fill="var(--ink)"/>
-            <circle cx="72" cy="100" r="2.6" fill="var(--ink)"/>
-            <circle cx="50" cy="120" r="2.4" fill="var(--ink)"/>
+          <rect width="320" height="240" fill="url(#grid8ca)"/>
+          <!-- Logo al 1.2×: screen = logo × 1.2 + (100, 24) -->
+          <!-- Órbita: cx=172, cy=115, rx=52.8, ry=36 -->
+          <ellipse cx="172" cy="115" rx="52.8" ry="36" fill="none" stroke="var(--ember)" stroke-width=".8" stroke-dasharray="2 3" opacity=".75"/>
+          <!-- Arco de retorno -->
+          <path d="M 222 94 A 57.6 43.2 0 0 1 167 144" fill="none" stroke="var(--ember)" stroke-width="1.1" stroke-linecap="round"/>
+          <path d="M 167 144 L 178 137 M 167 144 L 174 154" fill="none" stroke="var(--ember)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Vega -->
+          <circle cx="172" cy="115" r="15.6" fill="var(--ember)" opacity=".15"/>
+          <circle cx="172" cy="115" r="7.7" fill="var(--ember)"/>
+          <path d="M172 98 L172 132 M155 115 L189 115" stroke="var(--ember)" stroke-width=".9" stroke-linecap="round" opacity=".35"/>
+          <!-- Clientes -->
+          <circle cx="119" cy="115" r="4.3" fill="var(--ink)"/>
+          <circle cx="146" cy="79" r="3.1" fill="var(--ink)" opacity=".7"/>
+          <circle cx="225" cy="115" r="3.4" fill="var(--ink)" opacity=".55"/>
+          <circle cx="199" cy="151" r="3.8" fill="var(--ink)"/>
+          <!-- Líneas de anotación -->
+          <g stroke="var(--ember)" stroke-width=".5" opacity=".5">
+            <line x1="178" y1="109" x2="236" y2="80"/>
+            <line x1="210" y1="104" x2="258" y2="50"/>
+            <line x1="121" y1="112" x2="68" y2="128"/>
+            <line x1="199" y1="155" x2="238" y2="190"/>
           </g>
-
-          <!-- Annotations -->
-          <g font-family="Geist Mono, monospace" font-size="9" fill="var(--ink-mute)" letter-spacing="1">
-            <line x1="40" y1="50" x2="100" y2="50" stroke="var(--ember)" stroke-width=".7"/>
-            <text x="50" y="44">x</text>
-            <line x1="160" y1="50" x2="160" y2="170" stroke="var(--ember)" stroke-width=".7"/>
-            <text x="166" y="115">2.4x</text>
-            <text x="20" y="220">Vega = 4.5 unidades · Estrellas secundarias = 3.0 · Conexión = 0.7px</text>
+          <g font-family="Geist Mono, monospace" font-size="8" fill="var(--ink-mute)" letter-spacing="1">
+            <text x="237" y="78">VEGA · EL RESTAURANTE</text>
+            <text x="259" y="48">EL REGRESO · cliente que vuelve</text>
+            <text x="6" y="131">ÓRBITA · fidelidad</text>
+            <text x="239" y="193">CLIENTE · FIEL</text>
           </g>
         </svg>
       </div>
       <div class="panel">
-        <h4>Espacio libre · clear space</h4>
+        <h4>Proporciones · clear space</h4>
         <svg viewBox="0 0 320 240" style="width:100%; height:auto; display:block;">
-          <!-- exclusion zone -->
-          <rect x="40" y="20" width="240" height="200" fill="none" stroke="var(--ember)" stroke-width=".7" stroke-dasharray="3 3"/>
-          <rect x="80" y="55" width="160" height="130" fill="none" stroke="var(--ink)" stroke-width=".7" stroke-dasharray="2 2" opacity=".4"/>
-          <g transform="translate(120 75)">
-            <g stroke="var(--ember)" stroke-width=".7" fill="none" stroke-dasharray="2 3" opacity=".85">
-              <line x1="40" y1="15" x2="15" y2="40"/><line x1="40" y1="15" x2="65" y2="40"/>
-              <line x1="15" y1="40" x2="65" y2="40"/><line x1="15" y1="40" x2="22" y2="80"/>
-              <line x1="65" y1="40" x2="58" y2="80"/><line x1="22" y1="80" x2="58" y2="80"/>
-              <line x1="22" y1="80" x2="40" y2="95"/><line x1="58" y1="80" x2="40" y2="95"/>
-            </g>
-            <circle cx="40" cy="15" r="7" fill="var(--ember)" opacity=".2"/>
-            <circle cx="40" cy="15" r="3.5" fill="var(--ember)"/>
-            <circle cx="15" cy="40" r="2.4" fill="var(--ink)"/>
-            <circle cx="65" cy="40" r="2.4" fill="var(--ink)"/>
-            <circle cx="22" cy="80" r="2" fill="var(--ink)"/>
-            <circle cx="58" cy="80" r="2" fill="var(--ink)"/>
-            <circle cx="40" cy="95" r="2" fill="var(--ink)"/>
-          </g>
-          <g font-family="Geist Mono, monospace" font-size="9" fill="var(--ink-mute)" letter-spacing="1">
-            <text x="46" y="34">x = ancho de Vega · espacio mínimo en todos los lados</text>
-            <text x="46" y="216">Tamaño mínimo glyph: 24px · web · 16mm impreso</text>
-          </g>
+          <defs>
+            <pattern id="grid8cp" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M20 0H0v20" fill="none" stroke="var(--rule)" stroke-width=".5"/>
+            </pattern>
+          </defs>
+          <rect width="320" height="240" fill="url(#grid8cp)"/>
+          <!-- Zona de exclusión (espacio libre) -->
+          <rect x="26" y="12" width="268" height="204" fill="none" stroke="var(--ember)" stroke-width=".7" stroke-dasharray="3 3"/>
+          <rect x="50" y="36" width="220" height="156" fill="none" stroke="var(--ink)" stroke-width=".7" stroke-dasharray="2 2" opacity=".28"/>
+          <!-- Logo (mismas coords) -->
+          <ellipse cx="172" cy="115" rx="52.8" ry="36" fill="none" stroke="var(--ember)" stroke-width=".8" stroke-dasharray="2 3" opacity=".75"/>
+          <path d="M 222 94 A 57.6 43.2 0 0 1 167 144" fill="none" stroke="var(--ember)" stroke-width="1.1" stroke-linecap="round"/>
+          <path d="M 167 144 L 178 137 M 167 144 L 174 154" fill="none" stroke="var(--ember)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="172" cy="115" r="15.6" fill="var(--ember)" opacity=".15"/>
+          <circle cx="172" cy="115" r="7.7" fill="var(--ember)"/>
+          <path d="M172 98 L172 132 M155 115 L189 115" stroke="var(--ember)" stroke-width=".9" stroke-linecap="round" opacity=".35"/>
+          <circle cx="119" cy="115" r="4.3" fill="var(--ink)"/>
+          <circle cx="146" cy="79" r="3.1" fill="var(--ink)" opacity=".7"/>
+          <circle cx="225" cy="115" r="3.4" fill="var(--ink)" opacity=".55"/>
+          <circle cx="199" cy="151" r="3.8" fill="var(--ink)"/>
+          <!-- Cota: Ø Vega = x -->
+          <line x1="164.3" y1="106" x2="179.7" y2="106" stroke="var(--ember)" stroke-width=".7"/>
+          <text x="183" y="106" font-family="Geist Mono, monospace" font-size="8" fill="var(--ink-mute)" letter-spacing="1">x = Ø Vega</text>
+          <!-- Cota: ancho órbita = 7x -->
+          <line x1="119" y1="168" x2="225" y2="168" stroke="var(--ember)" stroke-width=".7"/>
+          <line x1="119" y1="165" x2="119" y2="171" stroke="var(--ember)" stroke-width=".7"/>
+          <line x1="225" y1="165" x2="225" y2="171" stroke="var(--ember)" stroke-width=".7"/>
+          <text x="147" y="181" font-family="Geist Mono, monospace" font-size="8" fill="var(--ink-mute)" letter-spacing="1">7x · ancho de órbita</text>
+          <!-- Nota pie -->
+          <text x="26" y="228" font-family="Geist Mono, monospace" font-size="7.5" fill="var(--ink-mute)" letter-spacing="1">Mín: 24px web · 12mm impreso · espacio libre = x en todos los lados</text>
         </svg>
       </div>
     </div>
 
-    <!-- DO / DONT -->
     <div class="usage">
       <div class="ucard">
         <span class="mark ok">✓ Correcto</span>
@@ -2214,6 +2266,516 @@ a{ color:inherit; }
   </div>
 </section>
 
+
+<!-- ============================================================
+     HISTORIA
+     ============================================================ -->
+<section class="section" id="historia" data-screen-label="Historia">
+  <div class="page">
+    <div class="section-tag">08 · Historia</div>
+    <h2 class="section-title">Nació de una sola <em>luz encendida</em>.</h2>
+    <p class="section-lede">No en Silicon Valley. En una esquina de restaurante, a medianoche, con los ojos pesados y el celular en la mano.</p>
+
+    <blockquote style="margin:64px 0;font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(26px,4vw,54px);line-height:1.05;letter-spacing:-.025em;color:var(--ink);text-wrap:balance;max-width:22ch;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:48px 0;">
+      "Él sabía que detrás de cada factura, de cada bolsa de domicilio, había una <em style="color:var(--ember);">persona</em>."
+    </blockquote>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;">
+      <div style="display:flex;flex-direction:column;gap:22px;">
+        <p style="font-size:17px;line-height:1.75;color:var(--ink-soft);margin:0;">Las persianas de Sushi Service ya estaban abajo. Las luces de la cocina apagadas, el ruido de los platos había cesado y las sillas descansaban sobre las mesas. El día de trabajo había terminado para todos, menos para una persona.</p>
+        <p style="font-size:17px;line-height:1.75;color:var(--ink-soft);margin:0;">En una esquina del local, solo quedaba una luz encendida: el brillo de la pantalla de un celular en las manos de un hombre cansado.</p>
+        <p style="font-size:17px;line-height:1.75;color:var(--ink-soft);margin:0;">Para él, sobrevivir 10 años en el negocio de los restaurantes nunca se trató de despachar pedidos. Él sabía que detrás de cada factura, de cada bolsa de domicilio, había una persona. Así que, con los ojos pesados por el agotamiento, empezaba su segundo turno.</p>
+        <p style="font-size:17px;line-height:1.75;color:var(--ink-soft);margin:0;">Abría WhatsApp y comenzaba el ritual. Agregaba un número, le inventaba un pequeño "apellido" o una etiqueta para recordar de qué ciudad venía o qué le gustaba pedir. Guardaba el contacto. Escribía un mensaje agradeciendo la visita. Pedía, con mucha humildad, una reseña en Google.</p>
+        <p style="font-size:20px;line-height:1.4;color:var(--ink);font-family:'Instrument Serif',serif;font-style:italic;margin:0;padding-top:18px;border-top:1px solid var(--rule);">Uno por uno. A cada uno.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:22px;">
+        <p style="font-size:17px;line-height:1.75;color:var(--ink-soft);margin:0;">Las agencias de marketing de hoy hablan de "tráfico", "usuarios" y "tasas de conversión". Ven a los clientes como números en una hoja de cálculo. Pero ese hombre sabía algo que la tecnología fría olvidó: la diferencia entre un negocio que quiebra y uno que se vuelve parte de la vida de un barrio, es hacer que el cliente sienta que te importa. Que lo reconoces.</p>
+        <p style="font-size:17px;line-height:1.75;color:var(--ink-soft);margin:0;">Hacer eso a mano cuesta horas de sueño. Cuesta vida.</p>
+        <div style="border-top:1px solid var(--rule);padding-top:22px;display:flex;flex-direction:column;gap:14px;">
+          <div style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);">— Por qué existe Cada1</div>
+          <p style="font-size:17px;line-height:1.75;color:var(--ink-soft);margin:0;">Cada1 no nació en una oficina de Silicon Valley tratando de exprimir el mercado gastronómico. Nació viendo a ese hombre luchar contra el cansancio para no perder la conexión con su gente.</p>
+          <p style="font-size:17px;line-height:1.75;color:var(--ink-soft);margin:0;">Construimos una herramienta que guarda, etiqueta, saluda y premia automáticamente, para que ningún dueño de restaurante tenga que sacrificar sus noches, pero que ningún cliente deje de sentirse especial.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:64px;background:var(--ink);border-radius:2px;padding:64px;position:relative;overflow:hidden;">
+      <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;" viewBox="0 0 900 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g fill="var(--polaris)" opacity=".3">
+          <circle cx="60" cy="60" r="1.2"/><circle cx="180" cy="30" r=".8"/><circle cx="320" cy="70" r="1.1"/>
+          <circle cx="480" cy="25" r="1.5"/><circle cx="640" cy="70" r=".9"/><circle cx="780" cy="40" r="1.1"/>
+          <circle cx="860" cy="90" r=".8"/><circle cx="120" cy="180" r="1"/><circle cx="260" cy="220" r=".9"/>
+          <circle cx="420" cy="195" r="1.3"/><circle cx="580" cy="230" r="1"/><circle cx="730" cy="195" r=".9"/>
+        </g>
+        <g stroke="var(--ember)" stroke-width=".6" fill="none" stroke-dasharray="2 4" opacity=".45">
+          <path d="M180 30 L320 70 L480 25 L640 70 L780 40"/>
+          <path d="M260 220 L420 195 L580 230 L730 195"/>
+        </g>
+      </svg>
+      <div style="position:relative;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;">
+        <div>
+          <div style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--polaris);margin-bottom:20px;">— La promesa</div>
+          <p style="font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(24px,3.5vw,44px);line-height:1.05;color:var(--paper);text-wrap:balance;margin:0;">La tecnología no debe reemplazar el calor humano; debe <em style="color:var(--polaris);">escalarlo</em>.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <p style="font-size:16px;line-height:1.7;color:rgba(244,236,220,.72);margin:0;">No le vendemos a masas. No atendemos a "usuarios". Hacemos que tu restaurante vuelva a conectar con las personas.</p>
+          <p style="font-family:'Instrument Serif',serif;font-style:italic;font-size:26px;color:var(--paper);margin:0;">Conecta con Cada<span style="font-family:'Geist',sans-serif;font-style:normal;font-weight:700;color:var(--polaris);">1</span>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LOGO ALTERNATIVO: CADAUNO
+     ============================================================ -->
+<section class="section" id="logo-cadauno" data-screen-label="Alternativa Cadauno">
+  <div class="page">
+    <div class="section-tag">09 · Referencia alternativa</div>
+    <h2 class="section-title">El logo si el nombre fuera <em>Cadauno</em>.</h2>
+    <p class="section-lede">Misma arquitectura de marca, mismo glifo Lyra. Sin el juego tipográfico del "1" — pero también sin la posible ambigüedad de la <code style="font-family:'Geist Mono',monospace;font-size:14px;background:var(--paper-2);padding:2px 7px;border-radius:2px;">l</code> minúscula en serifa. Para referencia y archivo.</p>
+
+    <div class="logo-hero">
+      <div class="logo-card">
+        <div class="corner tl">Alternativa · Cadauno · vertical</div>
+        <div class="corner tr">REF / 01</div>
+        <div class="corner bl">Solo para referencia — nombre elegido: Cada1</div>
+        <div class="corner br">ALT/01</div>
+        <div class="lockup-stack">
+          <svg class="glyph" viewBox="0 0 120 140" aria-hidden="true"></svg>
+          <div class="name" style="font-size:46px;">Cadauno</div>
+          <div class="by">by Cada1</div>
+        </div>
+      </div>
+
+      <div class="logo-side">
+        <div class="card">
+          <div class="corner">Alternativa · light · Cadauno</div>
+          <div class="lockup-horiz">
+            <svg class="glyph" viewBox="0 0 120 140"></svg>
+            <div class="text">
+              <div class="name">Cadauno</div>
+              <div class="by">by Cada1</div>
+            </div>
+          </div>
+        </div>
+        <div class="card dark">
+          <div class="corner">Alternativa · dark · Cadauno</div>
+          <div class="lockup-horiz">
+            <svg class="glyph" viewBox="0 0 120 140"></svg>
+            <div class="text">
+              <div class="name">Cadauno</div>
+              <div class="by">by Cada1</div>
+            </div>
+          </div>
+        </div>
+        <div class="card ember">
+          <div class="corner">Alternativa · ember · Cadauno</div>
+          <div class="lockup-horiz">
+            <svg class="glyph" viewBox="0 0 120 140"></svg>
+            <div class="text">
+              <div class="name">Cadauno</div>
+              <div class="by">by Cada1</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+      <div style="background:var(--paper);border:1px solid var(--rule);border-radius:2px;padding:28px;">
+        <div style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);margin-bottom:14px;">✓ Ventajas de Cadauno</div>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;">
+          <li style="font-size:13.5px;color:var(--ink-soft);display:flex;gap:10px;align-items:flex-start;line-height:1.5;"><span style="color:var(--sage);flex:none;margin-top:4px;">●</span>Sin ambigüedad tipográfica en ningún contexto — fuente o texto plano.</li>
+          <li style="font-size:13.5px;color:var(--ink-soft);display:flex;gap:10px;align-items:flex-start;line-height:1.5;"><span style="color:var(--sage);flex:none;margin-top:4px;">●</span>Funciona igual en WhatsApp, facturas y documentos sin reglas adicionales.</li>
+          <li style="font-size:13.5px;color:var(--ink-soft);display:flex;gap:10px;align-items:flex-start;line-height:1.5;"><span style="color:var(--sage);flex:none;margin-top:4px;">●</span>Elegante en serif completo: una sola familia tipográfica, sin tensión.</li>
+        </ul>
+      </div>
+      <div style="background:var(--paper);border:1px solid var(--rule);border-radius:2px;padding:28px;">
+        <div style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ember);margin-bottom:14px;">— Por qué se eligió Cada1</div>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;">
+          <li style="font-size:13.5px;color:var(--ink-soft);display:flex;gap:10px;align-items:flex-start;line-height:1.5;"><span style="color:var(--ember);flex:none;margin-top:4px;">●</span>El "1" activa tres significados: cada uno, el número uno, el primero en tu lista.</li>
+          <li style="font-size:13.5px;color:var(--ink-soft);display:flex;gap:10px;align-items:flex-start;line-height:1.5;"><span style="color:var(--ember);flex:none;margin-top:4px;">●</span>Punto focal en logo: el "1" en Geist bold es un acento visual propio e inconfundible.</li>
+          <li style="font-size:13.5px;color:var(--ink-soft);display:flex;gap:10px;align-items:flex-start;line-height:1.5;"><span style="color:var(--ember);flex:none;margin-top:4px;">●</span>URL y app icon más cortos. Tagline natural: "Cada1 importa. Cada1 regresa."</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     GAMIFICACIÓN
+     ============================================================ -->
+<section class="section" id="gamificacion" data-screen-label="Gamificación">
+  <div class="page">
+    <div class="section-tag">10 · Gamificación</div>
+    <h2 class="section-title">Cada visita es <em>un nivel más</em>.</h2>
+    <p class="section-lede">El sistema de puntos convierte la fidelización en un juego. Cada cliente empieza con 50 pts al unirse al club privado. Cada visita suma 50+ pts. El cliente elige su recompensa al llegar al primer umbral. Cuatro niveles progresivos con mystery boxes y premios exclusivos.</p>
+
+    <!-- Gamification Card — Dark Theme (como la imagen) -->
+    <div style="margin-top:64px; display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start;">
+
+      <!-- Card principal gamificación -->
+      <div style="background:#14110D; border-radius:16px; padding:48px 40px; position:relative; overflow:hidden; min-height:580px;">
+        <!-- Star field background -->
+        <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;" viewBox="0 0 400 600" preserveAspectRatio="xMidYMid slice">
+          <g fill="#F1D67A" opacity=".3">
+            <circle cx="30" cy="45" r="1.2"/><circle cx="370" cy="80" r="1"/>
+            <circle cx="55" cy="180" r=".8"/><circle cx="350" cy="200" r="1.3"/>
+            <circle cx="80" cy="350" r="1"/><circle cx="320" cy="380" r=".8"/>
+            <circle cx="45" cy="500" r="1.1"/><circle cx="360" cy="520" r=".9"/>
+            <circle cx="200" cy="30" r=".7"/><circle cx="180" cy="560" r="1"/>
+          </g>
+        </svg>
+
+        <div style="position:relative; z-index:2;">
+          <!-- Logo Cada1 -->
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:40px;">
+            <span style="font-family:'Instrument Serif',serif; font-style:italic; font-size:32px; color:#F4ECDC;">Cada</span><span style="font-family:'Geist',sans-serif; font-weight:700; font-size:32px; color:#E25A2A;">1</span>
+            <span style="display:inline-flex; gap:4px; margin-left:8px;">
+              <span style="width:6px; height:6px; border-radius:999px; background:#E25A2A;"></span>
+              <span style="width:6px; height:6px; border-radius:999px; background:#F2C45A; opacity:.7;"></span>
+              <span style="width:6px; height:6px; border-radius:999px; background:#F4ECDC; opacity:.4;"></span>
+            </span>
+          </div>
+
+          <!-- Mensaje principal -->
+          <p style="font-family:'Instrument Serif',serif; font-style:italic; font-size:28px; line-height:1.15; color:#F4ECDC; text-wrap:balance; margin:0;">
+            Por ser parte de nuestro club privado empiezas con <span style="color:#E25A2A; font-family:'Geist',sans-serif; font-style:normal; font-weight:700;">50 pts</span>
+          </p>
+
+          <!-- Submensaje -->
+          <p style="font-family:'Instrument Serif',serif; font-style:italic; font-size:22px; line-height:1.2; color:#C9B89A; margin:28px 0 0;">
+            Y a los 150 puntos eliges tu primera recompensa
+          </p>
+
+          <!-- Progress bar -->
+          <div style="margin-top:32px;">
+            <p style="font-family:'Geist',sans-serif; font-size:28px; font-weight:700; color:#F4ECDC; margin:0 0 12px;">35 %</p>
+            <div style="background:rgba(244,236,220,.12); border-radius:999px; height:12px; width:100%; overflow:hidden;">
+              <div style="background:linear-gradient(90deg, #E25A2A, #C9461F); height:100%; width:35%; border-radius:999px; transition:width .5s ease;"></div>
+            </div>
+          </div>
+
+          <!-- Tier system -->
+          <div style="margin-top:48px; position:relative;">
+            <!-- Line -->
+            <div style="position:absolute; top:50%; left:0; right:0; height:2px; background:rgba(244,236,220,.15); transform:translateY(-50%);"></div>
+
+            <!-- Tiers -->
+            <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:0; position:relative;">
+              <!-- Plata -->
+              <div style="text-align:center;">
+                <div style="font-family:'Geist Mono',monospace; font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:#C9B89A; margin-bottom:8px;">Bebida o mystery box</div>
+                <div style="width:14px; height:14px; border-radius:999px; background:#C9B89A; margin:0 auto;"></div>
+                <div style="font-family:'Geist',sans-serif; font-weight:600; font-size:13px; color:#F4ECDC; margin-top:8px;">Plata</div>
+                <div style="font-family:'Geist Mono',monospace; font-size:11px; color:#8B7E68;">150 pts</div>
+              </div>
+              <!-- Oro -->
+              <div style="text-align:center;">
+                <div style="font-family:'Geist Mono',monospace; font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:#C9B89A; margin-bottom:8px;">Postre o mystery box</div>
+                <div style="width:14px; height:14px; border-radius:999px; background:#F2C45A; margin:0 auto;"></div>
+                <div style="font-family:'Geist',sans-serif; font-weight:600; font-size:13px; color:#F4ECDC; margin-top:8px;">Oro</div>
+                <div style="font-family:'Geist Mono',monospace; font-size:11px; color:#8B7E68;">300 pts</div>
+              </div>
+              <!-- Diamante -->
+              <div style="text-align:center;">
+                <div style="font-family:'Geist Mono',monospace; font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:#C9B89A; margin-bottom:8px;">Entrada exclusiva o mystery box</div>
+                <div style="width:14px; height:14px; border-radius:999px; background:#59B585; margin:0 auto;"></div>
+                <div style="font-family:'Geist',sans-serif; font-weight:600; font-size:13px; color:#F4ECDC; margin-top:8px;">Diamante</div>
+                <div style="font-family:'Geist Mono',monospace; font-size:11px; color:#8B7E68;">450 pts</div>
+              </div>
+              <!-- Black -->
+              <div style="text-align:center;">
+                <div style="font-family:'Geist Mono',monospace; font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:#C9B89A; margin-bottom:8px;">&nbsp;</div>
+                <div style="width:14px; height:14px; border-radius:999px; background:#F4ECDC; margin:0 auto; position:relative;">
+                  <svg viewBox="0 0 16 16" style="position:absolute; top:-14px; left:50%; transform:translateX(-50%); width:16px; height:16px;" fill="#F2C45A"><path d="M8 1L10 5L14 5.5L11 8.5L12 12.5L8 10.5L4 12.5L5 8.5L2 5.5L6 5L8 1Z"/></svg>
+                </div>
+                <div style="font-family:'Geist',sans-serif; font-weight:600; font-size:13px; color:#F4ECDC; margin-top:8px;">Black</div>
+                <div style="font-family:'Geist Mono',monospace; font-size:11px; color:#8B7E68;">1000+ pts</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cada visita -->
+          <div style="margin-top:48px; text-align:center; padding-top:32px; border-top:1px solid rgba(244,236,220,.08);">
+            <p style="font-family:'Geist',sans-serif; font-weight:700; font-size:22px; color:#F4ECDC; margin:0;">
+              Cada visita = <span style="color:#E25A2A;">50+ pts</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reglas y specs de gamificación -->
+      <div style="display:flex; flex-direction:column; gap:18px;">
+        <div class="panel" style="background:var(--paper); border:1px solid var(--rule); border-radius:2px; padding:28px;">
+          <h4 style="font-family:'Geist Mono', monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-mute); margin:0 0 18px;">Mecánica de puntos</h4>
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; align-items:flex-start; gap:12px;">
+              <span style="font-family:'Geist Mono',monospace; font-size:11px; color:var(--ember); white-space:nowrap;">+50 PTS</span>
+              <span style="font-size:14px; color:var(--ink-soft); line-height:1.4;">Bienvenida al club — se otorgan al registrarse vía QR.</span>
+            </div>
+            <div style="display:flex; align-items:flex-start; gap:12px;">
+              <span style="font-family:'Geist Mono',monospace; font-size:11px; color:var(--ember); white-space:nowrap;">+50 PTS</span>
+              <span style="font-size:14px; color:var(--ink-soft); line-height:1.4;">Por cada visita registrada (check-in con QR).</span>
+            </div>
+            <div style="display:flex; align-items:flex-start; gap:12px;">
+              <span style="font-family:'Geist Mono',monospace; font-size:11px; color:var(--sage); white-space:nowrap;">+25 PTS</span>
+              <span style="font-size:14px; color:var(--ink-soft); line-height:1.4;">Bonus por referir a un amigo que se registre.</span>
+            </div>
+            <div style="display:flex; align-items:flex-start; gap:12px;">
+              <span style="font-family:'Geist Mono',monospace; font-size:11px; color:var(--honey); white-space:nowrap;">×2 PTS</span>
+              <span style="font-size:14px; color:var(--ink-soft); line-height:1.4;">Días dobles: el restaurante activa multiplicador en días clave.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" style="background:var(--paper); border:1px solid var(--rule); border-radius:2px; padding:28px;">
+          <h4 style="font-family:'Geist Mono', monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-mute); margin:0 0 18px;">Niveles y recompensas</h4>
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div style="display:grid; grid-template-columns:70px 60px 1fr; gap:10px; align-items:center; padding:10px 0; border-bottom:1px dashed var(--rule);">
+              <span class="badge" style="font-size:10px;">PLATA</span>
+              <span style="font-family:'Geist Mono',monospace; font-size:11px; color:var(--ink-mute);">150</span>
+              <span style="font-size:13px; color:var(--ink-soft);">Bebida gratis o mystery box</span>
+            </div>
+            <div style="display:grid; grid-template-columns:70px 60px 1fr; gap:10px; align-items:center; padding:10px 0; border-bottom:1px dashed var(--rule);">
+              <span class="badge honey" style="font-size:10px;">ORO</span>
+              <span style="font-family:'Geist Mono',monospace; font-size:11px; color:var(--ink-mute);">300</span>
+              <span style="font-size:13px; color:var(--ink-soft);">Postre de la casa o mystery box</span>
+            </div>
+            <div style="display:grid; grid-template-columns:70px 60px 1fr; gap:10px; align-items:center; padding:10px 0; border-bottom:1px dashed var(--rule);">
+              <span class="badge sage" style="font-size:10px;">DIAMANTE</span>
+              <span style="font-family:'Geist Mono',monospace; font-size:11px; color:var(--ink-mute);">450</span>
+              <span style="font-size:13px; color:var(--ink-soft);">Entrada exclusiva o mystery box</span>
+            </div>
+            <div style="display:grid; grid-template-columns:70px 60px 1fr; gap:10px; align-items:center; padding:10px 0;">
+              <span class="badge ink" style="font-size:10px;">BLACK</span>
+              <span style="font-family:'Geist Mono',monospace; font-size:11px; color:var(--ink-mute);">1000+</span>
+              <span style="font-size:13px; color:var(--ink-soft);">Experiencia VIP · recompensas a medida</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" style="background:var(--paper); border:1px solid var(--rule); border-radius:2px; padding:28px;">
+          <h4 style="font-family:'Geist Mono', monospace; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-mute); margin:0 0 18px;">Mystery Box</h4>
+          <p style="font-size:14px; color:var(--ink-soft); line-height:1.5; margin:0;">En cada nivel, el cliente puede elegir la recompensa estándar <strong>o</strong> arriesgarse con una mystery box — un premio aleatorio que puede ser mayor o una experiencia sorpresa. Esto crea dopamina, urgencia y comunidad (comparten sus premios).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CAMPAÑAS PERSONALIZADAS
+     ============================================================ -->
+<section class="section" id="campanas" data-screen-label="Campañas">
+  <div class="page">
+    <div class="section-tag">11 · Campañas personalizadas</div>
+    <h2 class="section-title">Un calendario. <em>Campañas que se ejecutan solas</em>.</h2>
+    <p class="section-lede">El restaurante crea un evento en el calendario y la campaña se dispara automáticamente por WhatsApp al segmento elegido. Cumpleaños, fechas especiales, reactivaciones, lanzamientos — todo programado, todo visual, sin tocar nada más.</p>
+
+    <!-- Calendar mockup -->
+    <div style="margin-top:64px; background:var(--paper); border:1px solid var(--rule); border-radius:2px; padding:40px; position:relative;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:28px;">
+        <div>
+          <span style="font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-mute);">Calendario de campañas</span>
+          <h3 style="font-family:'Instrument Serif',serif; font-style:italic; font-size:30px; margin:8px 0 0; color:var(--ink);">Junio 2026</h3>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-outline btn-sm">← Anterior</button>
+          <button class="btn btn-outline btn-sm">Siguiente →</button>
+        </div>
+      </div>
+
+      <!-- Calendar grid -->
+      <div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:0; border:1px solid var(--rule); border-radius:8px; overflow:hidden;">
+        <!-- Day headers -->
+        <div style="padding:12px; text-align:center; font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-mute); background:var(--paper-2); border-bottom:1px solid var(--rule);">Lun</div>
+        <div style="padding:12px; text-align:center; font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-mute); background:var(--paper-2); border-bottom:1px solid var(--rule);">Mar</div>
+        <div style="padding:12px; text-align:center; font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-mute); background:var(--paper-2); border-bottom:1px solid var(--rule);">Mié</div>
+        <div style="padding:12px; text-align:center; font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-mute); background:var(--paper-2); border-bottom:1px solid var(--rule);">Jue</div>
+        <div style="padding:12px; text-align:center; font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-mute); background:var(--paper-2); border-bottom:1px solid var(--rule);">Vie</div>
+        <div style="padding:12px; text-align:center; font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-mute); background:var(--paper-2); border-bottom:1px solid var(--rule);">Sáb</div>
+        <div style="padding:12px; text-align:center; font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-mute); background:var(--paper-2); border-bottom:1px solid var(--rule);">Dom</div>
+
+        <!-- Week 1 -->
+        <div style="padding:14px 10px; min-height:90px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);"><span style="font-size:13px; color:var(--ink);">1</span></div>
+        <div style="padding:14px 10px; min-height:90px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);"><span style="font-size:13px; color:var(--ink);">2</span></div>
+        <div style="padding:14px 10px; min-height:90px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);"><span style="font-size:13px; color:var(--ink);">3</span></div>
+        <div style="padding:14px 10px; min-height:90px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);">
+          <span style="font-size:13px; color:var(--ink);">4</span>
+          <div style="margin-top:6px; padding:4px 6px; background:color-mix(in oklab, var(--ember) 14%, transparent); border-radius:4px; border-left:3px solid var(--ember);">
+            <span style="font-family:'Geist Mono',monospace; font-size:9px; color:var(--ember); letter-spacing:.1em; text-transform:uppercase;">Cumpleaños · 8 clientes</span>
+          </div>
+        </div>
+        <div style="padding:14px 10px; min-height:90px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);"><span style="font-size:13px; color:var(--ink);">5</span></div>
+        <div style="padding:14px 10px; min-height:90px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);">
+          <span style="font-size:13px; color:var(--ink);">6</span>
+          <div style="margin-top:6px; padding:4px 6px; background:color-mix(in oklab, var(--honey) 18%, transparent); border-radius:4px; border-left:3px solid var(--honey);">
+            <span style="font-family:'Geist Mono',monospace; font-size:9px; color:var(--honey); letter-spacing:.1em; text-transform:uppercase;">×2 Pts · Sábado doble</span>
+          </div>
+        </div>
+        <div style="padding:14px 10px; min-height:90px; border-bottom:1px solid var(--rule);"><span style="font-size:13px; color:var(--ink);">7</span></div>
+
+        <!-- Week 2 -->
+        <div style="padding:14px 10px; min-height:90px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);"><span style="font-size:13px; color:var(--ink);">8</span></div>
+        <div style="padding:14px 10px; min-height:90px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);"><span style="font-size:13px; color:var(--ink);">9</span></div>
+        <div style="padding:14px 10px; min-height:90px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);">
+          <span style="font-size:13px; color:var(--ink);">10</span>
+          <div style="margin-top:6px; padding:4px 6px; background:color-mix(in oklab, var(--sage) 14%, transparent); border-radius:4px; border-left:3px solid var(--sage);">
+            <span style="font-family:'Geist Mono',monospace; font-size:9px; color:var(--sage); letter-spacing:.1em; text-transform:uppercase;">Reactivación · 45 inactivos</span>
+          </div>
+        </div>
+        <div style="padding:14px 10px; min-height:90px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);"><span style="font-size:13px; color:var(--ink);">11</span></div>
+        <div style="padding:14px 10px; min-height:90px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);"><span style="font-size:13px; color:var(--ink);">12</span></div>
+        <div style="padding:14px 10px; min-height:90px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);">
+          <span style="font-size:13px; color:var(--ink);">13</span>
+          <div style="margin-top:6px; padding:4px 6px; background:color-mix(in oklab, var(--honey) 18%, transparent); border-radius:4px; border-left:3px solid var(--honey);">
+            <span style="font-family:'Geist Mono',monospace; font-size:9px; color:var(--honey); letter-spacing:.1em; text-transform:uppercase;">×2 Pts · Sábado doble</span>
+          </div>
+        </div>
+        <div style="padding:14px 10px; min-height:90px; border-bottom:1px solid var(--rule);"><span style="font-size:13px; color:var(--ink);">14</span></div>
+
+        <!-- Week 3 -->
+        <div style="padding:14px 10px; min-height:90px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);">
+          <span style="font-size:13px; color:var(--ink);">15</span>
+          <div style="margin-top:6px; padding:4px 6px; background:color-mix(in oklab, var(--ink) 10%, transparent); border-radius:4px; border-left:3px solid var(--ink);">
+            <span style="font-family:'Geist Mono',monospace; font-size:9px; color:var(--ink); letter-spacing:.1em; text-transform:uppercase;">Lanzamiento nuevo menú</span>
+          </div>
+        </div>
+        <div style="padding:14px 10px; min-height:90px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);"><span style="font-size:13px; color:var(--ink);">16</span></div>
+        <div style="padding:14px 10px; min-height:90px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);"><span style="font-size:13px; color:var(--ink);">17</span></div>
+        <div style="padding:14px 10px; min-height:90px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);">
+          <span style="font-size:13px; color:var(--ink);">18</span>
+          <div style="margin-top:6px; padding:4px 6px; background:color-mix(in oklab, var(--ember) 14%, transparent); border-radius:4px; border-left:3px solid var(--ember);">
+            <span style="font-family:'Geist Mono',monospace; font-size:9px; color:var(--ember); letter-spacing:.1em; text-transform:uppercase;">Cumpleaños · 5 clientes</span>
+          </div>
+        </div>
+        <div style="padding:14px 10px; min-height:90px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);"><span style="font-size:13px; color:var(--ink);">19</span></div>
+        <div style="padding:14px 10px; min-height:90px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);"><span style="font-size:13px; color:var(--ink);">20</span></div>
+        <div style="padding:14px 10px; min-height:90px; border-bottom:1px solid var(--rule);"><span style="font-size:13px; color:var(--ink);">21</span></div>
+      </div>
+
+      <!-- Campaign type legend -->
+      <div style="margin-top:24px; display:flex; gap:18px; flex-wrap:wrap;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div style="width:12px; height:12px; border-radius:2px; background:var(--ember);"></div>
+          <span style="font-family:'Geist Mono',monospace; font-size:10px; color:var(--ink-mute); letter-spacing:.12em; text-transform:uppercase;">Cumpleaños</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div style="width:12px; height:12px; border-radius:2px; background:var(--sage);"></div>
+          <span style="font-family:'Geist Mono',monospace; font-size:10px; color:var(--ink-mute); letter-spacing:.12em; text-transform:uppercase;">Reactivación</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div style="width:12px; height:12px; border-radius:2px; background:var(--honey);"></div>
+          <span style="font-family:'Geist Mono',monospace; font-size:10px; color:var(--ink-mute); letter-spacing:.12em; text-transform:uppercase;">Puntos dobles</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div style="width:12px; height:12px; border-radius:2px; background:var(--ink);"></div>
+          <span style="font-family:'Geist Mono',monospace; font-size:10px; color:var(--ink-mute); letter-spacing:.12em; text-transform:uppercase;">Evento especial</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- How it works flow -->
+    <div style="margin-top:48px; display:grid; grid-template-columns:repeat(4, 1fr); gap:18px;">
+      <div class="panel" style="background:var(--paper); border:1px solid var(--rule); border-radius:2px; padding:24px; text-align:center;">
+        <div style="width:48px; height:48px; margin:0 auto 14px; background:color-mix(in oklab, var(--ember) 12%, transparent); border-radius:999px; display:flex; align-items:center; justify-content:center;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ember)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        </div>
+        <div style="font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.14em; color:var(--ember); text-transform:uppercase; margin-bottom:6px;">01</div>
+        <h4 style="font-family:'Instrument Serif',serif; font-style:italic; font-size:18px; margin:0 0 6px;">Crea el evento</h4>
+        <p style="font-size:13px; color:var(--ink-soft); line-height:1.4; margin:0;">Elige fecha, segmento y tipo de campaña en el calendario.</p>
+      </div>
+      <div class="panel" style="background:var(--paper); border:1px solid var(--rule); border-radius:2px; padding:24px; text-align:center;">
+        <div style="width:48px; height:48px; margin:0 auto 14px; background:color-mix(in oklab, var(--sage) 12%, transparent); border-radius:999px; display:flex; align-items:center; justify-content:center;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><circle cx="17" cy="7" r="2.5"/><path d="M16 14c3 0 6 2 6 5"/></svg>
+        </div>
+        <div style="font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.14em; color:var(--sage); text-transform:uppercase; margin-bottom:6px;">02</div>
+        <h4 style="font-family:'Instrument Serif',serif; font-style:italic; font-size:18px; margin:0 0 6px;">Segmenta</h4>
+        <p style="font-size:13px; color:var(--ink-soft); line-height:1.4; margin:0;">El sistema filtra automáticamente por nivel, actividad o cumpleaños.</p>
+      </div>
+      <div class="panel" style="background:var(--paper); border:1px solid var(--rule); border-radius:2px; padding:24px; text-align:center;">
+        <div style="width:48px; height:48px; margin:0 auto 14px; background:color-mix(in oklab, var(--honey) 12%, transparent); border-radius:999px; display:flex; align-items:center; justify-content:center;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--honey)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9 9 0 0 1 9 9 9 9 0 0 1-13 8L3 21l1-7"/></svg>
+        </div>
+        <div style="font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.14em; color:var(--honey); text-transform:uppercase; margin-bottom:6px;">03</div>
+        <h4 style="font-family:'Instrument Serif',serif; font-style:italic; font-size:18px; margin:0 0 6px;">Se envía solo</h4>
+        <p style="font-size:13px; color:var(--ink-soft); line-height:1.4; margin:0;">El día llega, la campaña se ejecuta vía WhatsApp. Sin intervención.</p>
+      </div>
+      <div class="panel" style="background:var(--paper); border:1px solid var(--rule); border-radius:2px; padding:24px; text-align:center;">
+        <div style="width:48px; height:48px; margin:0 auto 14px; background:color-mix(in oklab, var(--ink) 8%, transparent); border-radius:999px; display:flex; align-items:center; justify-content:center;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M6 16V9M11 16V5M16 16v-7M21 16v-3"/></svg>
+        </div>
+        <div style="font-family:'Geist Mono',monospace; font-size:10px; letter-spacing:.14em; color:var(--ink-mute); text-transform:uppercase; margin-bottom:6px;">04</div>
+        <h4 style="font-family:'Instrument Serif',serif; font-style:italic; font-size:18px; margin:0 0 6px;">Mide resultados</h4>
+        <p style="font-size:13px; color:var(--ink-soft); line-height:1.4; margin:0;">Regresos, canjes y engagement — todo medido por campaña.</p>
+      </div>
+    </div>
+
+    <!-- Campaign types -->
+    <div style="margin-top:48px;">
+      <h3 style="font-family:'Instrument Serif',serif; font-style:italic; font-size:28px; margin:0 0 24px;">Tipos de campaña disponibles</h3>
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;">
+        <div style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:22px;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+            <div style="width:32px; height:32px; border-radius:999px; background:var(--ember); display:flex; align-items:center; justify-content:center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="1.5"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><circle cx="12" cy="15" r="2" fill="#FFF" stroke="none"/></svg>
+            </div>
+            <span style="font-weight:600; font-size:15px;">Cumpleaños</span>
+          </div>
+          <p style="font-size:13px; color:var(--ink-soft); line-height:1.5; margin:0;">Felicitación automática + recompensa personalizada el día del cumpleaños.</p>
+        </div>
+        <div style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:22px;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+            <div style="width:32px; height:32px; border-radius:999px; background:var(--sage); display:flex; align-items:center; justify-content:center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="1.5"><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-25 12 12)"/><circle cx="12" cy="12" r="2.4" fill="#FFF" stroke="none"/></svg>
+            </div>
+            <span style="font-weight:600; font-size:15px;">Reactivación</span>
+          </div>
+          <p style="font-size:13px; color:var(--ink-soft); line-height:1.5; margin:0;">Mensaje personalizado a clientes inactivos +21 días con incentivo para volver.</p>
+        </div>
+        <div style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:22px;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+            <div style="width:32px; height:32px; border-radius:999px; background:var(--honey); display:flex; align-items:center; justify-content:center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.5"><path d="M12 3l2.5 5.5L20 9.5l-4 4 1 5.5L12 16.5 7 19l1-5.5-4-4 5.5-1L12 3z"/></svg>
+            </div>
+            <span style="font-weight:600; font-size:15px;">Puntos dobles</span>
+          </div>
+          <p style="font-size:13px; color:var(--ink-soft); line-height:1.5; margin:0;">Activa multiplicador ×2 en días de baja afluencia para llenar el restaurante.</p>
+        </div>
+        <div style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:22px;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+            <div style="width:32px; height:32px; border-radius:999px; background:var(--ink); display:flex; align-items:center; justify-content:center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F4ECDC" stroke-width="1.5"><path d="M3 11v2l13 5V6L3 11zM16 8v8M19 9v6"/></svg>
+            </div>
+            <span style="font-weight:600; font-size:15px;">Evento especial</span>
+          </div>
+          <p style="font-size:13px; color:var(--ink-soft); line-height:1.5; margin:0;">Nuevo menú, aniversario, noche temática — campaña personalizada a toda la base.</p>
+        </div>
+        <div style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:22px;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+            <div style="width:32px; height:32px; border-radius:999px; background:var(--ember-deep); display:flex; align-items:center; justify-content:center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="1.5"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 12h18M12 8v13"/><path d="M12 8s-2-5-5-3 1 5 5 3zM12 8s2-5 5-3-1 5-5 3z"/></svg>
+            </div>
+            <span style="font-weight:600; font-size:15px;">Recompensa nivel</span>
+          </div>
+          <p style="font-size:13px; color:var(--ink-soft); line-height:1.5; margin:0;">Notifica automáticamente cuando un cliente sube de nivel y puede reclamar premio.</p>
+        </div>
+        <div style="background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:22px;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+            <div style="width:32px; height:32px; border-radius:999px; background:var(--polaris); display:flex; align-items:center; justify-content:center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.5"><path d="M12 21s-7-4.5-9-9.5C1.5 7 5 4 8 4c2 0 3 1 4 2 1-1 2-2 4-2 3 0 6.5 3 5 7.5-2 5-9 9.5-9 9.5z"/></svg>
+            </div>
+            <span style="font-weight:600; font-size:15px;">Referidos</span>
+          </div>
+          <p style="font-size:13px; color:var(--ink-soft); line-height:1.5; margin:0;">Invita a los clientes top a referir amigos a cambio de puntos bonus.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============================================================
      OUTRO
      ============================================================ -->
@@ -2226,7 +2788,7 @@ a{ color:inherit; }
     </div>
     <h2 class="head">El cliente <em>vuelve</em>.<br>El restaurante <span class="amp">vive</span>.</h2>
     <p class="sub">Sistema visual v1.0 — listo para alimentar la landing, los avatares sociales, los headers de LinkedIn y todo lo que venga después.</p>
-    <div class="credit">SISTEMA · DE · FIDELIZACIÓN · BY · CONSTELARYS · 2026</div>
+    <div class="credit">CADA1 · 2026</div>
   </div>
 </section>
 
