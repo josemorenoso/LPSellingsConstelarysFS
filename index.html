@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>El 70% de tus clientes nunca vuelve — Recuperalos con un QR | Cada1</title>
-<meta name="description" content="Sistema de fidelización para restaurantes en Colombia. QR en la mesa, WhatsApp automático, cero apps. Caso real: Sushi Service sumó 193 clientes y recuperó $272.000 en solo 2 semanas."/>
+<meta name="description" content="Sistema de fidelización para restaurantes en Colombia. QR en la mesa, WhatsApp automático, cero apps. Caso real: Sushi Service fidelizó 197 clientes y multiplicó por 3.5x su inversión en solo 2 semanas."/>
 <meta name="facebook-domain-verification" content="33ab3kr9gv03xth5hcktsc6zi3cf92"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -586,75 +586,53 @@ a{color:inherit;text-decoration:none;}
 .spark{margin-top:14px;height:32px;position:relative;}
 .spark svg{width:100%;height:100%;}
 
-
 /* ═══════════════════════════════════════════
-   § 4.5 — DASHBOARD PREVIEW
+   § 4.5 — RESULTADO VISUAL (ROI)
    ═══════════════════════════════════════════ */
-.dash-section{padding:100px 0;border-top:1px solid var(--rule);}
-.dash-section-header{text-align:center;margin-bottom:56px;}
-.dash-section-header h2{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:clamp(32px,5vw,52px);line-height:.95;letter-spacing:-.02em;}
-.dash-section-header p{color:var(--ink-soft);margin-top:12px;max-width:52ch;margin-inline:auto;}
+.roi-section{padding:100px 0;border-top:1px solid var(--rule);}
+.roi-head{text-align:center;margin-bottom:48px;}
+.roi-head h2{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:clamp(32px,5vw,52px);line-height:.95;letter-spacing:-.02em;margin-top:16px;}
+.roi-head h2 em{color:var(--ember);}
+.roi-head p{color:var(--ink-soft);margin:14px auto 0;max-width:54ch;}
 
-/* Metric cards */
-.dmetrics{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:16px;}
-@media(max-width:1024px){.dmetrics{grid-template-columns:repeat(3,1fr);}}
-@media(max-width:600px){.dmetrics{grid-template-columns:repeat(2,1fr);}}
-.dmetric{display:flex;flex-direction:column;align-items:center;gap:6px;padding:20px 12px;border:1px solid var(--line);border-radius:16px;background:var(--paper);transition:border-color .2s,box-shadow .2s;}
-.dmetric:hover{border-color:color-mix(in oklab,var(--ember) 25%,transparent);box-shadow:var(--shadow-1);}
-.dmetric-val{font-family:'Instrument Serif',serif;font-style:italic;font-size:26px;line-height:1;letter-spacing:-.02em;}
-.dmetric-lbl{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);text-align:center;}
-.c-ember{color:var(--ember);}.c-sage{color:var(--sage);}.c-honey{color:var(--honey);}.c-ink{color:var(--ink);}
+.roi-card{
+  max-width:920px;margin:0 auto;
+  display:grid;grid-template-columns:auto 1fr;gap:48px;align-items:center;
+  background:var(--paper);border:1px solid var(--line);border-radius:20px;
+  padding:48px;box-shadow:var(--shadow-2);position:relative;overflow:hidden;
+}
+.roi-card::before{
+  content:"";position:absolute;top:-80px;right:-80px;
+  width:240px;height:240px;border-radius:999px;
+  background:radial-gradient(circle,rgba(201,70,31,.08),transparent 70%);
+  pointer-events:none;
+}
+.roi-mult{text-align:center;position:relative;}
+.roi-mult-num{font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(72px,12vw,116px);line-height:.85;color:var(--ember);letter-spacing:-.03em;}
+.roi-mult-num span{font-size:.5em;}
+.roi-mult-lbl{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute);margin-top:14px;}
+.roi-mult-note{font-size:13px;color:var(--ink-soft);margin-top:6px;}
 
-/* Table */
-.dtable{border:1px solid var(--line);border-radius:16px;background:var(--paper);overflow:hidden;box-shadow:var(--shadow-2);margin-bottom:12px;}
-.dtable-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;border-bottom:1px solid var(--rule);}
-.dtable-bar-left{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);display:flex;align-items:center;gap:8px;}
-.dtable-bar-left::before{content:'';width:10px;height:10px;border-radius:999px;background:var(--sage);flex-shrink:0;}
-.dtable-bar-right{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);}
-.dtable-thead{display:grid;grid-template-columns:1.5fr 1.2fr 1fr 0.6fr 0.9fr 1fr;gap:16px;padding:10px 24px;border-bottom:1px solid var(--rule);}
-@media(max-width:768px){.dtable-thead{display:none;}}
-.dtable-thead span{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);}
-.dtable-row{display:grid;grid-template-columns:1.5fr 1.2fr 1fr 0.6fr 0.9fr 1fr;gap:16px;padding:16px 24px;align-items:center;border-bottom:1px solid var(--rule);transition:background .15s;}
-.dtable-row:last-child{border-bottom:none;}
-.dtable-row:hover{background:var(--paper-2);}
-@media(max-width:768px){.dtable-row{grid-template-columns:1fr 1fr;gap:10px;}.dcol-hide{display:none;}}
-.dav{width:32px;height:32px;border-radius:999px;background:var(--ember);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;}
-.dclient{display:flex;align-items:center;gap:10px;}
-.dclient-name{font-size:14px;font-weight:500;color:var(--ink);}
-.dclient-lvl{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);margin-top:2px;}
-.dphone{font-family:'Geist Mono',monospace;font-size:12px;color:var(--ink-soft);}
-.dvisits{font-family:'Instrument Serif',serif;font-style:italic;font-size:14px;color:var(--ink);}
-.dlast{font-size:12px;color:var(--ink-soft);}
-.dbadge{display:inline-block;border-radius:999px;padding:3px 10px;font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;}
-.dbadge-ember{background:var(--ember);color:#fff;}
-.dbadge-sage{background:var(--sage);color:#fff;}
-.dbadge-honey{background:var(--honey);color:var(--ink);}
-.dbadge-out-ember{border:1px solid var(--ember);color:var(--ember);}
-.dbadge-out-sage{border:1px solid var(--sage);color:var(--sage);}
+.roi-bars{display:flex;flex-direction:column;gap:24px;position:relative;}
+.roi-row-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+.roi-row-name{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);}
+.roi-row-val{font-family:'Instrument Serif',serif;font-style:italic;font-size:18px;color:var(--ink);}
+.roi-row-val.return{color:var(--ember);}
+.roi-track{height:40px;background:var(--bg);border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+.roi-fill{height:100%;border-radius:9px;transform-origin:left;}
+.roi-fill.invest{background:linear-gradient(90deg,var(--line),var(--ink-mute));}
+.roi-fill.return{background:linear-gradient(90deg,var(--ember),var(--ember-deep));}
+.animate.visible .roi-fill{animation:roi-grow .9s cubic-bezier(.22,1,.36,1) forwards;}
+@keyframes roi-grow{from{transform:scaleX(0);}to{transform:scaleX(1);}}
+.roi-foot{display:flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--ink-mute);margin-top:4px;line-height:1.5;}
+.roi-dot{width:8px;height:8px;border-radius:999px;background:var(--sage);flex-shrink:0;}
 
-/* Bottom cards */
-.dbottom{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
-@media(max-width:768px){.dbottom{grid-template-columns:1fr;}}
-.dbot{border:1px solid var(--line);border-radius:16px;padding:22px 24px;}
-.dbot-ember{background:var(--ember);border-color:var(--ember);}
-.dbot-paper{background:var(--paper);}
-.dbot-lbl{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;}
-.dbot-ember .dbot-lbl{color:rgba(255,255,255,.6);}
-.dbot-paper .dbot-lbl{color:var(--ink-mute);}
-.dbot-title{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:22px;line-height:1.2;margin-top:8px;}
-.dbot-ember .dbot-title{color:#fff;}
-.dbot-paper .dbot-title{color:var(--ink);}
-.dbot-sub{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.1em;margin-top:10px;}
-.dbot-ember .dbot-sub{color:rgba(255,255,255,.5);}
-.dbot-paper .dbot-sub{color:var(--ink-mute);}
-.dprogress{display:flex;gap:4px;margin-top:12px;}
-.dbar{height:6px;flex:1;border-radius:999px;}
-.dbar.on{background:rgba(255,255,255,.8);}
-.dbar.off{background:rgba(255,255,255,.2);}
-.dstat-num{font-family:'Instrument Serif',serif;font-style:italic;font-size:44px;line-height:1;letter-spacing:-.02em;color:var(--ink);margin-top:8px;}
-.dstat-delta{font-size:12px;color:var(--sage);margin-top:8px;}
-.dstat-bars{display:flex;align-items:flex-end;gap:2px;height:32px;margin-top:12px;}
-.dstat-bar{flex:1;border-radius:2px;background:color-mix(in oklab,var(--sage) 30%,transparent);}
+@media(max-width:768px){
+  .roi-section{padding:64px 0;}
+  .roi-card{grid-template-columns:1fr;gap:32px;padding:32px 24px;}
+  .roi-mult-num{font-size:clamp(64px,20vw,96px);}
+}
+
 
 /* ═══════════════════════════════════════════
    ANIMATIONS
@@ -675,7 +653,7 @@ a{color:inherit;text-decoration:none;}
    ═══════════════════════════════════════════ */
 @media(max-width:768px){
   /* Reduce section vertical padding */
-  .calc-section,.steps-section,.proof-section,.dash-section,
+  .calc-section,.steps-section,.proof-section,.roi-section,
   .pricing-section,.faq-section{padding:64px 0;}
   .cta-section{padding:80px 0;}
 
@@ -720,12 +698,6 @@ a{color:inherit;text-decoration:none;}
   .proof-stats{gap:24px;}
   .proof-stat .num{font-size:30px;}
 
-  /* Dashboard */
-  .dash-section-header{margin-bottom:36px;}
-  .dtable-bar,.dtable-row{padding-left:18px;padding-right:18px;}
-  .dtable-row{padding-top:14px;padding-bottom:14px;}
-  .dbot{padding:20px;}
-
   /* Pricing card */
   .pricing-card{padding:32px 24px;border-radius:18px;}
   .pricing-price .amount{font-size:clamp(44px,11vw,60px);}
@@ -739,6 +711,26 @@ a{color:inherit;text-decoration:none;}
   /* Final CTA */
   .cta-section h2{font-size:clamp(32px,8vw,48px);}
   .cta-sub{font-size:16px;}
+}
+
+/* ═══════════════════════════════════════════
+   INLINE-GRID SECTIONS — responsive collapse
+   (override inline styles via !important)
+   ═══════════════════════════════════════════ */
+@media(max-width:960px){
+  .gami-grid{grid-template-columns:1fr !important;gap:32px !important;}
+}
+@media(max-width:768px){
+  .band{padding:64px 0 !important;}
+  .gami-grid{margin-top:36px !important;}
+  .camp-steps{grid-template-columns:repeat(2,1fr) !important;gap:12px !important;margin-top:36px !important;}
+  .camp-chips{grid-template-columns:repeat(2,1fr) !important;gap:10px !important;margin-top:28px !important;}
+  /* Tighter cards inside campañas */
+  .camp-steps > div{padding:22px 18px !important;}
+}
+@media(max-width:480px){
+  .camp-steps{grid-template-columns:1fr !important;}
+  .camp-chips{grid-template-columns:1fr !important;}
 }
 
 /* Extra-small phones */
@@ -793,7 +785,7 @@ a{color:inherit;text-decoration:none;}
         </h1>
         <p class="hero-sub animate visible d1">
           WhatsApp automático, cero apps, cero fricción.<br>
-          Caso real: Sushi Service sumó <strong>193 clientes</strong> y recuperó <strong>$272.000</strong> en solo <strong>2 semanas</strong>.
+          Caso real: Sushi Service fidelizó <strong>197 clientes</strong> y multiplicó por <strong>3.5x</strong> su inversión en solo <strong>2 semanas</strong>.
         </p>
 
         <div class="proof-strip animate visible d2">
@@ -809,7 +801,7 @@ a{color:inherit;text-decoration:none;}
           </div>
           <div class="proof-text">
             <span style="display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;opacity:.6;margin-bottom:3px;">Caso real · En producción</span>
-            <strong style="font-size:19px;line-height:1.2;letter-spacing:-0.01em;">193 clientes · $272.000 recuperados en 2 semanas</strong>
+            <strong style="font-size:19px;line-height:1.2;letter-spacing:-0.01em;">197 clientes fidelizados · ROI 3.5x en 2 semanas</strong>
             <span class="proof-text-sub" style="font-size:13px;opacity:.7;margin-top:2px;">Sushi Service · Envigado, Colombia</span>
           </div>
         </div>
@@ -856,12 +848,12 @@ a{color:inherit;text-decoration:none;}
         </div>
         <div class="proof-stats">
           <div class="proof-stat">
-            <div class="num">193</div>
-            <div class="lbl">Clientes en 2 semanas</div>
+            <div class="num">197</div>
+            <div class="lbl">Clientes fidelizados</div>
           </div>
           <div class="proof-stat">
-            <div class="num">$272K</div>
-            <div class="lbl">Recuperados en 2 semanas</div>
+            <div class="num">3.5x</div>
+            <div class="lbl">Retorno sobre inversión</div>
           </div>
           <div class="proof-stat">
             <div class="num">20s</div>
@@ -884,34 +876,44 @@ a{color:inherit;text-decoration:none;}
 </section>
 
 <!-- ════════════════════════════════════════════
-     § 4.5 — DASHBOARD PREVIEW
+     § 4.5 — RESULTADO VISUAL (ROI)
      ════════════════════════════════════════════ -->
-<section class="dash-section">
+<section class="roi-section">
   <div class="page">
-
-    <!-- Header -->
-    <div class="dash-section-header animate">
-      <div class="eyebrow" style="justify-content:center;">03 · Panel real · No es maqueta</div>
-      <h2 style="margin-top:16px;">Esto no es un demo. <em style="font-style:italic;">Es Sushi Service hoy.</em></h2>
-      <p>Captura real del panel después de 2 semanas: quién vino, quién falta, quién cumple años y cuánto dinero recuperaste — sin que toques un botón.</p>
+    <div class="roi-head animate">
+      <div class="eyebrow" style="justify-content:center;">Caso real · Sushi Service</div>
+      <h2>197 clientes <em>fidelizados</em><br>en solo 2 semanas.</h2>
+      <p>Sin apps, sin campañas, sin tocar un botón. Y por cada peso invertido, multiplicaron su retorno.</p>
     </div>
 
-    <!-- Captura REAL del panel en frame de navegador -->
-    <div class="dash-shot animate" style="max-width:1000px;margin:0 auto;border-radius:16px;overflow:hidden;border:1px solid var(--rule);box-shadow:0 40px 90px -40px rgba(0,0,0,.45);background:#fff;">
-      <div style="display:flex;align-items:center;gap:8px;padding:13px 18px;background:#F1ECE0;border-bottom:1px solid var(--rule);">
-        <span style="width:11px;height:11px;border-radius:50%;background:#E25A2A;flex:none;"></span>
-        <span style="width:11px;height:11px;border-radius:50%;background:#F2C45A;flex:none;"></span>
-        <span style="width:11px;height:11px;border-radius:50%;background:#59B585;flex:none;"></span>
-        <span style="margin:0 auto;font-family:'Geist Mono',monospace;font-size:12px;color:var(--ink-soft);background:#fff;border:1px solid var(--rule);border-radius:999px;padding:4px 16px;max-width:80%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">app.cada1.co · Sushi Service · Métricas</span>
+    <div class="roi-card animate">
+      <div class="roi-mult">
+        <div class="roi-mult-num">3.5<span>x</span></div>
+        <div class="roi-mult-lbl">Retorno sobre la inversión</div>
+        <div class="roi-mult-note">Cada $1 invertido se convirtió en $3,5</div>
       </div>
-      <img src="Assets/Cada.png" alt="Panel real de Sushi Service: 193 clientes y ROI de $272.000 en 2 semanas" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;">
-    </div>
 
-    <p class="dash-shot-caption animate" style="text-align:center;margin:24px auto 0;max-width:60ch;font-size:15px;line-height:1.6;color:var(--ink-soft);">
-      <strong style="color:var(--ember);">Captura real</strong> del panel de Sushi Service ·
-      <strong style="color:var(--ink);">193 clientes · ROI $272.000 en solo 2 semanas.</strong>
-      Proyectado al mes, se duplica.
-    </p>
+      <div class="roi-bars">
+        <div class="roi-row">
+          <div class="roi-row-top">
+            <span class="roi-row-name">Lo que invertís</span>
+            <span class="roi-row-val">1x</span>
+          </div>
+          <div class="roi-track"><div class="roi-fill invest" style="width:28.5%;"></div></div>
+        </div>
+        <div class="roi-row">
+          <div class="roi-row-top">
+            <span class="roi-row-name">Lo que recuperás</span>
+            <span class="roi-row-val return">3.5x</span>
+          </div>
+          <div class="roi-track"><div class="roi-fill return" style="width:100%;"></div></div>
+        </div>
+        <div class="roi-foot">
+          <span class="roi-dot"></span>
+          197 clientes fidelizados · 20s de registro por cliente · cero apps
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -965,7 +967,7 @@ a{color:inherit;text-decoration:none;}
 <!-- ════════════════════════════════════════════
      § 4.6 — GAMIFICACIÓN
      ════════════════════════════════════════════ -->
-<section style="padding:96px 0;background:var(--ink);color:#F4ECDC;position:relative;overflow:hidden;" id="gamificacion">
+<section class="band" style="padding:96px 0;background:var(--ink);color:#F4ECDC;position:relative;overflow:hidden;" id="gamificacion">
   <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice"><g fill="#F1D67A" opacity=".2"><circle cx="80" cy="60" r="1.3"/><circle cx="200" cy="120" r=".9"/><circle cx="380" cy="50" r="1.1"/><circle cx="560" cy="130" r="1.5"/><circle cx="720" cy="45" r=".8"/><circle cx="900" cy="110" r="1.2"/><circle cx="1050" cy="60" r="1"/><circle cx="150" cy="350" r="1"/><circle cx="400" cy="420" r="1.2"/><circle cx="650" cy="380" r=".9"/><circle cx="850" cy="450" r="1.1"/><circle cx="1100" cy="350" r=".8"/></g></svg>
   <div class="page" style="position:relative;z-index:2;">
     <div class="eyebrow" style="color:#F1D67A;justify-content:center;">Nuevo · Gamificación</div>
@@ -975,7 +977,7 @@ a{color:inherit;text-decoration:none;}
     <p style="text-align:center;max-width:55ch;margin:24px auto 0;font-size:17px;line-height:1.6;color:rgba(244,236,220,.7);">
       Un sistema de puntos con niveles, mystery boxes y recompensas progresivas. Cada visita suma, cada nivel desbloquea algo mejor. El cliente nunca deja de querer regresar.
     </p>
-    <div class="animate" style="margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;">
+    <div class="animate gami-grid" style="margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;">
       <div style="background:#1B1712;border:1px solid rgba(244,236,220,.08);border-radius:16px;padding:40px 36px;position:relative;overflow:hidden;">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:32px;">
           <span style="font-family:'Instrument Serif',serif;font-style:italic;font-size:26px;color:#F4ECDC;">Cada</span><span style="font-family:'Geist',sans-serif;font-weight:700;font-size:26px;color:var(--ember);">1</span>
@@ -1009,7 +1011,7 @@ a{color:inherit;text-decoration:none;}
 <!-- ════════════════════════════════════════════
      § 4.7 — CAMPAÑAS PERSONALIZADAS
      ════════════════════════════════════════════ -->
-<section style="padding:96px 0;background:var(--bg);" id="campanas">
+<section class="band" style="padding:96px 0;background:var(--bg);" id="campanas">
   <div class="page">
     <div class="eyebrow" style="justify-content:center;">Nuevo · Campañas personalizadas</div>
     <h2 class="animate" style="font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(36px,6vw,64px);text-align:center;line-height:.95;letter-spacing:-.02em;margin-top:16px;text-wrap:balance;">
@@ -1018,13 +1020,13 @@ a{color:inherit;text-decoration:none;}
     <p style="text-align:center;max-width:55ch;margin:24px auto 0;font-size:17px;line-height:1.6;color:var(--ink-soft);">
       Un calendario visual donde creás eventos y las campañas se disparan automáticamente por WhatsApp al segmento elegido. Cumpleaños, reactivaciones, puntos dobles — todo sin tocar nada más.
     </p>
-    <div class="animate" style="margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;">
+    <div class="animate camp-steps" style="margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;">
       <div style="background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:28px;text-align:center;"><div style="width:48px;height:48px;margin:0 auto 14px;background:color-mix(in oklab, var(--ember) 12%, transparent);border-radius:999px;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ember)" stroke-width="1.5"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><h4 style="font-family:'Instrument Serif',serif;font-style:italic;font-size:18px;margin:0 0 8px;">Crea el evento</h4><p style="font-size:13px;color:var(--ink-soft);line-height:1.5;margin:0;">Fecha, segmento, mensaje — todo visual en el calendario.</p></div>
       <div style="background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:28px;text-align:center;"><div style="width:48px;height:48px;margin:0 auto 14px;background:color-mix(in oklab, var(--sage) 12%, transparent);border-radius:999px;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="1.5"><circle cx="9" cy="9" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><circle cx="17" cy="7" r="2.5"/><path d="M16 14c3 0 6 2 6 5"/></svg></div><h4 style="font-family:'Instrument Serif',serif;font-style:italic;font-size:18px;margin:0 0 8px;">Segmenta automático</h4><p style="font-size:13px;color:var(--ink-soft);line-height:1.5;margin:0;">Por nivel, actividad, cumpleaños o inactividad.</p></div>
       <div style="background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:28px;text-align:center;"><div style="width:48px;height:48px;margin:0 auto 14px;background:color-mix(in oklab, var(--honey) 12%, transparent);border-radius:999px;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--honey)" stroke-width="1.5"><path d="M3 12a9 9 0 0 1 9-9 9 9 0 0 1 9 9 9 9 0 0 1-13 8L3 21l1-7"/></svg></div><h4 style="font-family:'Instrument Serif',serif;font-style:italic;font-size:18px;margin:0 0 8px;">Se envía solo</h4><p style="font-size:13px;color:var(--ink-soft);line-height:1.5;margin:0;">El día llega, WhatsApp sale. Sin intervención manual.</p></div>
       <div style="background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:28px;text-align:center;"><div style="width:48px;height:48px;margin:0 auto 14px;background:color-mix(in oklab, var(--ink) 8%, transparent);border-radius:999px;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.5"><path d="M3 20h18M6 16V9M11 16V5M16 16v-7M21 16v-3"/></svg></div><h4 style="font-family:'Instrument Serif',serif;font-style:italic;font-size:18px;margin:0 0 8px;">Medí resultados</h4><p style="font-size:13px;color:var(--ink-soft);line-height:1.5;margin:0;">Regresos, canjes y ROI — todo medido por campaña.</p></div>
     </div>
-    <div class="animate" style="margin-top:48px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+    <div class="animate camp-chips" style="margin-top:48px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
       <div style="background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:20px;display:flex;align-items:center;gap:14px;"><div style="width:36px;height:36px;flex:none;border-radius:999px;background:var(--ember);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="1.5"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><circle cx="12" cy="15" r="2" fill="#FFF" stroke="none"/></svg></div><div><p style="font-weight:600;font-size:14px;margin:0;">Cumpleaños</p><p style="font-size:12px;color:var(--ink-soft);margin:2px 0 0;">Automática</p></div></div>
       <div style="background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:20px;display:flex;align-items:center;gap:14px;"><div style="width:36px;height:36px;flex:none;border-radius:999px;background:var(--sage);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="1.5"><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-25 12 12)"/><circle cx="12" cy="12" r="2.4" fill="#FFF" stroke="none"/></svg></div><div><p style="font-weight:600;font-size:14px;margin:0;">Reactivación</p><p style="font-size:12px;color:var(--ink-soft);margin:2px 0 0;">+21 días inactivo</p></div></div>
       <div style="background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:20px;display:flex;align-items:center;gap:14px;"><div style="width:36px;height:36px;flex:none;border-radius:999px;background:var(--honey);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.5"><path d="M12 3l2.5 5.5L20 9.5l-4 4 1 5.5L12 16.5 7 19l1-5.5-4-4 5.5-1L12 3z"/></svg></div><div><p style="font-weight:600;font-size:14px;margin:0;">Puntos dobles</p><p style="font-size:12px;color:var(--ink-soft);margin:2px 0 0;">Llená días flojos</p></div></div>
@@ -1044,7 +1046,7 @@ a{color:inherit;text-decoration:none;}
       <div class="calc-header animate">
         <div class="eyebrow" style="justify-content:center;">Calculadora de retorno</div>
         <h2>¿Cuánto dinero estás <em style="font-style:italic;">dejando ir</em>?</h2>
-        <p>Sushi Service recuperó $272.000 en 2 semanas. Calculá cuánto recuperarías vos al mes si el 25% de tus clientes vuelve.</p>
+        <p>Sushi Service fidelizó 197 clientes y logró 3.5x de retorno en 2 semanas. Calculá cuánto recuperarías vos al mes si el 25% de tus clientes vuelve.</p>
       </div>
 
       <div class="calc-grid">
