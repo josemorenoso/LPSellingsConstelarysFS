@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>El 70% de tus clientes nunca vuelve — Recuperalos con un QR | Cada1</title>
-<meta name="description" content="Sistema de fidelización para restaurantes en Colombia. QR en la mesa, WhatsApp automático, cero apps. Caso real: Sushi Service fidelizó 197 clientes y multiplicó por 3.5x su inversión en solo 2 semanas."/>
+<meta name="description" content="Sistema de fidelización para restaurantes en Colombia. QR en la mesa, WhatsApp automático, cero apps. Caso real: Sushi Service fidelizó 197 clientes en solo 2 semanas, sin apps y sin gastar en publicidad."/>
 <meta name="facebook-domain-verification" content="33ab3kr9gv03xth5hcktsc6zi3cf92"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -595,43 +595,106 @@ a{color:inherit;text-decoration:none;}
 .roi-head h2 em{color:var(--ember);}
 .roi-head p{color:var(--ink-soft);margin:14px auto 0;max-width:54ch;}
 
-.roi-card{
-  max-width:920px;margin:0 auto;
-  display:grid;grid-template-columns:auto 1fr;gap:48px;align-items:center;
-  background:var(--paper);border:1px solid var(--line);border-radius:20px;
-  padding:48px;box-shadow:var(--shadow-2);position:relative;overflow:hidden;
-}
-.roi-card::before{
-  content:"";position:absolute;top:-80px;right:-80px;
-  width:240px;height:240px;border-radius:999px;
-  background:radial-gradient(circle,rgba(201,70,31,.08),transparent 70%);
-  pointer-events:none;
-}
-.roi-mult{text-align:center;position:relative;}
-.roi-mult-num{font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(72px,12vw,116px);line-height:.85;color:var(--ember);letter-spacing:-.03em;}
-.roi-mult-num span{font-size:.5em;}
-.roi-mult-lbl{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute);margin-top:14px;}
-.roi-mult-note{font-size:13px;color:var(--ink-soft);margin-top:6px;}
+/* Sin / Con comparison */
+.roi-compare{max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.roi-col{border:1px solid var(--line);border-radius:18px;padding:32px;background:var(--paper);}
+.roi-col.before{background:transparent;border-style:dashed;}
+.roi-col.after{background:var(--ink);color:var(--paper);border-color:var(--ink);box-shadow:var(--shadow-2);position:relative;overflow:hidden;}
+.roi-col.after::before{content:"";position:absolute;top:-70px;right:-70px;width:200px;height:200px;border-radius:999px;background:radial-gradient(circle,rgba(201,70,31,.22),transparent 65%);pointer-events:none;}
+.roi-col-tag{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:20px;position:relative;}
+.roi-col.before .roi-col-tag{color:var(--ink-mute);}
+.roi-col.after .roi-col-tag{color:var(--polaris);}
+.roi-col ul{list-style:none;display:flex;flex-direction:column;gap:14px;position:relative;}
+.roi-col li{display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.45;}
+.roi-col.before li{color:var(--ink-soft);}
+.roi-col.before li::before{content:"✕";color:var(--ink-mute);flex-shrink:0;font-size:13px;margin-top:1px;}
+.roi-col.after li{color:rgba(244,236,220,.9);}
+.roi-col.after li::before{content:"✓";color:#59B585;flex-shrink:0;font-weight:700;margin-top:1px;}
 
-.roi-bars{display:flex;flex-direction:column;gap:24px;position:relative;}
-.roi-row-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
-.roi-row-name{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);}
-.roi-row-val{font-family:'Instrument Serif',serif;font-style:italic;font-size:18px;color:var(--ink);}
-.roi-row-val.return{color:var(--ember);}
-.roi-track{height:40px;background:var(--bg);border:1px solid var(--line);border-radius:10px;overflow:hidden;}
-.roi-fill{height:100%;border-radius:9px;transform-origin:left;}
-.roi-fill.invest{background:linear-gradient(90deg,var(--line),var(--ink-mute));}
-.roi-fill.return{background:linear-gradient(90deg,var(--ember),var(--ember-deep));}
-.animate.visible .roi-fill{animation:roi-grow .9s cubic-bezier(.22,1,.36,1) forwards;}
-@keyframes roi-grow{from{transform:scaleX(0);}to{transform:scaleX(1);}}
-.roi-foot{display:flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--ink-mute);margin-top:4px;line-height:1.5;}
-.roi-dot{width:8px;height:8px;border-radius:999px;background:var(--sage);flex-shrink:0;}
+/* Facts strip */
+.roi-facts{max-width:920px;margin:28px auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+.roi-fact{text-align:center;border:1px solid var(--line);border-radius:14px;padding:24px 12px;background:var(--paper);}
+.roi-fact-num{font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(34px,5vw,46px);line-height:1;color:var(--ember);letter-spacing:-.02em;}
+.roi-fact-lbl{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);margin-top:10px;line-height:1.4;}
+
+.roi-disclaimer{text-align:center;max-width:62ch;margin:28px auto 0;font-size:12px;color:var(--ink-mute);font-style:italic;}
 
 @media(max-width:768px){
   .roi-section{padding:64px 0;}
-  .roi-card{grid-template-columns:1fr;gap:32px;padding:32px 24px;}
-  .roi-mult-num{font-size:clamp(64px,20vw,96px);}
+  .roi-compare{grid-template-columns:1fr;gap:14px;}
+  .roi-col{padding:24px 22px;}
+  .roi-facts{grid-template-columns:1fr 1fr;}
 }
+
+
+/* ═══════════════════════════════════════════
+   § 4.5 — DASHBOARD PREVIEW
+   ═══════════════════════════════════════════ */
+.dash-section{padding:100px 0;border-top:1px solid var(--rule);}
+.dash-section-header{text-align:center;margin-bottom:56px;}
+.dash-section-header h2{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:clamp(32px,5vw,52px);line-height:.95;letter-spacing:-.02em;}
+.dash-section-header p{color:var(--ink-soft);margin-top:12px;max-width:52ch;margin-inline:auto;}
+
+/* Metric cards */
+.dmetrics{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:16px;}
+@media(max-width:1024px){.dmetrics{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:600px){.dmetrics{grid-template-columns:repeat(2,1fr);}}
+.dmetric{display:flex;flex-direction:column;align-items:center;gap:6px;padding:20px 12px;border:1px solid var(--line);border-radius:16px;background:var(--paper);transition:border-color .2s,box-shadow .2s;}
+.dmetric:hover{border-color:color-mix(in oklab,var(--ember) 25%,transparent);box-shadow:var(--shadow-1);}
+.dmetric-val{font-family:'Instrument Serif',serif;font-style:italic;font-size:26px;line-height:1;letter-spacing:-.02em;}
+.dmetric-lbl{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);text-align:center;}
+.c-ember{color:var(--ember);}.c-sage{color:var(--sage);}.c-honey{color:var(--honey);}.c-ink{color:var(--ink);}
+
+/* Table */
+.dtable{border:1px solid var(--line);border-radius:16px;background:var(--paper);overflow:hidden;box-shadow:var(--shadow-2);margin-bottom:12px;}
+.dtable-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;border-bottom:1px solid var(--rule);}
+.dtable-bar-left{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);display:flex;align-items:center;gap:8px;}
+.dtable-bar-left::before{content:'';width:10px;height:10px;border-radius:999px;background:var(--sage);flex-shrink:0;}
+.dtable-bar-right{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);}
+.dtable-thead{display:grid;grid-template-columns:1.5fr 1.2fr 1fr 0.6fr 0.9fr 1fr;gap:16px;padding:10px 24px;border-bottom:1px solid var(--rule);}
+@media(max-width:768px){.dtable-thead{display:none;}}
+.dtable-thead span{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);}
+.dtable-row{display:grid;grid-template-columns:1.5fr 1.2fr 1fr 0.6fr 0.9fr 1fr;gap:16px;padding:16px 24px;align-items:center;border-bottom:1px solid var(--rule);transition:background .15s;}
+.dtable-row:last-child{border-bottom:none;}
+.dtable-row:hover{background:var(--paper-2);}
+@media(max-width:768px){.dtable-row{grid-template-columns:1fr 1fr;gap:10px;}.dcol-hide{display:none;}}
+.dav{width:32px;height:32px;border-radius:999px;background:var(--ember);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;}
+.dclient{display:flex;align-items:center;gap:10px;}
+.dclient-name{font-size:14px;font-weight:500;color:var(--ink);}
+.dclient-lvl{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);margin-top:2px;}
+.dphone{font-family:'Geist Mono',monospace;font-size:12px;color:var(--ink-soft);}
+.dvisits{font-family:'Instrument Serif',serif;font-style:italic;font-size:14px;color:var(--ink);}
+.dlast{font-size:12px;color:var(--ink-soft);}
+.dbadge{display:inline-block;border-radius:999px;padding:3px 10px;font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;}
+.dbadge-ember{background:var(--ember);color:#fff;}
+.dbadge-sage{background:var(--sage);color:#fff;}
+.dbadge-honey{background:var(--honey);color:var(--ink);}
+.dbadge-out-ember{border:1px solid var(--ember);color:var(--ember);}
+.dbadge-out-sage{border:1px solid var(--sage);color:var(--sage);}
+
+/* Bottom cards */
+.dbottom{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+@media(max-width:768px){.dbottom{grid-template-columns:1fr;}}
+.dbot{border:1px solid var(--line);border-radius:16px;padding:22px 24px;}
+.dbot-ember{background:var(--ember);border-color:var(--ember);}
+.dbot-paper{background:var(--paper);}
+.dbot-lbl{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;}
+.dbot-ember .dbot-lbl{color:rgba(255,255,255,.6);}
+.dbot-paper .dbot-lbl{color:var(--ink-mute);}
+.dbot-title{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:22px;line-height:1.2;margin-top:8px;}
+.dbot-ember .dbot-title{color:#fff;}
+.dbot-paper .dbot-title{color:var(--ink);}
+.dbot-sub{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.1em;margin-top:10px;}
+.dbot-ember .dbot-sub{color:rgba(255,255,255,.5);}
+.dbot-paper .dbot-sub{color:var(--ink-mute);}
+.dprogress{display:flex;gap:4px;margin-top:12px;}
+.dbar{height:6px;flex:1;border-radius:999px;}
+.dbar.on{background:rgba(255,255,255,.8);}
+.dbar.off{background:rgba(255,255,255,.2);}
+.dstat-num{font-family:'Instrument Serif',serif;font-style:italic;font-size:44px;line-height:1;letter-spacing:-.02em;color:var(--ink);margin-top:8px;}
+.dstat-delta{font-size:12px;color:var(--sage);margin-top:8px;}
+.dstat-bars{display:flex;align-items:flex-end;gap:2px;height:32px;margin-top:12px;}
+.dstat-bar{flex:1;border-radius:2px;background:color-mix(in oklab,var(--sage) 30%,transparent);}
 
 
 /* ═══════════════════════════════════════════
@@ -653,7 +716,7 @@ a{color:inherit;text-decoration:none;}
    ═══════════════════════════════════════════ */
 @media(max-width:768px){
   /* Reduce section vertical padding */
-  .calc-section,.steps-section,.proof-section,.roi-section,
+  .calc-section,.steps-section,.proof-section,.roi-section,.dash-section,
   .pricing-section,.faq-section{padding:64px 0;}
   .cta-section{padding:80px 0;}
 
@@ -697,6 +760,12 @@ a{color:inherit;text-decoration:none;}
   .proof-quote{font-size:clamp(20px,5vw,26px);}
   .proof-stats{gap:24px;}
   .proof-stat .num{font-size:30px;}
+
+  /* Dashboard */
+  .dash-section-header{margin-bottom:36px;}
+  .dtable-bar,.dtable-row{padding-left:18px;padding-right:18px;}
+  .dtable-row{padding-top:14px;padding-bottom:14px;}
+  .dbot{padding:20px;}
 
   /* Pricing card */
   .pricing-card{padding:32px 24px;border-radius:18px;}
@@ -785,7 +854,7 @@ a{color:inherit;text-decoration:none;}
         </h1>
         <p class="hero-sub animate visible d1">
           WhatsApp automático, cero apps, cero fricción.<br>
-          Caso real: Sushi Service fidelizó <strong>197 clientes</strong> y multiplicó por <strong>3.5x</strong> su inversión en solo <strong>2 semanas</strong>.
+          Caso real: Sushi Service fidelizó <strong>197 clientes</strong> en solo <strong>2 semanas</strong> — sin apps y sin gastar en publicidad.
         </p>
 
         <div class="proof-strip animate visible d2">
@@ -801,7 +870,7 @@ a{color:inherit;text-decoration:none;}
           </div>
           <div class="proof-text">
             <span style="display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;opacity:.6;margin-bottom:3px;">Caso real · En producción</span>
-            <strong style="font-size:19px;line-height:1.2;letter-spacing:-0.01em;">197 clientes fidelizados · ROI 3.5x en 2 semanas</strong>
+            <strong style="font-size:19px;line-height:1.2;letter-spacing:-0.01em;">197 clientes fidelizados en 2 semanas · 2 locales en producción</strong>
             <span class="proof-text-sub" style="font-size:13px;opacity:.7;margin-top:2px;">Sushi Service · Envigado, Colombia</span>
           </div>
         </div>
@@ -852,8 +921,8 @@ a{color:inherit;text-decoration:none;}
             <div class="lbl">Clientes fidelizados</div>
           </div>
           <div class="proof-stat">
-            <div class="num">3.5x</div>
-            <div class="lbl">Retorno sobre inversión</div>
+            <div class="num">68%</div>
+            <div class="lbl">Escaneó el QR a la primera</div>
           </div>
           <div class="proof-stat">
             <div class="num">20s</div>
@@ -881,39 +950,40 @@ a{color:inherit;text-decoration:none;}
 <section class="roi-section">
   <div class="page">
     <div class="roi-head animate">
-      <div class="eyebrow" style="justify-content:center;">Caso real · Sushi Service</div>
-      <h2>197 clientes <em>fidelizados</em><br>en solo 2 semanas.</h2>
-      <p>Sin apps, sin campañas, sin tocar un botón. Y por cada peso invertido, multiplicaron su retorno.</p>
+      <div class="eyebrow" style="justify-content:center;">Caso real · Sushi Service · Envigado</div>
+      <h2>197 clientes que antes eran invisibles.<br><em>Hoy vuelven.</em></h2>
+      <p>El 70% de tus clientes nunca regresa porque no tenés forma de hablarles. Esto lo cambia: cada visita queda registrada y el cliente recibe un motivo real para volver.</p>
     </div>
 
-    <div class="roi-card animate">
-      <div class="roi-mult">
-        <div class="roi-mult-num">3.5<span>x</span></div>
-        <div class="roi-mult-lbl">Retorno sobre la inversión</div>
-        <div class="roi-mult-note">Cada $1 invertido se convirtió en $3,5</div>
+    <div class="roi-compare animate">
+      <div class="roi-col before">
+        <div class="roi-col-tag">Sin un sistema</div>
+        <ul>
+          <li>No sabés quién es tu cliente ni cómo contactarlo</li>
+          <li>7 de cada 10 no vuelven — y ni te enterás</li>
+          <li>Gastás en publicidad para llegar a desconocidos</li>
+          <li>Tus promos las ve cualquiera, no tus clientes</li>
+        </ul>
       </div>
-
-      <div class="roi-bars">
-        <div class="roi-row">
-          <div class="roi-row-top">
-            <span class="roi-row-name">Lo que invertís</span>
-            <span class="roi-row-val">1x</span>
-          </div>
-          <div class="roi-track"><div class="roi-fill invest" style="width:28.5%;"></div></div>
-        </div>
-        <div class="roi-row">
-          <div class="roi-row-top">
-            <span class="roi-row-name">Lo que recuperás</span>
-            <span class="roi-row-val return">3.5x</span>
-          </div>
-          <div class="roi-track"><div class="roi-fill return" style="width:100%;"></div></div>
-        </div>
-        <div class="roi-foot">
-          <span class="roi-dot"></span>
-          197 clientes fidelizados · 20s de registro por cliente · cero apps
-        </div>
+      <div class="roi-col after">
+        <div class="roi-col-tag">Con Cada1</div>
+        <ul>
+          <li>Base con nombre, teléfono y visitas de cada cliente</li>
+          <li>Vuelven solos por sus premios, sin que hagas nada</li>
+          <li>WhatsApp directo a quien ya te conoce</li>
+          <li>197 clientes fidelizados en las primeras 2 semanas</li>
+        </ul>
       </div>
     </div>
+
+    <div class="roi-facts animate">
+      <div class="roi-fact"><div class="roi-fact-num">197</div><div class="roi-fact-lbl">Clientes en la base · 2 semanas</div></div>
+      <div class="roi-fact"><div class="roi-fact-num">68%</div><div class="roi-fact-lbl">Escaneó el QR a la primera</div></div>
+      <div class="roi-fact"><div class="roi-fact-num">2</div><div class="roi-fact-lbl">Restaurantes en producción</div></div>
+      <div class="roi-fact"><div class="roi-fact-num">20s</div><div class="roi-fact-lbl">Registro · cero apps</div></div>
+    </div>
+
+    <p class="roi-disclaimer animate">Datos reales de Sushi Service (Envigado, Colombia). Los resultados varían según cada negocio.</p>
   </div>
 </section>
 
@@ -960,6 +1030,187 @@ a{color:inherit;text-decoration:none;}
         <h3>Vuelve por su premio</h3>
         <p>El cliente regresa. El sistema lo recuerda, lo premia y repite el ciclo.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     § 4.5 — DASHBOARD PREVIEW
+     ════════════════════════════════════════════ -->
+<section class="dash-section">
+  <div class="page">
+
+    <!-- Header -->
+    <div class="dash-section-header animate">
+      <div class="eyebrow" style="justify-content:center;">03 · Tu panel de control</div>
+      <h2 style="margin-top:16px;">Todo tu restaurante, <em style="font-style:italic;">en una pantalla.</em></h2>
+      <p>Dashboard en tiempo real. Sabe quién vino, quién falta, quién cumple años y quién merece un premio — sin que toques un botón.</p>
+    </div>
+
+    <!-- Metric cards -->
+    <div class="dmetrics animate">
+
+      <div class="dmetric">
+        <div class="c-ember" style="opacity:.7;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="5" y="5" width="3" height="3" fill="currentColor" stroke="none"/><rect x="16" y="5" width="3" height="3" fill="currentColor" stroke="none"/><rect x="5" y="16" width="3" height="3" fill="currentColor" stroke="none"/><rect x="14" y="14" width="2" height="2" fill="currentColor" stroke="none"/><rect x="18" y="14" width="2" height="2" fill="currentColor" stroke="none"/><rect x="14" y="18" width="2" height="2" fill="currentColor" stroke="none"/><rect x="18" y="18" width="2" height="2" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <span class="dmetric-val c-ember">24</span>
+        <span class="dmetric-lbl">QR Hoy</span>
+      </div>
+
+      <div class="dmetric">
+        <div class="c-sage" style="opacity:.7;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11a2 2 0 012 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="21" r="1" fill="currentColor"/><circle cx="20" cy="21" r="1" fill="currentColor"/></svg>
+        </div>
+        <span class="dmetric-val c-sage">11</span>
+        <span class="dmetric-lbl">Domicilios Hoy</span>
+      </div>
+
+      <div class="dmetric">
+        <div class="c-ember" style="opacity:.7;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="16" y1="11" x2="22" y2="11"/></svg>
+        </div>
+        <span class="dmetric-val c-ember">8</span>
+        <span class="dmetric-lbl">Nuevos Hoy</span>
+      </div>
+
+      <div class="dmetric">
+        <div class="c-ink" style="opacity:.7;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <span class="dmetric-val c-ink">1,248</span>
+        <span class="dmetric-lbl">Total Clientes</span>
+      </div>
+
+      <div class="dmetric">
+        <div class="c-sage" style="opacity:.7;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+        </div>
+        <span class="dmetric-val c-sage">312</span>
+        <span class="dmetric-lbl">Frecuentes (3+)</span>
+      </div>
+
+      <div class="dmetric">
+        <div class="c-honey" style="opacity:.7;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 21H6a2 2 0 01-2-2v-7a2 2 0 012-2h12a2 2 0 012 2v7a2 2 0 01-2 2z"/><path d="M4 15.5s1-1 2-1 2 1 2 1 1-1 2-1 2 1 2 1 1-1 2-1 2 1 2 1"/><path d="M8 10V8M12 10V8M16 10V8"/><path d="M7 7c0-1.1.9-2 2-2s2 .9 2 2"/><path d="M13 7c0-1.1.9-2 2-2s2 .9 2 2"/></svg>
+        </div>
+        <span class="dmetric-val c-honey">3</span>
+        <span class="dmetric-lbl">Cumpleaños Hoy</span>
+      </div>
+
+    </div>
+
+    <!-- Table -->
+    <div class="dtable animate">
+      <div class="dtable-bar">
+        <span class="dtable-bar-left">Tabla de clientes</span>
+        <span class="dtable-bar-right">Vista por defecto</span>
+      </div>
+      <div class="dtable-thead">
+        <span>Cliente</span>
+        <span>Celular</span>
+        <span>Estado</span>
+        <span>Visitas</span>
+        <span>Último regreso</span>
+        <span>Próxima acción</span>
+      </div>
+
+      <!-- Row 1 -->
+      <div class="dtable-row">
+        <div class="dclient">
+          <div class="dav">E</div>
+          <div><div class="dclient-name">Eva Martínez</div><div class="dclient-lvl">α-VEGA · 91</div></div>
+        </div>
+        <div class="dphone dcol-hide">+57 312 555 0188</div>
+        <div><span class="dbadge dbadge-ember">TOP 5%</span></div>
+        <div class="dvisits dcol-hide">47</div>
+        <div class="dlast dcol-hide">hace 4 días</div>
+        <div><span class="dbadge dbadge-out-ember">POSTRE LISTO</span></div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="dtable-row">
+        <div class="dclient">
+          <div class="dav" style="background:var(--sage);">J</div>
+          <div><div class="dclient-name">Juan P. Rojas</div><div class="dclient-lvl">NUEVO · QR</div></div>
+        </div>
+        <div class="dphone dcol-hide">+57 304 999 1212</div>
+        <div><span class="dbadge dbadge-sage">CONTACTADO</span></div>
+        <div class="dvisits dcol-hide">1</div>
+        <div class="dlast dcol-hide">hoy</div>
+        <div><span class="dbadge dbadge-out-sage">BIENVENIDA OK</span></div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="dtable-row">
+        <div class="dclient">
+          <div class="dav" style="background:var(--honey);color:var(--ink);">M</div>
+          <div><div class="dclient-name">María C. Vega</div><div class="dclient-lvl">β-SHELIAK · 88</div></div>
+        </div>
+        <div class="dphone dcol-hide">+57 318 222 4055</div>
+        <div><span class="dbadge dbadge-honey">RECOVERY 22D</span></div>
+        <div class="dvisits dcol-hide">18</div>
+        <div class="dlast dcol-hide">hace 22 días</div>
+        <div><span class="dbadge dbadge-out-ember">REACTIVAR</span></div>
+      </div>
+
+      <!-- Row 4 -->
+      <div class="dtable-row">
+        <div class="dclient">
+          <div class="dav">S</div>
+          <div><div class="dclient-name">Santiago Ríos</div><div class="dclient-lvl">γ-SULAFAT · 42</div></div>
+        </div>
+        <div class="dphone dcol-hide">+57 322 116 8810</div>
+        <div><span class="dbadge dbadge-ember">CUMPLE HOY</span></div>
+        <div class="dvisits dcol-hide">9</div>
+        <div class="dlast dcol-hide">hace 8 días</div>
+        <div><span class="dbadge dbadge-out-ember">POSTRE GRATIS</span></div>
+      </div>
+    </div>
+
+    <!-- Bottom 3 cards -->
+    <div class="dbottom animate">
+
+      <!-- Recompensa activa -->
+      <div class="dbot dbot-ember">
+        <p class="dbot-lbl">Recompensa activa</p>
+        <p class="dbot-title">Postre de la casa</p>
+        <div class="dprogress">
+          <div class="dbar on"></div><div class="dbar on"></div><div class="dbar on"></div>
+          <div class="dbar on"></div><div class="dbar on"></div>
+          <div class="dbar off"></div><div class="dbar off"></div><div class="dbar off"></div>
+        </div>
+        <p class="dbot-sub">5 / 8 visitas · +3 para reclamar</p>
+      </div>
+
+      <!-- Clientes activos -->
+      <div class="dbot dbot-paper">
+        <p class="dbot-lbl">Clientes activos · 30D</p>
+        <p class="dstat-num">1,248</p>
+        <p class="dstat-delta">↑ 18.3% vs periodo anterior</p>
+        <div class="dstat-bars">
+          <div class="dstat-bar" style="height:38%;"></div>
+          <div class="dstat-bar" style="height:56%;"></div>
+          <div class="dstat-bar" style="height:47%;"></div>
+          <div class="dstat-bar" style="height:65%;"></div>
+          <div class="dstat-bar" style="height:60%;"></div>
+          <div class="dstat-bar" style="height:69%;"></div>
+          <div class="dstat-bar" style="height:78%;"></div>
+          <div class="dstat-bar" style="height:73%;"></div>
+          <div class="dstat-bar" style="height:88%;"></div>
+          <div class="dstat-bar" style="height:81%;"></div>
+          <div class="dstat-bar" style="height:90%;"></div>
+          <div class="dstat-bar" style="height:100%;"></div>
+        </div>
+      </div>
+
+      <!-- Próxima campaña -->
+      <div class="dbot dbot-ember">
+        <p class="dbot-lbl">Próxima campaña</p>
+        <p class="dbot-title">Cumpleaños · Marzo</p>
+        <p class="dbot-sub">42 cumpleañeros · Envío 1/Mar · 09:00</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1046,7 +1297,7 @@ a{color:inherit;text-decoration:none;}
       <div class="calc-header animate">
         <div class="eyebrow" style="justify-content:center;">Calculadora de retorno</div>
         <h2>¿Cuánto dinero estás <em style="font-style:italic;">dejando ir</em>?</h2>
-        <p>Sushi Service fidelizó 197 clientes y logró 3.5x de retorno en 2 semanas. Calculá cuánto recuperarías vos al mes si el 25% de tus clientes vuelve.</p>
+        <p>Sushi Service fidelizó 197 clientes en 2 semanas. Calculá cuánto recuperarías vos al mes si el 25% de tus clientes vuelve.</p>
       </div>
 
       <div class="calc-grid">
