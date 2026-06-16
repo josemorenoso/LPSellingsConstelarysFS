@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>El 70% de tus clientes nunca vuelve — Recuperalos con un QR | Cada1</title>
-<meta name="description" content="Sistema de fidelización para restaurantes en Colombia. QR en la mesa, WhatsApp automático, cero apps. Sushi Service fidelizó +70 clientes en 5 días."/>
+<meta name="description" content="Sistema de fidelización para restaurantes en Colombia. QR en la mesa, WhatsApp automático, cero apps. Caso real: Sushi Service sumó 193 clientes y recuperó $272.000 en solo 2 semanas."/>
 <meta name="facebook-domain-verification" content="33ab3kr9gv03xth5hcktsc6zi3cf92"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -793,7 +793,7 @@ a{color:inherit;text-decoration:none;}
         </h1>
         <p class="hero-sub animate visible d1">
           WhatsApp automático, cero apps, cero fricción.<br>
-          Sushi Service fidelizó +70 clientes en 5 días — vos también podés.
+          Caso real: Sushi Service sumó <strong>193 clientes</strong> y recuperó <strong>$272.000</strong> en solo <strong>2 semanas</strong>.
         </p>
 
         <div class="proof-strip animate visible d2">
@@ -808,8 +808,8 @@ a{color:inherit;text-decoration:none;}
             </picture>
           </div>
           <div class="proof-text">
-            <span style="display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;opacity:.6;margin-bottom:3px;">Restaurantes en producción</span>
-            <strong style="font-size:19px;line-height:1.2;letter-spacing:-0.01em;">+70 clientes fidelizados en 5 días</strong>
+            <span style="display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;opacity:.6;margin-bottom:3px;">Caso real · En producción</span>
+            <strong style="font-size:19px;line-height:1.2;letter-spacing:-0.01em;">193 clientes · $272.000 recuperados en 2 semanas</strong>
             <span class="proof-text-sub" style="font-size:13px;opacity:.7;margin-top:2px;">Sushi Service · Envigado, Colombia</span>
           </div>
         </div>
@@ -834,58 +834,84 @@ a{color:inherit;text-decoration:none;}
 </section>
 
 <!-- ════════════════════════════════════════════
-     § 2 — ROI CALCULATOR
+     § 4 — SOCIAL PROOF
      ════════════════════════════════════════════ -->
-<section class="calc-section" id="roi">
+<section class="proof-section">
   <div class="page">
-    <div class="calc-wrap">
-      <div class="calc-header animate">
-        <div class="eyebrow" style="justify-content:center;">Calculadora de retorno</div>
-        <h2>¿Cuánto dinero estás <em style="font-style:italic;">dejando ir</em>?</h2>
-        <p>Calculá cuánto recuperarías al mes si el 25% de tus clientes del mes vuelve a visitarte.</p>
+    <div class="proof-card animate">
+      <div class="proof-photo">
+        <img src="Assets/5010476171862412575.jpg" alt="Gerardo Moreno, dueño de Sushi Service, con el QR de Cada1 en su local" loading="lazy" decoding="async" width="771" height="1024" style="width:100%;height:100%;object-fit:cover;">
       </div>
-
-      <div class="calc-grid">
-        <div class="calc-field">
-          <label for="calcClientes">Clientes activos / mes</label>
-          <input type="number" id="calcClientes" name="calcClientes" value="100" min="1" max="9999" aria-label="Clientes activos por mes">
+      <div class="proof-content">
+        <div class="eyebrow">Caso real · Sushi Service</div>
+        <div class="proof-quote">
+          "Con Cada1 me ahorro tiempo y plata: le escribo directo a mis clientes sin tener que hacer campañas, y desde el mismo QR me llegan reseñas a Google que nos ayudan a posicionarnos."
         </div>
-        <div class="calc-field">
-          <label for="calcTicket">Ticket promedio (COP)</label>
-          <input type="number" id="calcTicket" name="calcTicket" value="35000" min="1000" step="1000" aria-label="Ticket promedio en pesos colombianos">
+        <div class="proof-attribution">
+          <div class="proof-av">G</div>
+          <div class="proof-who">
+            <div class="name">Gerardo Moreno</div>
+            <div class="role">Dueño · Sushi Service, Colombia</div>
+          </div>
         </div>
-      </div>
-
-      <div class="calc-result">
-        <div class="amount" id="calcAmount">$875.000</div>
-        <div class="desc" id="calcDesc">
-          Recuperás <span id="calcMonthly">$875.000 COP</span> mensuales.<br>
-          Pagás el setup en <span id="calcPayback">1</span> mes.
+        <div class="proof-stats">
+          <div class="proof-stat">
+            <div class="num">193</div>
+            <div class="lbl">Clientes en 2 semanas</div>
+          </div>
+          <div class="proof-stat">
+            <div class="num">$272K</div>
+            <div class="lbl">Recuperados en 2 semanas</div>
+          </div>
+          <div class="proof-stat">
+            <div class="num">20s</div>
+            <div class="lbl">Tiempo de registro</div>
+          </div>
         </div>
-      </div>
-
-      <!-- 3 dashboard preview cards -->
-      <div class="dash-preview animate">
-        <div class="dash-card">
-          <div class="lbl">Clientes reactivados</div>
-          <div class="num" id="dashReactivated">25</div>
-          <div class="delta up">↑ 25% de tus clientes del mes</div>
-          <div class="spark"><svg viewBox="0 0 200 32" preserveAspectRatio="none"><polyline points="0,28 30,24 60,20 90,22 120,14 150,10 180,8 200,4" fill="none" stroke="var(--sage)" stroke-width="2"/></svg></div>
-        </div>
-        <div class="dash-card">
-          <div class="lbl">Ingreso recuperado</div>
-          <div class="num" id="dashRevenue">$875K</div>
-          <div class="delta up">↑ por mes estimado</div>
-          <div class="spark"><svg viewBox="0 0 200 32" preserveAspectRatio="none"><polyline points="0,30 40,26 80,18 120,15 160,8 200,4" fill="none" stroke="var(--ember)" stroke-width="2"/></svg></div>
-        </div>
-        <div class="dash-card">
-          <div class="lbl">ROI mensual del sistema</div>
-          <div class="num" id="dashROI">3.5x</div>
-          <div class="delta up">↑ recuperás vs lo que pagás</div>
-          <div class="spark"><svg viewBox="0 0 200 32" preserveAspectRatio="none"><polyline points="0,30 25,28 50,22 75,24 100,16 125,18 150,10 175,8 200,6" fill="none" stroke="var(--honey)" stroke-width="2"/></svg></div>
+        <div class="pioneer-strip">
+          <div class="pioneer-logo" style="display:flex;align-items:center;gap:8px;">
+            <picture>
+              <source srcset="sushi-fun.webp" type="image/webp">
+              <img src="sushi-fun.jpg" alt="Sushi Fun and Wok" loading="lazy" width="200" height="200" style="height:26px;width:26px;object-fit:cover;border-radius:50%;flex-shrink:0;">
+            </picture>
+            Pionero #2 · Sushi Fun & Wok, Envigado
+          </div>
+          <div class="pioneer-logo">Pionero #3 · Próximamente</div>
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     § 4.5 — DASHBOARD PREVIEW
+     ════════════════════════════════════════════ -->
+<section class="dash-section">
+  <div class="page">
+
+    <!-- Header -->
+    <div class="dash-section-header animate">
+      <div class="eyebrow" style="justify-content:center;">03 · Panel real · No es maqueta</div>
+      <h2 style="margin-top:16px;">Esto no es un demo. <em style="font-style:italic;">Es Sushi Service hoy.</em></h2>
+      <p>Captura real del panel después de 2 semanas: quién vino, quién falta, quién cumple años y cuánto dinero recuperaste — sin que toques un botón.</p>
+    </div>
+
+    <!-- Captura REAL del panel en frame de navegador -->
+    <div class="dash-shot animate" style="max-width:1000px;margin:0 auto;border-radius:16px;overflow:hidden;border:1px solid var(--rule);box-shadow:0 40px 90px -40px rgba(0,0,0,.45);background:#fff;">
+      <div style="display:flex;align-items:center;gap:8px;padding:13px 18px;background:#F1ECE0;border-bottom:1px solid var(--rule);">
+        <span style="width:11px;height:11px;border-radius:50%;background:#E25A2A;flex:none;"></span>
+        <span style="width:11px;height:11px;border-radius:50%;background:#F2C45A;flex:none;"></span>
+        <span style="width:11px;height:11px;border-radius:50%;background:#59B585;flex:none;"></span>
+        <span style="margin:0 auto;font-family:'Geist Mono',monospace;font-size:12px;color:var(--ink-soft);background:#fff;border:1px solid var(--rule);border-radius:999px;padding:4px 16px;max-width:80%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">app.cada1.co · Sushi Service · Métricas</span>
+      </div>
+      <img src="Assets/Cada.png" alt="Panel real de Sushi Service: 193 clientes y ROI de $272.000 en 2 semanas" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;">
+    </div>
+
+    <p class="dash-shot-caption animate" style="text-align:center;margin:24px auto 0;max-width:60ch;font-size:15px;line-height:1.6;color:var(--ink-soft);">
+      <strong style="color:var(--ember);">Captura real</strong> del panel de Sushi Service ·
+      <strong style="color:var(--ink);">193 clientes · ROI $272.000 en solo 2 semanas.</strong>
+      Proyectado al mes, se duplica.
+    </p>
   </div>
 </section>
 
@@ -932,240 +958,6 @@ a{color:inherit;text-decoration:none;}
         <h3>Vuelve por su premio</h3>
         <p>El cliente regresa. El sistema lo recuerda, lo premia y repite el ciclo.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════════
-     § 4 — SOCIAL PROOF
-     ════════════════════════════════════════════ -->
-<section class="proof-section">
-  <div class="page">
-    <div class="proof-card animate">
-      <div class="proof-photo">
-        <picture>
-          <source srcset="sushi-service.webp" type="image/webp">
-          <img src="sushi-service.jpg" alt="Jose Moreno, dueño de Sushi Service" loading="lazy" decoding="async" width="1200" height="1644" style="width:100%;height:100%;object-fit:cover;">
-        </picture>
-      </div>
-      <div class="proof-content">
-        <div class="eyebrow">Caso real · Sushi Service</div>
-        <div class="proof-quote">
-          "Empezamos con el QR en las mesas un martes. Para el sábado ya teníamos más de 70 clientes registrados que antes eran completamente anónimos."
-        </div>
-        <div class="proof-attribution">
-          <div class="proof-av">J</div>
-          <div class="proof-who">
-            <div class="name">Jose Moreno</div>
-            <div class="role">Dueño · Sushi Service, Colombia</div>
-          </div>
-        </div>
-        <div class="proof-stats">
-          <div class="proof-stat">
-            <div class="num">70+</div>
-            <div class="lbl">Clientes en 5 días</div>
-          </div>
-          <div class="proof-stat">
-            <div class="num">20s</div>
-            <div class="lbl">Tiempo de registro</div>
-          </div>
-          <div class="proof-stat">
-            <div class="num" style="font-size:28px;line-height:1.3;">Cero</div>
-            <div class="lbl">Apps que instalar</div>
-          </div>
-        </div>
-        <div class="pioneer-strip">
-          <div class="pioneer-logo" style="display:flex;align-items:center;gap:8px;">
-            <picture>
-              <source srcset="sushi-fun.webp" type="image/webp">
-              <img src="sushi-fun.jpg" alt="Sushi Fun and Wok" loading="lazy" width="200" height="200" style="height:26px;width:26px;object-fit:cover;border-radius:50%;flex-shrink:0;">
-            </picture>
-            Pionero #2 · Sushi Fun & Wok, Envigado
-          </div>
-          <div class="pioneer-logo">Pionero #3 · Próximamente</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════════
-     § 4.5 — DASHBOARD PREVIEW
-     ════════════════════════════════════════════ -->
-<section class="dash-section">
-  <div class="page">
-
-    <!-- Header -->
-    <div class="dash-section-header animate">
-      <div class="eyebrow" style="justify-content:center;">03 · Tu panel de control</div>
-      <h2 style="margin-top:16px;">Todo tu restaurante, <em style="font-style:italic;">en una pantalla.</em></h2>
-      <p>Dashboard en tiempo real. Sabe quién vino, quién falta, quién cumple años y quién merece un premio — sin que toques un botón.</p>
-    </div>
-
-    <!-- Metric cards -->
-    <div class="dmetrics animate">
-
-      <div class="dmetric">
-        <div class="c-ember" style="opacity:.7;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="5" y="5" width="3" height="3" fill="currentColor" stroke="none"/><rect x="16" y="5" width="3" height="3" fill="currentColor" stroke="none"/><rect x="5" y="16" width="3" height="3" fill="currentColor" stroke="none"/><rect x="14" y="14" width="2" height="2" fill="currentColor" stroke="none"/><rect x="18" y="14" width="2" height="2" fill="currentColor" stroke="none"/><rect x="14" y="18" width="2" height="2" fill="currentColor" stroke="none"/><rect x="18" y="18" width="2" height="2" fill="currentColor" stroke="none"/></svg>
-        </div>
-        <span class="dmetric-val c-ember">24</span>
-        <span class="dmetric-lbl">QR Hoy</span>
-      </div>
-
-      <div class="dmetric">
-        <div class="c-sage" style="opacity:.7;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11a2 2 0 012 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="21" r="1" fill="currentColor"/><circle cx="20" cy="21" r="1" fill="currentColor"/></svg>
-        </div>
-        <span class="dmetric-val c-sage">11</span>
-        <span class="dmetric-lbl">Domicilios Hoy</span>
-      </div>
-
-      <div class="dmetric">
-        <div class="c-ember" style="opacity:.7;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="16" y1="11" x2="22" y2="11"/></svg>
-        </div>
-        <span class="dmetric-val c-ember">8</span>
-        <span class="dmetric-lbl">Nuevos Hoy</span>
-      </div>
-
-      <div class="dmetric">
-        <div class="c-ink" style="opacity:.7;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-        </div>
-        <span class="dmetric-val c-ink">1,248</span>
-        <span class="dmetric-lbl">Total Clientes</span>
-      </div>
-
-      <div class="dmetric">
-        <div class="c-sage" style="opacity:.7;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
-        </div>
-        <span class="dmetric-val c-sage">312</span>
-        <span class="dmetric-lbl">Frecuentes (3+)</span>
-      </div>
-
-      <div class="dmetric">
-        <div class="c-honey" style="opacity:.7;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 21H6a2 2 0 01-2-2v-7a2 2 0 012-2h12a2 2 0 012 2v7a2 2 0 01-2 2z"/><path d="M4 15.5s1-1 2-1 2 1 2 1 1-1 2-1 2 1 2 1 1-1 2-1 2 1 2 1"/><path d="M8 10V8M12 10V8M16 10V8"/><path d="M7 7c0-1.1.9-2 2-2s2 .9 2 2"/><path d="M13 7c0-1.1.9-2 2-2s2 .9 2 2"/></svg>
-        </div>
-        <span class="dmetric-val c-honey">3</span>
-        <span class="dmetric-lbl">Cumpleaños Hoy</span>
-      </div>
-
-    </div>
-
-    <!-- Table -->
-    <div class="dtable animate">
-      <div class="dtable-bar">
-        <span class="dtable-bar-left">Tabla de clientes</span>
-        <span class="dtable-bar-right">Vista por defecto</span>
-      </div>
-      <div class="dtable-thead">
-        <span>Cliente</span>
-        <span>Celular</span>
-        <span>Estado</span>
-        <span>Visitas</span>
-        <span>Último regreso</span>
-        <span>Próxima acción</span>
-      </div>
-
-      <!-- Row 1 -->
-      <div class="dtable-row">
-        <div class="dclient">
-          <div class="dav">E</div>
-          <div><div class="dclient-name">Eva Martínez</div><div class="dclient-lvl">α-VEGA · 91</div></div>
-        </div>
-        <div class="dphone dcol-hide">+57 312 555 0188</div>
-        <div><span class="dbadge dbadge-ember">TOP 5%</span></div>
-        <div class="dvisits dcol-hide">47</div>
-        <div class="dlast dcol-hide">hace 4 días</div>
-        <div><span class="dbadge dbadge-out-ember">POSTRE LISTO</span></div>
-      </div>
-
-      <!-- Row 2 -->
-      <div class="dtable-row">
-        <div class="dclient">
-          <div class="dav" style="background:var(--sage);">J</div>
-          <div><div class="dclient-name">Juan P. Rojas</div><div class="dclient-lvl">NUEVO · QR</div></div>
-        </div>
-        <div class="dphone dcol-hide">+57 304 999 1212</div>
-        <div><span class="dbadge dbadge-sage">CONTACTADO</span></div>
-        <div class="dvisits dcol-hide">1</div>
-        <div class="dlast dcol-hide">hoy</div>
-        <div><span class="dbadge dbadge-out-sage">BIENVENIDA OK</span></div>
-      </div>
-
-      <!-- Row 3 -->
-      <div class="dtable-row">
-        <div class="dclient">
-          <div class="dav" style="background:var(--honey);color:var(--ink);">M</div>
-          <div><div class="dclient-name">María C. Vega</div><div class="dclient-lvl">β-SHELIAK · 88</div></div>
-        </div>
-        <div class="dphone dcol-hide">+57 318 222 4055</div>
-        <div><span class="dbadge dbadge-honey">RECOVERY 22D</span></div>
-        <div class="dvisits dcol-hide">18</div>
-        <div class="dlast dcol-hide">hace 22 días</div>
-        <div><span class="dbadge dbadge-out-ember">REACTIVAR</span></div>
-      </div>
-
-      <!-- Row 4 -->
-      <div class="dtable-row">
-        <div class="dclient">
-          <div class="dav">S</div>
-          <div><div class="dclient-name">Santiago Ríos</div><div class="dclient-lvl">γ-SULAFAT · 42</div></div>
-        </div>
-        <div class="dphone dcol-hide">+57 322 116 8810</div>
-        <div><span class="dbadge dbadge-ember">CUMPLE HOY</span></div>
-        <div class="dvisits dcol-hide">9</div>
-        <div class="dlast dcol-hide">hace 8 días</div>
-        <div><span class="dbadge dbadge-out-ember">POSTRE GRATIS</span></div>
-      </div>
-    </div>
-
-    <!-- Bottom 3 cards -->
-    <div class="dbottom animate">
-
-      <!-- Recompensa activa -->
-      <div class="dbot dbot-ember">
-        <p class="dbot-lbl">Recompensa activa</p>
-        <p class="dbot-title">Postre de la casa</p>
-        <div class="dprogress">
-          <div class="dbar on"></div><div class="dbar on"></div><div class="dbar on"></div>
-          <div class="dbar on"></div><div class="dbar on"></div>
-          <div class="dbar off"></div><div class="dbar off"></div><div class="dbar off"></div>
-        </div>
-        <p class="dbot-sub">5 / 8 visitas · +3 para reclamar</p>
-      </div>
-
-      <!-- Clientes activos -->
-      <div class="dbot dbot-paper">
-        <p class="dbot-lbl">Clientes activos · 30D</p>
-        <p class="dstat-num">1,248</p>
-        <p class="dstat-delta">↑ 18.3% vs periodo anterior</p>
-        <div class="dstat-bars">
-          <div class="dstat-bar" style="height:38%;"></div>
-          <div class="dstat-bar" style="height:56%;"></div>
-          <div class="dstat-bar" style="height:47%;"></div>
-          <div class="dstat-bar" style="height:65%;"></div>
-          <div class="dstat-bar" style="height:60%;"></div>
-          <div class="dstat-bar" style="height:69%;"></div>
-          <div class="dstat-bar" style="height:78%;"></div>
-          <div class="dstat-bar" style="height:73%;"></div>
-          <div class="dstat-bar" style="height:88%;"></div>
-          <div class="dstat-bar" style="height:81%;"></div>
-          <div class="dstat-bar" style="height:90%;"></div>
-          <div class="dstat-bar" style="height:100%;"></div>
-        </div>
-      </div>
-
-      <!-- Próxima campaña -->
-      <div class="dbot dbot-ember">
-        <p class="dbot-lbl">Próxima campaña</p>
-        <p class="dbot-title">Cumpleaños · Marzo</p>
-        <p class="dbot-sub">42 cumpleañeros · Envío 1/Mar · 09:00</p>
-      </div>
-
     </div>
   </div>
 </section>
@@ -1239,6 +1031,62 @@ a{color:inherit;text-decoration:none;}
       <div style="background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:20px;display:flex;align-items:center;gap:14px;"><div style="width:36px;height:36px;flex:none;border-radius:999px;background:var(--ink);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F4ECDC" stroke-width="1.5"><path d="M3 11v2l13 5V6L3 11zM16 8v8M19 9v6"/></svg></div><div><p style="font-weight:600;font-size:14px;margin:0;">Evento especial</p><p style="font-size:12px;color:var(--ink-soft);margin:2px 0 0;">Nuevo menú, aniversario</p></div></div>
       <div style="background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:20px;display:flex;align-items:center;gap:14px;"><div style="width:36px;height:36px;flex:none;border-radius:999px;background:var(--ember-deep);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="1.5"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 12h18M12 8v13"/></svg></div><div><p style="font-weight:600;font-size:14px;margin:0;">Nivel alcanzado</p><p style="font-size:12px;color:var(--ink-soft);margin:2px 0 0;">Notificación + premio</p></div></div>
       <div style="background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:20px;display:flex;align-items:center;gap:14px;"><div style="width:36px;height:36px;flex:none;border-radius:999px;background:var(--polaris);display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.5"><path d="M12 21s-7-4.5-9-9.5C1.5 7 5 4 8 4c2 0 3 1 4 2 1-1 2-2 4-2 3 0 6.5 3 5 7.5-2 5-9 9.5-9 9.5z"/></svg></div><div><p style="font-weight:600;font-size:14px;margin:0;">Referidos</p><p style="font-size:12px;color:var(--ink-soft);margin:2px 0 0;">Puntos bonus</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     § 2 — ROI CALCULATOR
+     ════════════════════════════════════════════ -->
+<section class="calc-section" id="roi">
+  <div class="page">
+    <div class="calc-wrap">
+      <div class="calc-header animate">
+        <div class="eyebrow" style="justify-content:center;">Calculadora de retorno</div>
+        <h2>¿Cuánto dinero estás <em style="font-style:italic;">dejando ir</em>?</h2>
+        <p>Sushi Service recuperó $272.000 en 2 semanas. Calculá cuánto recuperarías vos al mes si el 25% de tus clientes vuelve.</p>
+      </div>
+
+      <div class="calc-grid">
+        <div class="calc-field">
+          <label for="calcClientes">Clientes activos / mes</label>
+          <input type="number" id="calcClientes" name="calcClientes" value="100" min="1" max="9999" aria-label="Clientes activos por mes">
+        </div>
+        <div class="calc-field">
+          <label for="calcTicket">Ticket promedio (COP)</label>
+          <input type="number" id="calcTicket" name="calcTicket" value="35000" min="1000" step="1000" aria-label="Ticket promedio en pesos colombianos">
+        </div>
+      </div>
+
+      <div class="calc-result">
+        <div class="amount" id="calcAmount">$875.000</div>
+        <div class="desc" id="calcDesc">
+          Recuperás <span id="calcMonthly">$875.000 COP</span> mensuales.<br>
+          Pagás el setup en <span id="calcPayback">1</span> mes.
+        </div>
+      </div>
+
+      <!-- 3 dashboard preview cards -->
+      <div class="dash-preview animate">
+        <div class="dash-card">
+          <div class="lbl">Clientes reactivados</div>
+          <div class="num" id="dashReactivated">25</div>
+          <div class="delta up">↑ 25% de tus clientes del mes</div>
+          <div class="spark"><svg viewBox="0 0 200 32" preserveAspectRatio="none"><polyline points="0,28 30,24 60,20 90,22 120,14 150,10 180,8 200,4" fill="none" stroke="var(--sage)" stroke-width="2"/></svg></div>
+        </div>
+        <div class="dash-card">
+          <div class="lbl">Ingreso recuperado</div>
+          <div class="num" id="dashRevenue">$875K</div>
+          <div class="delta up">↑ por mes estimado</div>
+          <div class="spark"><svg viewBox="0 0 200 32" preserveAspectRatio="none"><polyline points="0,30 40,26 80,18 120,15 160,8 200,4" fill="none" stroke="var(--ember)" stroke-width="2"/></svg></div>
+        </div>
+        <div class="dash-card">
+          <div class="lbl">ROI mensual del sistema</div>
+          <div class="num" id="dashROI">3.5x</div>
+          <div class="delta up">↑ recuperás vs lo que pagás</div>
+          <div class="spark"><svg viewBox="0 0 200 32" preserveAspectRatio="none"><polyline points="0,30 25,28 50,22 75,24 100,16 125,18 150,10 175,8 200,6" fill="none" stroke="var(--honey)" stroke-width="2"/></svg></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
