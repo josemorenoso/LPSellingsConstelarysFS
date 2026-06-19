@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="es" data-palette="hearth">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Carrusel Instagram — Cada1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+/* ============================================================
+   TOKENS — Sistema Visual Cada1 (paleta Hearth)
+   ============================================================ */
+:root{
+  --bg:#F1E6D0; --paper:#F8EFD9; --paper-2:#EFE2C5;
+  --ink:#1C1814; --ink-soft:#4A3F35; --ink-mute:#7A6A57;
+  --ember:#C9461F; --ember-deep:#8A2E14;
+  --sage:#2E6B4A; --honey:#D89A2A; --polaris:#F1D67A;
+  --line:#C9B79A; --line-soft:#DCC9A8; --rule:rgba(28,24,20,.10);
+  /* WhatsApp */
+  --wa-header:#075E54; --wa-teal:#128C7E; --wa-bg:#EFE7DE;
+  --wa-in:#FFFFFF; --wa-out:#DCF8C6; --wa-check:#34B7F1; --wa-green:#25D366;
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; background:#2a2520; }
+body{
+  font-family:'Geist', system-ui, sans-serif; color:var(--ink);
+  -webkit-font-smoothing:antialiased; font-feature-settings:"ss01","ss02","cv11";
+}
+.serif{ font-family:'Instrument Serif', Georgia, serif; font-weight:400; }
+.italic{ font-style:italic; }
+.mono{ font-family:'Geist Mono', ui-monospace, monospace; }
+
+/* ============================================================
+   CONTROL BAR (no se exporta)
+   ============================================================ */
+.controls{
+  position:sticky; top:0; z-index:200;
+  display:flex; gap:14px; align-items:center; flex-wrap:wrap;
+  padding:16px 24px; background:#15110d; color:#F1E6D0;
+  border-bottom:1px solid #3a332a;
+  font-family:'Geist Mono', monospace; font-size:12px; letter-spacing:.04em;
+}
+.controls strong{ font-family:'Instrument Serif',serif; font-style:italic; font-size:20px; font-weight:400; letter-spacing:.02em; }
+.controls .sp{ flex:1; }
+.controls button{
+  font-family:'Geist', sans-serif; font-weight:600; font-size:13px;
+  padding:11px 18px; border-radius:999px; border:1px solid transparent;
+  background:var(--ember); color:#fff; cursor:pointer; transition:.15s;
+}
+.controls button:hover{ background:var(--ember-deep); }
+.controls button.ghost{ background:transparent; border-color:#52483b; color:#F1E6D0; }
+.controls button.ghost:hover{ border-color:#F1E6D0; }
+.controls .hint{ color:#8B7E68; }
+
+/* ============================================================
+   STAGE & SLIDES
+   ============================================================ */
+.stage{ display:flex; flex-direction:column; align-items:center; gap:34px; padding:40px 16px 90px; }
+.slide{
+  width:1080px; height:1350px; position:relative; overflow:hidden;
+  background:var(--bg); color:var(--ink); flex:none;
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.7);
+}
+.slide-cap{ font-family:'Geist Mono',monospace; font-size:12px; color:#8B7E68; letter-spacing:.18em; text-transform:uppercase; }
+
+/* helpers */
+.pad{ position:absolute; inset:0; padding:96px 88px; display:flex; flex-direction:column; }
+.brand{ display:flex; align-items:center; gap:14px; }
+.brand .lyra{ width:34px; height:34px; }
+.brand .nm{ font-family:'Instrument Serif',serif; font-style:italic; font-size:30px; line-height:1; }
+.brand .nm b{ font-family:'Geist',sans-serif; font-style:normal; font-weight:800; color:var(--ember); }
+.brand.light .nm{ color:var(--paper); }
+.kicker{ font-family:'Geist Mono',monospace; font-size:18px; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-mute); display:flex; align-items:center; gap:14px; }
+.kicker::before{ content:""; width:34px; height:2px; background:var(--ember); }
+.swipe{ position:absolute; bottom:64px; right:88px; display:flex; align-items:center; gap:14px; font-family:'Geist Mono',monospace; font-size:18px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-mute); }
+.swipe .arrow{ width:54px; height:54px; border-radius:999px; border:2px solid var(--ember); display:flex; align-items:center; justify-content:center; color:var(--ember); }
+.pagenum{ position:absolute; bottom:64px; left:88px; font-family:'Geist Mono',monospace; font-size:16px; letter-spacing:.18em; color:var(--ink-mute); }
+.dark .swipe, .dark .pagenum{ color:rgba(241,230,208,.6); }
+.dark .swipe .arrow{ border-color:var(--polaris); color:var(--polaris); }
+
+.title{ font-family:'Instrument Serif',serif; font-weight:400; line-height:.92; letter-spacing:-.02em; }
+.big{ font-size:128px; }
+.huge{ font-size:300px; line-height:.8; }
+.em{ color:var(--ember); }
+.po{ color:var(--polaris); }
+.mark{ background:linear-gradient(transparent 62%, var(--honey) 62%); padding:0 .06em; }
+
+/* THEMES */
+.t-ink{ background:var(--ink); color:var(--paper); }
+.t-ink .title{ color:var(--paper); }
+.t-paper{ background:var(--paper); }
+.t-sage{ background:var(--sage); color:var(--paper); }
+.t-sage .title{ color:var(--paper); }
+
+/* dotgrid bg */
+.dots{ position:absolute; inset:0; background-image:radial-gradient(rgba(241,230,208,.10) 1.4px, transparent 1.4px); background-size:34px 34px; }
+.dots.dark{ background-image:radial-gradient(rgba(28,24,20,.07) 1.4px, transparent 1.4px); }
+
+/* ============================================================
+   PHONE MOCKUP
+   ============================================================ */
+.phone{
+  width:560px; border-radius:56px; background:#0c0c0c; padding:16px;
+  box-shadow:0 40px 80px -30px rgba(0,0,0,.6), inset 0 0 0 2px #2a2a2a; position:relative;
+}
+.phone .notch{ position:absolute; top:26px; left:50%; transform:translateX(-50%); width:150px; height:30px; background:#0c0c0c; border-radius:0 0 20px 20px; z-index:5; }
+.phone .screen{ border-radius:42px; overflow:hidden; background:#fff; position:relative; }
+
+/* WhatsApp */
+.wa-status{ background:var(--wa-header); color:#fff; display:flex; justify-content:space-between; align-items:center; padding:14px 22px 6px; font-family:'Geist',sans-serif; font-size:17px; font-weight:600; }
+.wa-status .r{ display:flex; gap:9px; align-items:center; font-size:15px; }
+.wa-head{ background:var(--wa-header); color:#fff; display:flex; align-items:center; gap:14px; padding:10px 16px 14px; }
+.wa-head .back{ font-size:26px; line-height:1; }
+.wa-head .av{ width:54px; height:54px; border-radius:999px; background:#fff; display:flex; align-items:center; justify-content:center; overflow:hidden; flex:none; }
+.wa-head .av .em{ font-family:'Geist',sans-serif; font-weight:800; font-style:normal; color:var(--ember); font-size:26px; }
+.wa-head .who{ flex:1; line-height:1.15; }
+.wa-head .who .n{ font-weight:600; font-size:20px; display:flex; align-items:center; gap:7px; }
+.wa-head .who .verify{ width:19px; height:19px; }
+.wa-head .who .s{ font-size:14px; opacity:.9; }
+.wa-head .ic{ display:flex; gap:22px; opacity:.95; }
+.wa-head .ic svg{ width:24px; height:24px; }
+.wa-body{
+  background:var(--wa-bg); position:relative; padding:18px 16px 20px;
+  display:flex; flex-direction:column; gap:11px; min-height:660px;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='90' height='90' viewBox='0 0 90 90'><g fill='none' stroke='%23000000' stroke-opacity='0.035' stroke-width='2'><circle cx='20' cy='20' r='8'/><path d='M60 14 q8 0 8 8 t-8 8'/><rect x='54' y='52' width='14' height='14' rx='3'/><path d='M14 60 l10 10 M24 60 l-10 10'/></g></svg>");
+}
+.wa-date{ align-self:center; background:#d5e8d4; color:#5b6b5b; font-size:13px; font-weight:600; padding:5px 14px; border-radius:8px; box-shadow:0 1px 1px rgba(0,0,0,.08); margin-bottom:4px; }
+.bub{ max-width:80%; padding:9px 13px 7px; border-radius:12px; font-size:18px; line-height:1.4; position:relative; box-shadow:0 1px 1px rgba(0,0,0,.12); white-space:pre-line; color:#111b21; }
+.bub .t{ font-size:12px; color:#667781; float:right; margin:6px 0 -2px 10px; display:flex; align-items:center; gap:3px; }
+.bub.in{ background:var(--wa-in); align-self:flex-start; border-top-left-radius:2px; }
+.bub.out{ background:var(--wa-out); align-self:flex-end; border-top-right-radius:2px; }
+.bub b{ font-weight:700; }
+.bub .check{ width:18px; height:13px; color:var(--wa-check); }
+.wa-input{ background:#f0f0f0; display:flex; align-items:center; gap:10px; padding:10px 14px; }
+.wa-input .field{ flex:1; background:#fff; border-radius:999px; padding:13px 18px; color:#8a8a8a; font-size:16px; display:flex; align-items:center; gap:10px; }
+.wa-input .send{ width:50px; height:50px; border-radius:999px; background:var(--wa-teal); display:flex; align-items:center; justify-content:center; color:#fff; flex:none; }
+
+/* QR */
+.qrbox{ background:#fff; border:2px solid var(--ink); border-radius:18px; padding:26px; width:300px; height:300px; display:flex; align-items:center; justify-content:center; box-shadow:8px 8px 0 var(--ink); }
+.qrbox svg{ width:100%; height:100%; }
+
+/* steps */
+.step{ display:flex; align-items:center; gap:24px; }
+.step .n{ width:74px; height:74px; flex:none; border-radius:999px; background:var(--ember); color:#fff; font-family:'Instrument Serif',serif; font-style:italic; font-size:40px; display:flex; align-items:center; justify-content:center; }
+.step .tx{ font-size:32px; font-weight:500; line-height:1.15; }
+.step .tx small{ display:block; font-size:20px; color:var(--ink-mute); font-weight:400; margin-top:4px; }
+
+/* reward roadmap */
+.road{ display:flex; flex-direction:column; gap:0; }
+.road .r{ display:flex; align-items:center; gap:26px; padding:26px 0; border-bottom:1px solid rgba(241,230,208,.14); }
+.road .r:last-child{ border-bottom:none; }
+.road .vis{ width:96px; flex:none; font-family:'Geist Mono',monospace; font-size:17px; letter-spacing:.1em; color:rgba(241,230,208,.55); text-transform:uppercase; }
+.road .dot{ width:20px; height:20px; border-radius:999px; background:var(--polaris); flex:none; box-shadow:0 0 0 6px rgba(241,214,122,.15); }
+.road .prize{ font-size:34px; font-weight:500; }
+.road .r.black .prize{ font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; font-size:46px; }
+.road .r.black .dot{ background:#fff; }
+.road .tag{ margin-left:auto; font-family:'Geist Mono',monospace; font-size:14px; letter-spacing:.16em; text-transform:uppercase; padding:7px 14px; border-radius:999px; }
+.tag.black{ background:#000; color:var(--polaris); border:1px solid var(--polaris); }
+.tag.now{ background:var(--polaris); color:var(--ink); }
+
+/* dashboard proof */
+.proof{ border-radius:18px; overflow:hidden; border:1px solid var(--rule); box-shadow:0 30px 60px -30px rgba(0,0,0,.4); }
+.proof img{ display:block; width:100%; }
+
+/* feature pills */
+.pills{ display:flex; flex-wrap:wrap; gap:16px; }
+.pill{ display:inline-flex; align-items:center; gap:12px; padding:16px 24px; border-radius:999px; font-size:24px; font-weight:500; }
+.pill.line{ border:2px solid var(--line); color:var(--ink); }
+.pill.sage{ background:var(--sage); color:#fff; }
+.pill.ember{ background:var(--ember); color:#fff; }
+.pill .d{ width:12px; height:12px; border-radius:999px; background:currentColor; }
+
+/* CTA */
+.cta-btn{ display:inline-flex; align-items:center; gap:16px; background:var(--ember); color:#fff; font-family:'Geist',sans-serif; font-weight:700; font-size:34px; padding:26px 44px; border-radius:999px; }
+.share{ display:inline-flex; align-items:center; gap:14px; font-size:24px; color:rgba(241,230,208,.8); }
+.share svg{ width:30px; height:30px; }
+
+@media print{ .controls{ display:none; } body{ background:#fff; } .stage{ gap:0; padding:0; } .slide{ box-shadow:none; page-break-after:always; } .slide-cap{ display:none; } }
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <strong>Cada1 · Carrusel</strong>
+  <span class="hint">9 slides · 1080×1350 (4:5)</span>
+  <span class="sp"></span>
+  <span class="hint" id="status">Listo</span>
+  <button id="dlAll">⬇ Descargar todas (PNG)</button>
+  <button class="ghost" id="dlOne">Descargar slide visible</button>
+</div>
+
+<div class="stage" id="stage">
+
+<!-- ========== SLIDE 1 — HOOK ========== -->
+<div>
+  <div class="slide t-ink dark" id="s1">
+    <div class="dots"></div>
+    <div class="pad">
+      <div class="brand light">
+        <svg class="lyra" viewBox="0 0 24 24" fill="none" stroke="var(--polaris)" stroke-width="1.5">
+          <circle cx="12" cy="3.5" r="1.4" fill="var(--polaris)"/><circle cx="7" cy="9" r=".9" fill="var(--polaris)"/><circle cx="17" cy="9" r=".9" fill="var(--polaris)"/><circle cx="7" cy="17" r=".9" fill="var(--polaris)"/><circle cx="17" cy="17" r=".9" fill="var(--polaris)"/>
+          <path d="M12 3.5 L7 9 M12 3.5 L17 9 M7 9 L7 17 M17 9 L17 17 M7 17 L17 17"/>
+        </svg>
+        <div class="nm">Cada<b>1</b></div>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <div class="kicker" style="margin-bottom:40px;">Para dueños de restaurantes</div>
+        <div class="title" style="font-size:140px; line-height:.9;">El <span class="huge em" style="font-size:260px; display:inline;">70%</span></div>
+        <div class="title" style="font-size:118px; margin-top:8px;">de tus clientes<br><span class="italic">nunca vuelve.</span></div>
+        <p style="font-size:40px; color:rgba(241,230,208,.75); margin-top:54px; max-width:22ch; line-height:1.3;">Y lo más grave: <b style="color:#fff;">ni siquiera sabes quiénes son.</b></p>
+      </div>
+    </div>
+    <div class="pagenum">01 / 09</div>
+    <div class="swipe">Desliza <span class="arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+  </div>
+  <div class="slide-cap">Slide 01 — Gancho</div>
+</div>
+
+<!-- ========== SLIDE 2 — AGITAR ========== -->
+<div>
+  <div class="slide t-paper" id="s2">
+    <div class="dots dark"></div>
+    <div class="pad">
+      <div class="kicker">Piensa en ayer</div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <div style="display:flex; align-items:baseline; gap:30px;">
+          <span class="title em" style="font-size:340px; line-height:.8;">80</span>
+          <span class="serif italic" style="font-size:64px; color:var(--ink-soft); line-height:1;">personas<br>entraron</span>
+        </div>
+        <p style="font-size:48px; line-height:1.25; margin-top:50px; max-width:20ch;">Comieron, pagaron y se fueron.</p>
+        <p style="font-size:48px; line-height:1.3; margin-top:30px; max-width:24ch;">Hoy <span class="mark">no tienes el nombre ni el número</span> de ninguna.</p>
+        <p style="font-size:34px; color:var(--ink-mute); margin-top:40px;">Son 80 clientes que se volvieron invisibles. 👻</p>
+      </div>
+    </div>
+    <div class="pagenum">02 / 09</div>
+    <div class="swipe">Sigue <span class="arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+  </div>
+  <div class="slide-cap">Slide 02 — Agitar</div>
+</div>
+
+<!-- ========== SLIDE 3 — COSTO ========== -->
+<div>
+  <div class="slide t-paper" id="s3" style="background:var(--paper-2);">
+    <div class="dots dark"></div>
+    <div class="pad">
+      <div class="kicker">El costo invisible</div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <p style="font-size:54px; line-height:1.2; max-width:20ch;">Conseguir un cliente nuevo cuesta</p>
+        <div style="display:flex; align-items:baseline; gap:24px; margin:20px 0 30px;">
+          <span class="title em" style="font-size:260px; line-height:.8;">5×</span>
+          <span class="serif italic" style="font-size:72px;">más</span>
+        </div>
+        <p style="font-size:54px; line-height:1.2; max-width:20ch;">que hacer volver a uno que <span class="italic serif" style="color:var(--ember);">ya te conoce.</span></p>
+        <div style="margin-top:56px; display:flex; align-items:center; gap:24px; background:var(--ink); color:var(--paper); padding:30px 38px; border-radius:18px; width:fit-content;">
+          <span style="font-size:54px;">🪣</span>
+          <span style="font-size:32px; line-height:1.3; max-width:18ch;">Pagas publicidad para llenar un <b>balde roto.</b></span>
+        </div>
+      </div>
+    </div>
+    <div class="pagenum">03 / 09</div>
+    <div class="swipe">Sigue <span class="arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+  </div>
+  <div class="slide-cap">Slide 03 — El costo</div>
+</div>
+
+<!-- ========== SLIDE 4 — GIRO ========== -->
+<div>
+  <div class="slide t-ink dark" id="s4">
+    <div class="dots"></div>
+    <div class="pad" style="justify-content:center;">
+      <div class="kicker" style="color:rgba(241,230,208,.6); margin-bottom:50px;">La verdad incómoda</div>
+      <p style="font-size:56px; line-height:1.3; color:rgba(241,230,208,.55);">No es tu comida.<br>No es tu precio.<br>No es la competencia.</p>
+      <div class="title" style="font-size:130px; margin-top:50px; line-height:.95;">Tu restaurante<br><span class="italic po">tiene amnesia.</span></div>
+      <p style="font-size:38px; color:rgba(241,230,208,.8); margin-top:50px; max-width:24ch; line-height:1.3;">No recuerda a nadie. Por eso nadie vuelve.</p>
+    </div>
+    <div class="pagenum">04 / 09</div>
+    <div class="swipe">La solución <span class="arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+  </div>
+  <div class="slide-cap">Slide 04 — El giro</div>
+</div>
+
+<!-- ========== SLIDE 5 — SOLUCIÓN / QR ========== -->
+<div>
+  <div class="slide t-paper" id="s5">
+    <div class="dots dark"></div>
+    <div class="pad">
+      <div class="kicker">La solución</div>
+      <div style="flex:1; display:flex; align-items:center; gap:60px;">
+        <div style="flex:1;">
+          <div class="title" style="font-size:96px; line-height:.95;">Un <span class="em">QR</span> en<br>la mesa.</div>
+          <p style="font-size:38px; line-height:1.3; margin-top:36px; max-width:18ch;">El cliente pone su número. <b>Listo.</b></p>
+          <div style="display:flex; flex-direction:column; gap:20px; margin-top:46px;">
+            <div class="step"><div class="n" style="background:var(--sage);">✓</div><div class="tx">Sin descargar ninguna app</div></div>
+            <div class="step"><div class="n" style="background:var(--sage);">✓</div><div class="tx">Sin personal técnico</div></div>
+            <div class="step"><div class="n" style="background:var(--sage);">✓</div><div class="tx">En menos de <b>20 segundos</b></div></div>
+          </div>
+        </div>
+        <div style="flex:none; display:flex; flex-direction:column; align-items:center; gap:22px;">
+          <div class="qrbox"><svg id="qrsvg" viewBox="0 0 25 25" shape-rendering="crispEdges"></svg></div>
+          <div class="mono" style="font-size:18px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-mute);">Escanea y suma visita</div>
+        </div>
+      </div>
+    </div>
+    <div class="pagenum">05 / 09</div>
+    <div class="swipe">Y entonces… <span class="arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+  </div>
+  <div class="slide-cap">Slide 05 — La solución (QR)</div>
+</div>
+
+<!-- ========== SLIDE 6 — WHATSAPP (chat literal) ========== -->
+<div>
+  <div class="slide t-ink dark" id="s6">
+    <div class="dots"></div>
+    <div class="pad" style="padding:60px 88px;">
+      <div style="text-align:center; margin-bottom:22px;">
+        <div class="kicker" style="justify-content:center; color:rgba(241,230,208,.6);">Y desde ahí, el sistema trabaja solo</div>
+        <div class="title" style="font-size:72px; margin-top:18px;">WhatsApp automático<br><span class="italic po">en el momento exacto.</span></div>
+      </div>
+      <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+        <div class="phone">
+          <div class="notch"></div>
+          <div class="screen">
+            <!-- status bar -->
+            <div class="wa-status">
+              <span>9:41</span>
+              <span class="r">
+                <svg width="20" height="14" viewBox="0 0 20 14" fill="#fff"><rect x="0" y="4" width="3" height="6" rx="1"/><rect x="5" y="2" width="3" height="8" rx="1"/><rect x="10" y="0" width="3" height="10" rx="1"/></svg>
+                <svg width="20" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M12 18a2 2 0 100 4 2 2 0 000-4zM1 9l2 2c5-5 13-5 18 0l2-2C16 2 7 2 1 9zm4 4l2 2c3-3 7-3 10 0l2-2c-4-4-10-4-14 0z"/></svg>
+                <span>100%</span>
+                <svg width="26" height="14" viewBox="0 0 26 14" fill="none" stroke="#fff"><rect x="1" y="1" width="21" height="12" rx="3"/><rect x="3" y="3" width="17" height="8" rx="1.5" fill="#fff"/><rect x="23" y="4.5" width="2.5" height="5" rx="1" fill="#fff"/></svg>
+              </span>
+            </div>
+            <!-- header -->
+            <div class="wa-head">
+              <span class="back">‹</span>
+              <div class="av"><span class="em">SS</span></div>
+              <div class="who">
+                <div class="n">Sushi Service
+                  <svg class="verify" viewBox="0 0 24 24" fill="var(--wa-green)"><path d="M12 2l2.4 1.8 3 .2.9 2.9 2.4 1.8-.9 2.9.9 2.9-2.4 1.8-.9 2.9-3 .2L12 22l-2.4-1.8-3-.2-.9-2.9L3.3 15l.9-2.9-.9-2.9 2.4-1.8.9-2.9 3-.2z"/><path d="M10.5 14.6l-2-2-1.1 1.1 3.1 3.1 5.6-5.6-1.1-1.1z" fill="#fff"/></svg>
+                </div>
+                <div class="s">en línea</div>
+              </div>
+              <div class="ic">
+                <svg viewBox="0 0 24 24" fill="#fff"><path d="M17 10.5V7a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h12a1 1 0 001-1v-3.5l4 4v-11l-4 4z"/></svg>
+                <svg viewBox="0 0 24 24" fill="#fff"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.24 11.4 11.4 0 003.6.6 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.4 11.4 0 00.6 3.6 1 1 0 01-.24 1z"/></svg>
+              </div>
+            </div>
+            <!-- body -->
+            <div class="wa-body">
+              <div class="wa-date">HOY</div>
+              <div class="bub in">¡Hola Andrés! 🎉🍣 Bienvenid@ a la familia de <b>Sushi Service</b>. Cada visita te acerca a premios reales 👇<span class="t">6:12 p.m.</span></div>
+              <div class="bub in">🎁 Vas en tu <b>visita #4</b>. ¡Tienes un <b>postre gratis</b> disponible! Muéstralo para reclamarlo.<span class="t">6:12 p.m.</span></div>
+              <div class="bub out">¿En serio? 🤩 ¡Voy mañana!<span class="t">6:14 p.m. <svg class="check" viewBox="0 0 18 13" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 7l3.5 3.5L10 4"/><path d="M7.5 10.5L13 4"/></svg></span></div>
+              <div class="bub in">🔥 Estás a <b>una sola visita</b> de ganar <b>½ rollo gratis</b>. ¡La próxima es tuya! 👊<span class="t">6:15 p.m.</span></div>
+              <div class="bub in">🎂 ¡Feliz cumpleaños! Te espera una sorpresa en Sushi Service 🥳<span class="t">9:02 a.m.</span></div>
+            </div>
+            <!-- input -->
+            <div class="wa-input">
+              <div class="field"><svg width="22" height="22" viewBox="0 0 24 24" fill="#8a8a8a"><circle cx="12" cy="12" r="9" fill="none" stroke="#8a8a8a" stroke-width="2"/><circle cx="9" cy="10" r="1.2"/><circle cx="15" cy="10" r="1.2"/><path d="M8 14c1.5 1.5 6.5 1.5 8 0" fill="none" stroke="#8a8a8a" stroke-width="1.6"/></svg> Mensaje</div>
+              <div class="send"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M3 20l18-8L3 4l4 8z"/></svg></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pagenum">06 / 09</div>
+    <div class="swipe">Por qué vuelven <span class="arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+  </div>
+  <div class="slide-cap">Slide 06 — WhatsApp (chat real)</div>
+</div>
+
+<!-- ========== SLIDE 7 — GAMIFICACIÓN ========== -->
+<div>
+  <div class="slide t-ink dark" id="s7">
+    <div class="dots"></div>
+    <div class="pad">
+      <div class="kicker" style="color:rgba(241,230,208,.6);">Por qué vuelven solos</div>
+      <div class="title" style="font-size:84px; margin-top:18px; line-height:.98;">Cada visita los acerca<br>a su <span class="italic po">próximo premio.</span></div>
+      <div class="road" style="margin-top:40px;">
+        <div class="r"><div class="vis">Visita 3</div><div class="dot"></div><div class="prize">Gaseosa gratis 🥤</div></div>
+        <div class="r"><div class="vis">Visita 5</div><div class="dot"></div><div class="prize">½ Rollo gratis 🍣</div><span class="tag now">Casi lo logras</span></div>
+        <div class="r"><div class="vis">Visita 7</div><div class="dot"></div><div class="prize">10% de descuento</div></div>
+        <div class="r black"><div class="vis">Visita 12</div><div class="dot"></div><div class="prize po">Nivel BLACK</div><span class="tag black">De por vida</span></div>
+      </div>
+      <p style="font-size:34px; color:rgba(241,230,208,.8); margin-top:44px; max-width:26ch; line-height:1.3;">Lo ven en pantalla. <b style="color:#fff;">Vuelven por el juego.</b></p>
+    </div>
+    <div class="pagenum">07 / 09</div>
+    <div class="swipe">Los números <span class="arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+  </div>
+  <div class="slide-cap">Slide 07 — Gamificación</div>
+</div>
+
+<!-- ========== SLIDE 8 — NÚMEROS + PRUEBA ========== -->
+<div>
+  <div class="slide t-sage dark" id="s8">
+    <div class="dots"></div>
+    <div class="pad">
+      <div class="kicker" style="color:rgba(241,230,208,.7);">Esto no es teoría</div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <p style="font-size:42px; line-height:1.25; max-width:24ch;">Un restaurante con 300 clientes activos puede recuperar</p>
+        <div class="title" style="font-size:150px; color:#fff; margin:24px 0 10px; line-height:.85;">+$2.5M<span style="font-size:60px;"> COP</span></div>
+        <p style="font-size:44px; line-height:1.2;">al mes, <span class="italic serif" style="color:var(--polaris);">solo reactivando</span> a los que ya lo conocen.</p>
+        <div class="proof" style="margin-top:44px;">
+          <img src="Assets/Cada.png" alt="Dashboard Cada1" crossorigin="anonymous"/>
+        </div>
+        <p style="font-size:26px; color:rgba(241,230,208,.85); margin-top:22px; text-align:center;">Dashboard real de Cada1 — métricas y ROI en tiempo real.</p>
+      </div>
+    </div>
+    <div class="pagenum">08 / 09</div>
+    <div class="swipe">Último paso <span class="arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+  </div>
+  <div class="slide-cap">Slide 08 — Números + dashboard real</div>
+</div>
+
+<!-- ========== SLIDE 9 — CTA ========== -->
+<div>
+  <div class="slide t-ink dark" id="s9">
+    <div class="dots"></div>
+    <div class="pad" style="justify-content:center; align-items:flex-start;">
+      <div class="brand light" style="margin-bottom:60px;">
+        <svg class="lyra" viewBox="0 0 24 24" fill="none" stroke="var(--polaris)" stroke-width="1.5">
+          <circle cx="12" cy="3.5" r="1.4" fill="var(--polaris)"/><circle cx="7" cy="9" r=".9" fill="var(--polaris)"/><circle cx="17" cy="9" r=".9" fill="var(--polaris)"/><circle cx="7" cy="17" r=".9" fill="var(--polaris)"/><circle cx="17" cy="17" r=".9" fill="var(--polaris)"/>
+          <path d="M12 3.5 L7 9 M12 3.5 L17 9 M7 9 L7 17 M17 9 L17 17 M7 17 L17 17"/>
+        </svg>
+        <div class="nm" style="font-size:38px;">Cada<b>1</b></div>
+      </div>
+      <div class="title" style="font-size:96px; line-height:.98;">Tu restaurante no necesita<br>más clientes nuevos.</div>
+      <div class="title" style="font-size:120px; line-height:1; margin-top:24px;">Necesita <span class="italic em">memoria.</span></div>
+      <div style="margin-top:60px;">
+        <div class="cta-btn">Escríbenos <b style="background:#fff; color:var(--ember); padding:6px 18px; border-radius:999px;">“MEMORIA”</b> al DM</div>
+      </div>
+      <div class="share" style="margin-top:44px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>
+        Guárdalo y mándaselo al dueño de tu restaurante favorito.
+      </div>
+    </div>
+    <div class="pagenum">09 / 09</div>
+  </div>
+  <div class="slide-cap">Slide 09 — CTA</div>
+</div>
+
+</div>
+
+<script>
+/* ---------- QR pseudo-realista (decorativo) con Lyra al centro ---------- */
+(function(){
+  const N=25, svg=document.getElementById('qrsvg');
+  let r='';
+  // fondo
+  r+=`<rect width="25" height="25" fill="#fff"/>`;
+  // módulos aleatorios deterministas
+  let seed=7;
+  const rnd=()=>{ seed=(seed*1103515245+12345)&0x7fffffff; return seed/0x7fffffff; };
+  for(let y=0;y<N;y++) for(let x=0;x<N;x++){
+    if(rnd()>0.52) r+=`<rect x="${x}" y="${y}" width="1" height="1" fill="#1C1814"/>`;
+  }
+  // finder patterns (esquinas)
+  const finder=(ox,oy)=>{
+    r+=`<rect x="${ox}" y="${oy}" width="7" height="7" fill="#1C1814"/>`;
+    r+=`<rect x="${ox+1}" y="${oy+1}" width="5" height="5" fill="#fff"/>`;
+    r+=`<rect x="${ox+2}" y="${oy+2}" width="3" height="3" fill="#C9461F"/>`;
+  };
+  finder(0,0); finder(18,0); finder(0,18);
+  // limpiar centro para "logo"
+  r+=`<rect x="9" y="9" width="7" height="7" fill="#fff"/>`;
+  r+=`<g transform="translate(9.5 9.5) scale(0.25)" stroke="#1C1814" stroke-width="1.5" fill="#1C1814">
+        <circle cx="12" cy="3.5" r="1.4"/><circle cx="7" cy="9" r=".9"/><circle cx="17" cy="9" r=".9"/><circle cx="7" cy="17" r=".9"/><circle cx="17" cy="17" r=".9"/>
+        <path d="M12 3.5 L7 9 M12 3.5 L17 9 M7 9 L7 17 M17 9 L17 17 M7 17 L17 17" fill="none"/>
+      </g>`;
+  svg.innerHTML=r;
+})();
+
+/* ---------- Exportar PNG ---------- */
+const status=document.getElementById('status');
+const ids=['s1','s2','s3','s4','s5','s6','s7','s8','s9'];
+async function shoot(id){
+  const el=document.getElementById(id);
+  const canvas=await html2canvas(el,{scale:2,useCORS:true,allowTaint:true,backgroundColor:null,width:1080,height:1350,windowWidth:1080,windowHeight:1350});
+  return canvas.toDataURL('image/png');
+}
+function save(data,name){
+  const a=document.createElement('a'); a.href=data; a.download=name; a.click();
+}
+async function dlAll(){
+  status.textContent='Cargando fuentes…';
+  await document.fonts.ready;
+  for(let i=0;i<ids.length;i++){
+    status.textContent=`Generando slide ${i+1}/9…`;
+    const data=await shoot(ids[i]);
+    save(data,`cada1-slide-${String(i+1).padStart(2,'0')}.png`);
+    await new Promise(r=>setTimeout(r,350));
+  }
+  status.textContent='✓ 9 imágenes descargadas';
+}
+document.getElementById('dlAll').addEventListener('click',dlAll);
+document.getElementById('dlOne').addEventListener('click',async()=>{
+  await document.fonts.ready;
+  // slide más centrado en viewport
+  let best=ids[0],bd=1e9;
+  ids.forEach(id=>{const r=document.getElementById(id).getBoundingClientRect();const d=Math.abs(r.top+r.height/2-window.innerHeight/2);if(d<bd){bd=d;best=id;}});
+  status.textContent='Generando…';
+  save(await shoot(best),`${best}.png`);
+  status.textContent='✓ Descargado '+best;
+});
+</script>
+</body>
+</html>

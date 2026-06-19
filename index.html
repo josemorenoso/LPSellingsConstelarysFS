@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>El 70% de tus clientes nunca vuelve — Recuperalos con un QR | Cada1</title>
-<meta name="description" content="Sistema de fidelización para restaurantes en Colombia. QR en la mesa, WhatsApp automático, cero apps. Caso real: Sushi Service fidelizó 197 clientes en solo 2 semanas, sin apps y sin gastar en publicidad."/>
+<meta name="description" content="Sistema de fidelización para negocios en Colombia. QR en el punto de atención, WhatsApp automático, sin apps, sin wallet. Caso real: Sushi Service fidelizó 197 clientes en solo 2 semanas, sin apps y sin gastar en publicidad."/>
 <meta name="facebook-domain-verification" content="33ab3kr9gv03xth5hcktsc6zi3cf92"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -808,6 +808,35 @@ a{color:inherit;text-decoration:none;}
   .nav-inner{padding:12px 18px;}
   .hero h1{font-size:36px;}
 }
+
+/* ═══════════════════════════════════════════
+   NO-APPS SECTION
+   ═══════════════════════════════════════════ */
+.no-apps-section{padding:100px 0;border-top:1px solid var(--rule);}
+.no-apps-section .section-tag{
+  font-family:'Geist Mono',monospace;font-size:11px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);
+  margin-bottom:24px;display:inline-block;
+}
+.no-apps-section h2{
+  font-family:'Instrument Serif','Iowan Old Style',Georgia,serif;
+  font-size:clamp(36px,5vw,60px);font-weight:400;line-height:1.1;
+  letter-spacing:-.02em;margin-bottom:24px;
+}
+.no-apps-section>div>p{
+  font-size:17px;line-height:1.65;opacity:.75;max-width:640px;
+}
+.no-apps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:56px;}
+.no-apps-card{background:var(--paper);border:1px solid var(--line-soft);border-radius:16px;padding:28px;}
+.no-apps-icon{font-size:28px;margin-bottom:12px;}
+.no-apps-card h4{font-size:18px;font-weight:600;margin-bottom:8px;}
+.no-apps-card p{font-size:14px;line-height:1.6;opacity:.75;}
+@media(max-width:900px){
+  .no-apps-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:560px){
+  .no-apps-grid{grid-template-columns:1fr;}
+}
 </style>
 </head>
 
@@ -847,10 +876,10 @@ a{color:inherit;text-decoration:none;}
   <div class="page">
     <div class="hero-grid">
       <div>
-        <div class="eyebrow">Sistema de Fidelización · Para restaurantes en Colombia</div>
+        <div class="eyebrow">Sistema de Fidelización · Para restaurantes, cafés y barberías en Colombia</div>
         <h1 class="animate visible">
           El 70% de tus clientes <em>nunca vuelve.</em><br>
-          Recuperalos con un QR.
+          Recuperalos con un QR — sin apps, sin wallet.
         </h1>
         <p class="hero-sub animate visible d1">
           WhatsApp automático, cero apps, cero fricción.<br>
@@ -870,7 +899,7 @@ a{color:inherit;text-decoration:none;}
           </div>
           <div class="proof-text">
             <span style="display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;opacity:.6;margin-bottom:3px;">Caso real · En producción</span>
-            <strong style="font-size:19px;line-height:1.2;letter-spacing:-0.01em;">197 clientes fidelizados en 2 semanas · 2 locales en producción</strong>
+            <strong style="font-size:19px;line-height:1.2;letter-spacing:-0.01em;">197 clientes fidelizados en 2 semanas · 3 locales en producción</strong>
             <span class="proof-text-sub" style="font-size:13px;opacity:.7;margin-top:2px;">Sushi Service · Envigado, Colombia</span>
           </div>
         </div>
@@ -879,6 +908,9 @@ a{color:inherit;text-decoration:none;}
           <a href="https://wa.me/573011568923?text=Hola%2C%20quiero%20agendar%20una%20demo%20del%20sistema%20de%20fidelizaci%C3%B3n" target="_blank" class="btn btn-primary">
             Agendá tu demo de 20 min
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="https://wa.me/573011568923?text=Hola%2C%20vi%20la%20landing%20y%20quiero%20m%C3%A1s%20info" target="_blank" class="btn btn-outline" style="font-size:14px;padding:14px 24px;">
+            Hablar por WhatsApp
           </a>
         </div>
       </div>
@@ -937,7 +969,10 @@ a{color:inherit;text-decoration:none;}
             </picture>
             Pionero #2 · Sushi Fun & Wok, Envigado
           </div>
-          <div class="pioneer-logo">Pionero #3 · Próximamente</div>
+          <div class="pioneer-logo" style="display:flex;align-items:center;gap:8px;">
+            <img src="703570944_17890740195531617_145383062127924190_n.jpg" alt="Lonng Studio" loading="lazy" width="200" height="200" style="height:26px;width:26px;object-fit:cover;border-radius:50%;flex-shrink:0;">
+            Pionero #3 · Lonng Studio, Medellín
+          </div>
         </div>
       </div>
     </div>
@@ -979,7 +1014,7 @@ a{color:inherit;text-decoration:none;}
     <div class="roi-facts animate">
       <div class="roi-fact"><div class="roi-fact-num">197</div><div class="roi-fact-lbl">Clientes en la base · 2 semanas</div></div>
       <div class="roi-fact"><div class="roi-fact-num">68%</div><div class="roi-fact-lbl">Escaneó el QR a la primera</div></div>
-      <div class="roi-fact"><div class="roi-fact-num">2</div><div class="roi-fact-lbl">Restaurantes en producción</div></div>
+      <div class="roi-fact"><div class="roi-fact-num">3</div><div class="roi-fact-lbl">Locales en producción</div></div>
       <div class="roi-fact"><div class="roi-fact-num">20s</div><div class="roi-fact-lbl">Registro · cero apps</div></div>
     </div>
 
@@ -1035,6 +1070,40 @@ a{color:inherit;text-decoration:none;}
 </section>
 
 <!-- ════════════════════════════════════════════
+     § 3.5 — DIFERENCIADOR: SIN APPS, SIN WALLET
+     ════════════════════════════════════════════ -->
+<section class="no-apps-section">
+  <div class="page">
+    <div class="section-tag">Diferenciador · Cada1</div>
+    <h2>Tu cliente no instala nada.<br><em>Y tampoco vos.</em></h2>
+    <p>La mayoría de sistemas de fidelización exigen que el cliente descargue una app, cree una cuenta o guarde un código en su wallet. Eso reduce la adopción al 15%. Cada1 funciona con lo que ya tiene: su cámara y WhatsApp.</p>
+
+    <div class="no-apps-grid">
+      <div class="no-apps-card animate">
+        <div class="no-apps-icon">📷</div>
+        <h4>QR nativo</h4>
+        <p>Escanea con la cámara del celular. Abre una web. Sin app propia, sin tiendas de app, sin actualizaciones.</p>
+      </div>
+      <div class="no-apps-card animate">
+        <div class="no-apps-icon">💬</div>
+        <h4>Sin wallet digital</h4>
+        <p>Las recompensas y el progreso llegan por WhatsApp. El cliente no necesita abrir otra app para ver sus puntos.</p>
+      </div>
+      <div class="no-apps-card animate">
+        <div class="no-apps-icon">🚫</div>
+        <h4>Cero barreras</h4>
+        <p>No passwords, no tarjetas de plástico, no olvidos. Si cambia de celular, sus visitas siguen porque el sistema usa su número.</p>
+      </div>
+      <div class="no-apps-card animate">
+        <div class="no-apps-icon">⚡</div>
+        <h4>Setup en horas</h4>
+        <p>No necesitás hardware, integraciones ni personal técnico. Imprimís el QR y empezás.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
      § 4.5 — DASHBOARD PREVIEW
      ════════════════════════════════════════════ -->
 <section class="dash-section">
@@ -1043,7 +1112,7 @@ a{color:inherit;text-decoration:none;}
     <!-- Header -->
     <div class="dash-section-header animate">
       <div class="eyebrow" style="justify-content:center;">03 · Tu panel de control</div>
-      <h2 style="margin-top:16px;">Todo tu restaurante, <em style="font-style:italic;">en una pantalla.</em></h2>
+      <h2 style="margin-top:16px;">Todo tu negocio, <em style="font-style:italic;">en una pantalla.</em></h2>
       <p>Dashboard en tiempo real. Sabe quién vino, quién falta, quién cumple años y quién merece un premio — sin que toques un botón.</p>
     </div>
 
@@ -1367,9 +1436,14 @@ a{color:inherit;text-decoration:none;}
           <source srcset="sushi-fun.webp" type="image/webp">
           <img src="sushi-fun.jpg" alt="Sushi Fun and Wok" loading="lazy" width="200" height="200" style="height:72px;width:72px;object-fit:cover;border-radius:50%;box-shadow:0 2px 12px rgba(0,0,0,.15);">
         </picture>
+        <div style="width:1px;height:48px;background:rgba(0,0,0,.12);"></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <img src="703570944_17890740195531617_145383062127924190_n.jpg" alt="Lonng Studio" loading="lazy" width="200" height="200" style="height:72px;width:72px;object-fit:cover;border-radius:50%;box-shadow:0 2px 12px rgba(0,0,0,.15);">
+          <span style="font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--ink);opacity:.55;">Lonng Studio</span>
+        </div>
       </div>
       <span style="font-size:14px;color:var(--ink);opacity:.7;text-align:center;">
-        <strong style="color:var(--ember);opacity:1;">Quedan 3 cupos</strong> en el programa de pioneros
+        <strong style="color:var(--ember);opacity:1;">Quedan 2 cupos</strong> en el programa de pioneros
       </span>
     </div>
 
@@ -1397,12 +1471,11 @@ a{color:inherit;text-decoration:none;}
       </div>
 
       <div class="pricing-setup">
-        Implementación: <span class="original">$1.200.000</span>
-        <span class="discount">$600.000 (50% off pioneros)</span>
+        Implementación: <span class="discount">$600.000</span>
       </div>
 
       <ul class="pricing-features">
-        <li>QR check-in ilimitado para todas las mesas</li>
+        <li>QR check-in ilimitado para todos los puntos de atención</li>
         <li>WhatsApp automático: bienvenida, premios, reactivación, cumpleaños</li>
         <li>Dashboard con métricas en tiempo real</li>
         <li>Campañas manuales segmentadas</li>
@@ -1419,7 +1492,7 @@ a{color:inherit;text-decoration:none;}
         <a href="https://wa.me/573011568923?text=Hola%2C%20quiero%20agendar%20una%20demo%20del%20sistema%20de%20fidelizaci%C3%B3n" target="_blank" class="btn btn-primary">Agendá tu demo de 20 min</a>
       </div>
 
-      <div class="pricing-pioneer">Quedan 3 cupos en tu ciudad · 2 ya tomados</div>
+      <div class="pricing-pioneer">Quedan 2 cupos en tu ciudad · 3 ya tomados</div>
     </div>
   </div>
 </section>
@@ -1440,7 +1513,7 @@ a{color:inherit;text-decoration:none;}
           ¿Y si mis clientes no escanean el QR?
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
-        <div class="faq-a">Es la pregunta #1. Por eso el QR no se entrega solo: te damos un guion corto para tu equipo ("Escaneá para tu postre gratis"), el QR va en la mesa Y en la cuenta, y el incentivo lo recibe el cliente en segundos. En Sushi Service el 68% de los clientes lo escaneó sin pedirlo dos veces.</div>
+        <div class="faq-a">Es la pregunta #1. Por eso el QR no se entrega solo: te damos un guion corto para tu equipo ("Escaneá para tu premio"), el QR va en el punto de atención (mesa, mostrador o silla) Y en la cuenta, y el incentivo lo recibe el cliente en segundos. En Sushi Service el 68% de los clientes lo escaneó sin pedirlo dos veces.</div>
       </div>
 
       <div class="faq-item">
@@ -1464,7 +1537,7 @@ a{color:inherit;text-decoration:none;}
           ¿Cuánto tarda la implementación?
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
-        <div class="faq-a">3 horas desde que empezamos. Nosotros configuramos todo: base de datos, WhatsApp, dashboard, QR para tus mesas. Vos solo imprimís los QR.</div>
+        <div class="faq-a">3 horas desde que empezamos. Nosotros configuramos todo: base de datos, WhatsApp, dashboard, QR para tus puntos de atención. Vos solo imprimís los QR.</div>
       </div>
 
       <div class="faq-item">
@@ -1524,7 +1597,7 @@ a{color:inherit;text-decoration:none;}
 
 <footer class="footer">
   <div class="page">
-    <p>© 2026 Cada1 · Sistema de Fidelización para restaurantes</p>
+    <p>© 2026 Cada1 · Sistema de Fidelización para negocios</p>
     <p style="margin-top:12px;font-size:12px;opacity:.45;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;">
       En producción con:
       <picture>
