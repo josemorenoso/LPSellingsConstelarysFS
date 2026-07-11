@@ -837,6 +837,68 @@ a{color:inherit;text-decoration:none;}
 @media(max-width:560px){
   .no-apps-grid{grid-template-columns:1fr;}
 }
+
+/* ═══════════════════════════════════════════
+   TRUST BAND — logos de clientes reales
+   ═══════════════════════════════════════════ */
+.trust-band{padding:60px 0 64px;border-top:1px solid var(--rule);}
+.trust-head{text-align:center;max-width:56ch;margin:0 auto 44px;}
+.trust-head .eyebrow{margin-bottom:16px;}
+.trust-lead{
+  font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;
+  font-size:clamp(22px,3.4vw,32px);line-height:1.15;letter-spacing:-.01em;color:var(--ink);
+}
+.trust-lead em{color:var(--ember);font-style:italic;}
+/* Marquee infinito — banda de logos */
+.trust-marquee{
+  position:relative;width:100%;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+}
+.trust-track{
+  display:flex;align-items:flex-start;width:max-content;
+  animation:trust-scroll 38s linear infinite;will-change:transform;
+}
+.trust-marquee:hover .trust-track{animation-play-state:paused;}
+@keyframes trust-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.trust-set{
+  display:flex;align-items:flex-start;
+  gap:clamp(26px,5vw,60px);padding-right:clamp(26px,5vw,60px);
+}
+.trust-item{display:flex;flex-direction:column;align-items:center;gap:14px;width:120px;flex:none;}
+.trust-badge{
+  width:104px;height:104px;border-radius:999px;overflow:hidden;
+  background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow-1);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.trust-item:hover .trust-badge{transform:translateY(-3px);box-shadow:var(--shadow-2);}
+.trust-badge img{width:100%;height:100%;object-fit:cover;}
+.trust-badge.contain{background:#fff;}
+.trust-badge.contain img{object-fit:contain;padding:16px;}
+.trust-name{
+  font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-mute);text-align:center;line-height:1.35;
+}
+.trust-foot{
+  margin-top:40px;text-align:center;
+  font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-mute);
+}
+@media(max-width:768px){
+  .trust-band{padding:48px 0;}
+  .trust-head{margin-bottom:32px;}
+  .trust-item{width:98px;gap:12px;}
+  .trust-badge{width:82px;height:82px;}
+  .trust-name{font-size:10px;}
+  .trust-foot{margin-top:28px;font-size:10px;}
+}
+@media(prefers-reduced-motion:reduce){
+  .trust-marquee{-webkit-mask-image:none;mask-image:none;}
+  .trust-track{animation:none;flex-wrap:wrap;justify-content:center;width:100%;}
+  .trust-set{padding-right:0;flex-wrap:wrap;justify-content:center;gap:24px 28px;}
+  .trust-dup{display:none;}
+}
 </style>
 </head>
 
@@ -899,7 +961,7 @@ a{color:inherit;text-decoration:none;}
           </div>
           <div class="proof-text">
             <span style="display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;opacity:.6;margin-bottom:3px;">Caso real · En producción</span>
-            <strong style="font-size:19px;line-height:1.2;letter-spacing:-0.01em;">197 clientes fidelizados en 2 semanas · 3 locales en producción</strong>
+            <strong style="font-size:19px;line-height:1.2;letter-spacing:-0.01em;">197 clientes en 2 semanas · $1.632.000 en ventas atribuidas</strong>
             <span class="proof-text-sub" style="font-size:13px;opacity:.7;margin-top:2px;">Sushi Service · Envigado, Colombia</span>
           </div>
         </div>
@@ -927,6 +989,99 @@ a{color:inherit;text-decoration:none;}
 </section>
 
 <!-- ════════════════════════════════════════════
+     § 1.5 — CONFÍAN EN NOSOTROS (logos)
+     ════════════════════════════════════════════ -->
+<section class="trust-band">
+  <div class="page">
+    <div class="trust-head animate">
+      <div class="eyebrow" style="justify-content:center;">Ya en producción · Colombia</div>
+      <p class="trust-lead">Negocios que ya recuperan a sus clientes <em>con Cada1.</em></p>
+    </div>
+    <div class="trust-marquee animate">
+      <div class="trust-track">
+        <div class="trust-set">
+          <div class="trust-item">
+            <div class="trust-badge contain">
+              <picture>
+                <source srcset="sushi-service-logo.webp" type="image/webp">
+                <img src="sushi-service-logo.png" alt="Sushi Service" loading="lazy" width="360" height="128">
+              </picture>
+            </div>
+            <span class="trust-name">Sushi<br>Service</span>
+          </div>
+          <div class="trust-item">
+            <div class="trust-badge">
+              <picture>
+                <source srcset="sushi-fun.webp" type="image/webp">
+                <img src="sushi-fun.jpg" alt="Sushi Fun &amp; Wok" loading="lazy" width="200" height="200">
+              </picture>
+            </div>
+            <span class="trust-name">Sushi Fun<br>&amp; Wok</span>
+          </div>
+          <div class="trust-item">
+            <div class="trust-badge">
+              <img src="703570944_17890740195531617_145383062127924190_n.jpg" alt="Lonng Studio" loading="lazy" width="200" height="200">
+            </div>
+            <span class="trust-name">Lonng<br>Studio</span>
+          </div>
+          <div class="trust-item">
+            <div class="trust-badge">
+              <img src="655556392_18005732891888788_1958773916443786905_n.jpg" alt="Don Alirio · Café de Origen" loading="lazy" width="600" height="600">
+            </div>
+            <span class="trust-name">Don Alirio<br>Café</span>
+          </div>
+          <div class="trust-item">
+            <div class="trust-badge">
+              <img src="375891076_6303799743072426_3961057428264937289_n.jpg" alt="Pedacito de Amor" loading="lazy" width="1080" height="1080">
+            </div>
+            <span class="trust-name">Pedacito<br>de Amor</span>
+          </div>
+        </div>
+        <div class="trust-set trust-dup" aria-hidden="true">
+          <div class="trust-item">
+            <div class="trust-badge contain">
+              <picture>
+                <source srcset="sushi-service-logo.webp" type="image/webp">
+                <img src="sushi-service-logo.png" alt="" loading="lazy" width="360" height="128">
+              </picture>
+            </div>
+            <span class="trust-name">Sushi<br>Service</span>
+          </div>
+          <div class="trust-item">
+            <div class="trust-badge">
+              <picture>
+                <source srcset="sushi-fun.webp" type="image/webp">
+                <img src="sushi-fun.jpg" alt="" loading="lazy" width="200" height="200">
+              </picture>
+            </div>
+            <span class="trust-name">Sushi Fun<br>&amp; Wok</span>
+          </div>
+          <div class="trust-item">
+            <div class="trust-badge">
+              <img src="703570944_17890740195531617_145383062127924190_n.jpg" alt="" loading="lazy" width="200" height="200">
+            </div>
+            <span class="trust-name">Lonng<br>Studio</span>
+          </div>
+          <div class="trust-item">
+            <div class="trust-badge">
+              <img src="655556392_18005732891888788_1958773916443786905_n.jpg" alt="" loading="lazy" width="600" height="600">
+            </div>
+            <span class="trust-name">Don Alirio<br>Café</span>
+          </div>
+          <div class="trust-item">
+            <div class="trust-badge">
+              <img src="375891076_6303799743072426_3961057428264937289_n.jpg" alt="" loading="lazy" width="1080" height="1080">
+            </div>
+            <span class="trust-name">Pedacito<br>de Amor</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="trust-foot">Restaurantes · cafés · estudios — Medellín y Envigado</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════
      § 4 — SOCIAL PROOF
      ════════════════════════════════════════════ -->
 <section class="proof-section">
@@ -949,31 +1104,21 @@ a{color:inherit;text-decoration:none;}
         </div>
         <div class="proof-stats">
           <div class="proof-stat">
-            <div class="num">197</div>
-            <div class="lbl">Clientes fidelizados</div>
+            <div class="num" style="font-size:clamp(26px,4vw,34px);">$1.632.000</div>
+            <div class="lbl">Ventas atribuidas a campañas · 40 días</div>
           </div>
           <div class="proof-stat">
-            <div class="num">68%</div>
-            <div class="lbl">Escaneó el QR a la primera</div>
+            <div class="num">339</div>
+            <div class="lbl">Clientes en la base</div>
           </div>
           <div class="proof-stat">
-            <div class="num">20s</div>
-            <div class="lbl">Tiempo de registro</div>
+            <div class="num">54</div>
+            <div class="lbl">Campañas enviadas por WhatsApp</div>
           </div>
         </div>
-        <div class="pioneer-strip">
-          <div class="pioneer-logo" style="display:flex;align-items:center;gap:8px;">
-            <picture>
-              <source srcset="sushi-fun.webp" type="image/webp">
-              <img src="sushi-fun.jpg" alt="Sushi Fun and Wok" loading="lazy" width="200" height="200" style="height:26px;width:26px;object-fit:cover;border-radius:50%;flex-shrink:0;">
-            </picture>
-            Pionero #2 · Sushi Fun & Wok, Envigado
-          </div>
-          <div class="pioneer-logo" style="display:flex;align-items:center;gap:8px;">
-            <img src="703570944_17890740195531617_145383062127924190_n.jpg" alt="Lonng Studio" loading="lazy" width="200" height="200" style="height:26px;width:26px;object-fit:cover;border-radius:50%;flex-shrink:0;">
-            Pionero #3 · Lonng Studio, Medellín
-          </div>
-        </div>
+        <p style="margin-top:20px;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);">
+          Datos reales del panel · Sushi Service, Envigado
+        </p>
       </div>
     </div>
   </div>
@@ -985,9 +1130,9 @@ a{color:inherit;text-decoration:none;}
 <section class="roi-section">
   <div class="page">
     <div class="roi-head animate">
-      <div class="eyebrow" style="justify-content:center;">Caso real · Sushi Service · Envigado</div>
-      <h2>197 clientes que antes eran invisibles.<br><em>Hoy vuelven.</em></h2>
-      <p>El 70% de tus clientes nunca regresa porque no tenés forma de hablarles. Esto lo cambia: cada visita queda registrada y el cliente recibe un motivo real para volver.</p>
+      <div class="eyebrow" style="justify-content:center;">Caso real · Sushi Service · Primeros 40 días</div>
+      <h2>339 clientes que antes eran invisibles.<br><em>Hoy vuelven — y compran.</em></h2>
+      <p>El 70% de tus clientes nunca regresa porque no tenés forma de hablarles. En 40 días, Sushi Service sumó 339 clientes a su base y le atribuyó <strong>$1.632.000 en ventas</strong> a sus campañas por WhatsApp.</p>
     </div>
 
     <div class="roi-compare animate">
@@ -1006,19 +1151,19 @@ a{color:inherit;text-decoration:none;}
           <li>Base con nombre, teléfono y visitas de cada cliente</li>
           <li>Vuelven solos por sus premios, sin que hagas nada</li>
           <li>WhatsApp directo a quien ya te conoce</li>
-          <li>197 clientes fidelizados en las primeras 2 semanas</li>
+          <li>$1.632.000 en ventas atribuidas a campañas · 54 envíos</li>
         </ul>
       </div>
     </div>
 
     <div class="roi-facts animate">
-      <div class="roi-fact"><div class="roi-fact-num">197</div><div class="roi-fact-lbl">Clientes en la base · 2 semanas</div></div>
+      <div class="roi-fact"><div class="roi-fact-num">339</div><div class="roi-fact-lbl">Clientes en la base · 40 días</div></div>
+      <div class="roi-fact"><div class="roi-fact-num">54</div><div class="roi-fact-lbl">Campañas enviadas por WhatsApp</div></div>
       <div class="roi-fact"><div class="roi-fact-num">68%</div><div class="roi-fact-lbl">Escaneó el QR a la primera</div></div>
-      <div class="roi-fact"><div class="roi-fact-num">3</div><div class="roi-fact-lbl">Locales en producción</div></div>
       <div class="roi-fact"><div class="roi-fact-num">20s</div><div class="roi-fact-lbl">Registro · cero apps</div></div>
     </div>
 
-    <p class="roi-disclaimer animate">Datos reales de Sushi Service (Envigado, Colombia). Los resultados varían según cada negocio.</p>
+    <p class="roi-disclaimer animate">Datos reales del panel de Sushi Service (Envigado, Colombia). Ventas atribuidas = visitas post-campaña × ticket promedio. Los resultados varían según cada negocio.</p>
   </div>
 </section>
 
@@ -1188,7 +1333,7 @@ a{color:inherit;text-decoration:none;}
       <div class="dtable-row">
         <div class="dclient">
           <div class="dav">E</div>
-          <div><div class="dclient-name">Eva Martínez</div><div class="dclient-lvl">α-VEGA · 91</div></div>
+          <div><div class="dclient-name">Eva Martínez</div><div class="dclient-lvl">Nivel Oro · frecuente</div></div>
         </div>
         <div class="dphone dcol-hide">+57 312 555 0188</div>
         <div><span class="dbadge dbadge-ember">TOP 5%</span></div>
@@ -1214,10 +1359,10 @@ a{color:inherit;text-decoration:none;}
       <div class="dtable-row">
         <div class="dclient">
           <div class="dav" style="background:var(--honey);color:var(--ink);">M</div>
-          <div><div class="dclient-name">María C. Vega</div><div class="dclient-lvl">β-SHELIAK · 88</div></div>
+          <div><div class="dclient-name">María C. Vega</div><div class="dclient-lvl">Nivel Plata · en riesgo</div></div>
         </div>
         <div class="dphone dcol-hide">+57 318 222 4055</div>
-        <div><span class="dbadge dbadge-honey">RECOVERY 22D</span></div>
+        <div><span class="dbadge dbadge-honey">INACTIVO 22D</span></div>
         <div class="dvisits dcol-hide">18</div>
         <div class="dlast dcol-hide">hace 22 días</div>
         <div><span class="dbadge dbadge-out-ember">REACTIVAR</span></div>
@@ -1227,7 +1372,7 @@ a{color:inherit;text-decoration:none;}
       <div class="dtable-row">
         <div class="dclient">
           <div class="dav">S</div>
-          <div><div class="dclient-name">Santiago Ríos</div><div class="dclient-lvl">γ-SULAFAT · 42</div></div>
+          <div><div class="dclient-name">Santiago Ríos</div><div class="dclient-lvl">Nivel Plata · cumple hoy</div></div>
         </div>
         <div class="dphone dcol-hide">+57 322 116 8810</div>
         <div><span class="dbadge dbadge-ember">CUMPLE HOY</span></div>
@@ -1424,31 +1569,8 @@ a{color:inherit;text-decoration:none;}
       <p>Sin costos escondidos. Mes a mes, sin contratos. Resultado o te devolvemos el setup.</p>
     </div>
 
-    <div class="pricing-pioneers animate" style="display:flex;flex-direction:column;align-items:center;gap:18px;margin:0 auto 36px;max-width:600px;">
-      <span style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--ink);opacity:.55;">Pioneros activos</span>
-      <div style="display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap;padding:24px 36px;border:1px solid rgba(0,0,0,.1);border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(0,0,0,.02));box-shadow:0 4px 24px rgba(0,0,0,.04);">
-        <picture>
-          <source srcset="sushi-service-logo.webp" type="image/webp">
-          <img src="sushi-service-logo.png" alt="Sushi Service" loading="lazy" width="360" height="128" style="height:64px;width:auto;max-width:180px;object-fit:contain;">
-        </picture>
-        <div style="width:1px;height:48px;background:rgba(0,0,0,.12);"></div>
-        <picture>
-          <source srcset="sushi-fun.webp" type="image/webp">
-          <img src="sushi-fun.jpg" alt="Sushi Fun and Wok" loading="lazy" width="200" height="200" style="height:72px;width:72px;object-fit:cover;border-radius:50%;box-shadow:0 2px 12px rgba(0,0,0,.15);">
-        </picture>
-        <div style="width:1px;height:48px;background:rgba(0,0,0,.12);"></div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
-          <img src="703570944_17890740195531617_145383062127924190_n.jpg" alt="Lonng Studio" loading="lazy" width="200" height="200" style="height:72px;width:72px;object-fit:cover;border-radius:50%;box-shadow:0 2px 12px rgba(0,0,0,.15);">
-          <span style="font-size:10px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:var(--ink);opacity:.55;">Lonng Studio</span>
-        </div>
-      </div>
-      <span style="font-size:14px;color:var(--ink);opacity:.7;text-align:center;">
-        <strong style="color:var(--ember);opacity:1;">Quedan 2 cupos</strong> en el programa de pioneros
-      </span>
-    </div>
-
     <div class="pricing-card animate">
-      <div class="pricing-badge">✦ Oferta pionero · Cupos limitados</div>
+      <div class="pricing-badge">✦ Todo incluido · Sin permanencia</div>
 
       <div class="pricing-anchor" style="display:grid;gap:10px;margin:0 auto 24px;max-width:520px;padding:18px 20px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:#F8EFD9;">
         <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:14px;color:var(--ink);opacity:.7;">
@@ -1492,7 +1614,7 @@ a{color:inherit;text-decoration:none;}
         <a href="https://wa.me/573011568923?text=Hola%2C%20quiero%20agendar%20una%20demo%20del%20sistema%20de%20fidelizaci%C3%B3n" target="_blank" class="btn btn-primary">Agendá tu demo de 20 min</a>
       </div>
 
-      <div class="pricing-pioneer">Quedan 2 cupos en tu ciudad · 3 ya tomados</div>
+      <div class="pricing-pioneer">Sin contratos · Cancelás cuando quieras · Setup en menos de 3 horas</div>
     </div>
   </div>
 </section>
@@ -1569,7 +1691,7 @@ a{color:inherit;text-decoration:none;}
           ¿Funciona para cadenas con varias sedes?
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
-        <div class="faq-a">Sí. Actualmente operamos Sushi Service y Sushi Fun & Wok en sus respectivas ubicaciones en Envigado, y el sistema escala a multi-sede sin cambios de pricing por ubicación adicional bajo el plan multi-sede.</div>
+        <div class="faq-a">Sí. Hoy el sistema está en producción en varios negocios reales de Medellín y Envigado —restaurantes, cafés y estudios— y escala a multi-sede sin cambios de pricing por ubicación adicional bajo el plan multi-sede.</div>
       </div>
     </div>
   </div>
@@ -1598,7 +1720,7 @@ a{color:inherit;text-decoration:none;}
 <footer class="footer">
   <div class="page">
     <p>© 2026 Cada1 · Sistema de Fidelización para negocios</p>
-    <p style="margin-top:12px;font-size:12px;opacity:.45;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;">
+    <p style="margin-top:12px;font-size:12px;opacity:.55;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;">
       En producción con:
       <picture>
         <source srcset="sushi-service-logo.webp" type="image/webp">
@@ -1606,8 +1728,11 @@ a{color:inherit;text-decoration:none;}
       </picture>
       <picture>
         <source srcset="sushi-fun.webp" type="image/webp">
-        <img src="sushi-fun.jpg" alt="Sushi Fun and Wok" loading="lazy" width="200" height="200" style="height:18px;width:18px;object-fit:cover;border-radius:50%;opacity:.7;vertical-align:middle;">
+        <img src="sushi-fun.jpg" alt="Sushi Fun and Wok" loading="lazy" width="200" height="200" style="height:20px;width:20px;object-fit:cover;border-radius:50%;opacity:.7;vertical-align:middle;">
       </picture>
+      <img src="703570944_17890740195531617_145383062127924190_n.jpg" alt="Lonng Studio" loading="lazy" width="200" height="200" style="height:20px;width:20px;object-fit:cover;border-radius:50%;opacity:.7;vertical-align:middle;">
+      <img src="655556392_18005732891888788_1958773916443786905_n.jpg" alt="Don Alirio Café" loading="lazy" width="600" height="600" style="height:20px;width:20px;object-fit:cover;border-radius:50%;opacity:.7;vertical-align:middle;">
+      <img src="375891076_6303799743072426_3961057428264937289_n.jpg" alt="Pedacito de Amor" loading="lazy" width="1080" height="1080" style="height:20px;width:20px;object-fit:cover;border-radius:50%;opacity:.7;vertical-align:middle;">
     </p>
   </div>
 </footer>
